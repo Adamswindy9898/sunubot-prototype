@@ -35,6 +35,10 @@ Thumbs.db
 frontend/prisma/*.db
 frontend/prisma/*.db-journal
 
+# Git backup
+.git_backup/
+frontend/.git_backup/
+
 # Logs
 *.log
 npm-debug.log*
