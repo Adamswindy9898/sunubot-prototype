@@ -1,0 +1,40 @@
+# Dependencies
+node_modules/
+frontend/node_modules/
+frontend/.next/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+nlp/venv/
+nlp/.venv/
+*.egg-info/
+
+# Models (too large for git)
+nlp/src/models/
+nlp/models/
+*.pt
+*.bin
+*.safetensors
+
+# Environment
+.env
+.env.local
+frontend/.env.local
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Prisma
+frontend/prisma/*.db
+frontend/prisma/*.db-journal
+
+# Logs
+*.log
+npm-debug.log*

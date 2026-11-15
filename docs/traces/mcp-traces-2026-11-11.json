@@ -1,0 +1,2777 @@
+[
+  {
+    "trace_id": "MCP-20261111021911-k9nh",
+    "timestamp": "2026-11-11T02:19:11.520Z",
+    "client_request": {
+      "method": "POST",
+      "endpoint": "/api/chat",
+      "body": {
+        "message": "Bonjour"
+      }
+    },
+    "nlp_analysis": {
+      "mode": "python_api",
+      "request_to_nlp": {
+        "method": "POST",
+        "url": "http://localhost:8000/analyser",
+        "body": {
+          "texte": "Bonjour"
+        }
+      },
+      "response_from_nlp": {
+        "langue": {
+          "langue": "francais",
+          "confiance": 1
+        },
+        "intention": {
+          "intention": "salutation",
+          "confiance": 0.794,
+          "domaine": "general"
+        },
+        "entites": {
+          "documents": [],
+          "lieux": [],
+          "montants": [],
+          "dates": []
+        }
+      },
+      "langue_finale": "francais",
+      "processing_time_ms": 126
+    },
+    "mcp_routing": {
+      "serveur_cible": "orchestrateur",
+      "tools_invoked": [],
+      "description": "Répondre à la salutation et proposer les services",
+      "formulaire": null
+    },
+    "mcp_response": {
+      "status": "success",
+      "response_text": "Bonjour ! 👋 Je suis **SunuBot**, votre assistant administratif.\n\nJe peux vous accompagner pour :\n- 📋 **État civil** : actes de naissance, mariage, décès\n- 💰 **Fiscalité (DGID)** : impôts, NINEA, dé...",
+      "langue_reponse": "francais",
+      "intent_resolved": "salutation",
+      "domaine_resolved": "general"
+    },
+    "db_log": {
+      "table": "ConversationLog",
+      "saved": true
+    },
+    "total_processing_time_ms": 185
+  },
+  {
+    "trace_id": "MCP-20261111023318-lvdo",
+    "timestamp": "2026-11-11T02:33:18.586Z",
+    "client_request": {
+      "method": "POST",
+      "endpoint": "/api/chat",
+      "body": {
+        "message": "Comment payer mes imp�ts ?"
+      }
+    },
+    "nlp_analysis": {
+      "mode": "python_api",
+      "request_to_nlp": {
+        "method": "POST",
+        "url": "http://localhost:8000/analyser",
+        "body": {
+          "texte": "Comment payer mes imp�ts ?"
+        }
+      },
+      "response_from_nlp": {
+        "langue": {
+          "langue": "francais",
+          "confiance": 0.4
+        },
+        "intention": {
+          "intention": "question_procedure",
+          "confiance": 0.285,
+          "domaine": "general"
+        },
+        "entites": {
+          "documents": [],
+          "lieux": [],
+          "montants": [],
+          "dates": []
+        }
+      },
+      "langue_finale": "francais",
+      "processing_time_ms": 79
+    },
+    "mcp_routing": {
+      "serveur_cible": "orchestrateur",
+      "tools_invoked": [],
+      "description": "Demander des précisions à l'utilisateur",
+      "formulaire": null
+    },
+    "mcp_response": {
+      "status": "success",
+      "response_text": "Je comprends votre demande. Je peux vous aider avec :\n- 📋 État civil (naissance, mariage, décès)\n- 💰 Impôts / DGID\n- 🏥 CNSS (allocations, retraite)\n- 📝 Formulaires\n\nPouvez-vous préciser votre beso...",
+      "langue_reponse": "francais",
+      "intent_resolved": "question_procedure",
+      "domaine_resolved": "general"
+    },
+    "db_log": {
+      "table": "ConversationLog",
+      "saved": true
+    },
+    "total_processing_time_ms": 153
+  },
+  {
+    "trace_id": "MCP-20261111023323-5b5v",
+    "timestamp": "2026-11-11T02:33:23.094Z",
+    "client_request": {
+      "method": "POST",
+      "endpoint": "/api/chat",
+      "body": {
+        "message": "Dama b�gg sama k�rt b�cc�g"
+      }
+    },
+    "nlp_analysis": {
+      "mode": "python_api",
+      "request_to_nlp": {
+        "method": "POST",
+        "url": "http://localhost:8000/analyser",
+        "body": {
+          "texte": "Dama b�gg sama k�rt b�cc�g"
+        }
+      },
+      "response_from_nlp": {
+        "langue": {
+          "langue": "wolof",
+          "confiance": 0.256
+        },
+        "intention": {
+          "intention": "salutation",
+          "confiance": 0.604,
+          "domaine": "general"
+        },
+        "entites": {
+          "documents": [],
+          "lieux": [],
+          "montants": [],
+          "dates": []
+        }
+      },
+      "langue_finale": "wolof",
+      "processing_time_ms": 204
+    },
+    "mcp_routing": {
+      "serveur_cible": "orchestrateur",
+      "tools_invoked": [],
+      "description": "Répondre à la salutation et proposer les services",
+      "formulaire": null
+    },
+    "mcp_response": {
+      "status": "success",
+      "response_text": "Jàmm rekk! 👋 Maa ngi **SunuBot**, sa ndimbalkat ci yoon wi.\n\nMan naa la ndimbal ci :\n- 📋 État civil (kàrt bëccëg, takk, dee)\n- 💰 Wàll (impôts, NINEA)\n- 🏥 CNSS (allocations, retraite)\n- 📝 Formulai...",
+      "langue_reponse": "wolof",
+      "intent_resolved": "salutation",
+      "domaine_resolved": "general"
+    },
+    "db_log": {
+      "table": "ConversationLog",
+      "saved": true
+    },
+    "total_processing_time_ms": 253
+  },
+  {
+    "trace_id": "MCP-20261111023451-0n4f",
+    "timestamp": "2026-11-11T02:34:51.488Z",
+    "client_request": {
+      "method": "POST",
+      "endpoint": "/api/chat",
+      "body": {
+        "message": "Comment payer mes impôts ?"
+      }
+    },
+    "nlp_analysis": {
+      "mode": "python_api",
+      "request_to_nlp": {
+        "method": "POST",
+        "url": "http://localhost:8000/analyser",
+        "body": {
+          "texte": "Comment payer mes impôts ?"
+        }
+      },
+      "response_from_nlp": {
+        "langue": {
+          "langue": "francais",
+          "confiance": 0.5
+        },
+        "intention": {
+          "intention": "inscription",
+          "confiance": 0.33,
+          "domaine": "dgid"
+        },
+        "entites": {
+          "documents": [],
+          "lieux": [],
+          "montants": [],
+          "dates": []
+        }
+      },
+      "langue_finale": "francais",
+      "processing_time_ms": 83
+    },
+    "mcp_routing": {
+      "serveur_cible": "dgid",
+      "tools_invoked": [
+        "rechercher_contribuable"
+      ],
+      "description": "Rechercher dans les données fiscales",
+      "formulaire": null
+    },
+    "mcp_response": {
+      "status": "success",
+      "response_text": "Je comprends votre demande. Je peux vous aider avec :\n- 📋 État civil (naissance, mariage, décès)\n- 💰 Impôts / DGID\n- 🏥 CNSS (allocations, retraite)\n- 📝 Formulaires\n\nPouvez-vous préciser votre beso...",
+      "langue_reponse": "francais",
+      "intent_resolved": "inscription",
+      "domaine_resolved": "dgid"
+    },
+    "db_log": {
+      "table": "ConversationLog",
+      "saved": true
+    },
+    "total_processing_time_ms": 128
+  },
+  {
+    "trace_id": "MCP-20261111023451-dtqk",
+    "timestamp": "2026-11-11T02:34:51.635Z",
+    "client_request": {
+      "method": "POST",
+      "endpoint": "/api/chat",
+      "body": {
+        "message": "Dama bëgg sama kàrt bëccëg"
+      }
+    },
+    "nlp_analysis": {
+      "mode": "python_api",
+      "request_to_nlp": {
+        "method": "POST",
+        "url": "http://localhost:8000/analyser",
+        "body": {
+          "texte": "Dama bëgg sama kàrt bëccëg"
+        }
+      },
+      "response_from_nlp": {
+        "langue": {
+          "langue": "wolof",
+          "confiance": 0.86
+        },
+        "intention": {
+          "intention": "demande_document",
+          "confiance": 0.705,
+          "domaine": "etat_civil"
+        },
+        "entites": {
+          "documents": [],
+          "lieux": [],
+          "montants": [],
+          "dates": []
+        }
+      },
+      "langue_finale": "wolof",
+      "processing_time_ms": 98
+    },
+    "mcp_routing": {
+      "serveur_cible": "etat-civil",
+      "tools_invoked": [
+        "rechercher_citoyen",
+        "get_acte_naissance"
+      ],
+      "description": "Rechercher le citoyen puis proposer le formulaire de demande",
+      "formulaire": "form-001"
+    },
+    "mcp_response": {
+      "status": "success",
+      "response_text": "📋 **Laaj kàrt ci état civil**\n\n**Papye yi nga war a indil :**\n1. Kàrt boppam (CNI walla passeport)\n2. Kàrt bu yàgg (su am)\n3. Timbre fiscal 200 FCFA\n\n**Ñaata :** 200 FCFA\n**Ñaata bés :** 3 ba 5 bés\n*...",
+      "langue_reponse": "wolof",
+      "intent_resolved": "demande_document",
+      "domaine_resolved": "etat_civil"
+    },
+    "db_log": {
+      "table": "ConversationLog",
+      "saved": true
+    },
+    "total_processing_time_ms": 142
+  },
+  {
+    "trace_id": "MCP-20261111023451-kw9w",
+    "timestamp": "2026-11-11T02:34:51.799Z",
+    "client_request": {
+      "method": "POST",
+      "endpoint": "/api/chat",
+      "body": {
+        "message": "Je veux mon acte de naissance"
+      }
+    },
+    "nlp_analysis": {
+      "mode": "python_api",
+      "request_to_nlp": {
+        "method": "POST",
+        "url": "http://localhost:8000/analyser",
+        "body": {
+          "texte": "Je veux mon acte de naissance"
+        }
+      },
+      "response_from_nlp": {
+        "langue": {
+          "langue": "francais",
+          "confiance": 0.5
+        },
+        "intention": {
+          "intention": "demande_document",
+          "confiance": 0.64,
+          "domaine": "etat_civil"
+        },
+        "entites": {
+          "documents": [
+            "acte_naissance"
+          ],
+          "lieux": [],
+          "montants": [],
+          "dates": []
+        }
+      },
+      "langue_finale": "francais",
+      "processing_time_ms": 77
+    },
+    "mcp_routing": {
+      "serveur_cible": "etat-civil",
+      "tools_invoked": [
+        "rechercher_citoyen",
+        "get_acte_naissance"
+      ],
+      "description": "Rechercher le citoyen puis proposer le formulaire de demande",
+      "formulaire": "form-001"
+    },
+    "mcp_response": {
+      "status": "success",
+      "response_text": "📋 **Demande d'acte d'état civil**\n\nVoici les informations :\n\n**Pièces requises :**\n1. Pièce d'identité (CNI ou passeport)\n2. Ancien acte (si disponible)\n3. Timbre fiscal de 200 FCFA\n\n**Coût :** 200 F...",
+      "langue_reponse": "francais",
+      "intent_resolved": "demande_document",
+      "domaine_resolved": "etat_civil"
+    },
+    "db_log": {
+      "table": "ConversationLog",
+      "saved": true
+    },
+    "total_processing_time_ms": 122
+  },
+  {
+    "trace_id": "MCP-20261111125448-qf30",
+    "timestamp": "2026-11-11T12:54:48.907Z",
+    "client_request": {
+      "method": "POST",
+      "endpoint": "/api/chat",
+      "body": {
+        "message": "Bonjour"
+      }
+    },
+    "nlp_analysis": {
+      "mode": "python_api",
+      "request_to_nlp": {
+        "method": "POST",
+        "url": "http://localhost:8000/analyser",
+        "body": {
+          "texte": "Bonjour"
+        }
+      },
+      "response_from_nlp": {
+        "langue": {
+          "langue": "francais",
+          "confiance": 1
+        },
+        "intention": {
+          "intention": "salutation",
+          "confiance": 0.794,
+          "domaine": "general"
+        },
+        "entites": {
+          "documents": [],
+          "lieux": [],
+          "montants": [],
+          "dates": []
+        }
+      },
+      "langue_finale": "francais",
+      "processing_time_ms": 338
+    },
+    "mcp_routing": {
+      "serveur_cible": "orchestrateur",
+      "tools_invoked": [],
+      "description": "Répondre à la salutation et proposer les services",
+      "formulaire": null
+    },
+    "mcp_response": {
+      "status": "success",
+      "response_text": "Bonjour ! 👋 Je suis **SunuBot**, votre assistant administratif.\n\nJe peux vous accompagner pour :\n- 📋 **État civil** : actes de naissance, mariage, décès\n- 💰 **Fiscalité (DGID)** : impôts, NINEA, dé...",
+      "langue_reponse": "francais",
+      "intent_resolved": "salutation",
+      "domaine_resolved": "general"
+    },
+    "db_log": {
+      "table": "ConversationLog",
+      "saved": true
+    },
+    "total_processing_time_ms": 427
+  },
+  {
+    "trace_id": "MCP-20261111125455-l6gj",
+    "timestamp": "2026-11-11T12:54:55.410Z",
+    "client_request": {
+      "method": "POST",
+      "endpoint": "/api/chat",
+      "body": {
+        "message": "Bonjour"
+      }
+    },
+    "nlp_analysis": {
+      "mode": "python_api",
+      "request_to_nlp": {
+        "method": "POST",
+        "url": "http://localhost:8000/analyser",
+        "body": {
+          "texte": "Bonjour"
+        }
+      },
+      "response_from_nlp": {
+        "langue": {
+          "langue": "francais",
+          "confiance": 1
+        },
+        "intention": {
+          "intention": "salutation",
+          "confiance": 0.794,
+          "domaine": "general"
+        },
+        "entites": {
+          "documents": [],
+          "lieux": [],
+          "montants": [],
+          "dates": []
+        }
+      },
+      "langue_finale": "francais",
+      "processing_time_ms": 50
+    },
+    "mcp_routing": {
+      "serveur_cible": "orchestrateur",
+      "tools_invoked": [],
+      "description": "Répondre à la salutation et proposer les services",
+      "formulaire": null
+    },
+    "mcp_response": {
+      "status": "success",
+      "response_text": "Bonjour ! 👋 Je suis **SunuBot**, votre assistant administratif.\n\nJe peux vous accompagner pour :\n- 📋 **État civil** : actes de naissance, mariage, décès\n- 💰 **Fiscalité (DGID)** : impôts, NINEA, dé...",
+      "langue_reponse": "francais",
+      "intent_resolved": "salutation",
+      "domaine_resolved": "general"
+    },
+    "db_log": {
+      "table": "ConversationLog",
+      "saved": true
+    },
+    "total_processing_time_ms": 56
+  },
+  {
+    "trace_id": "MCP-20261111125455-k9jx",
+    "timestamp": "2026-11-11T12:54:55.480Z",
+    "client_request": {
+      "method": "POST",
+      "endpoint": "/api/chat",
+      "body": {
+        "message": "Comment payer mes impots ?"
+      }
+    },
+    "nlp_analysis": {
+      "mode": "python_api",
+      "request_to_nlp": {
+        "method": "POST",
+        "url": "http://localhost:8000/analyser",
+        "body": {
+          "texte": "Comment payer mes impots ?"
+        }
+      },
+      "response_from_nlp": {
+        "langue": {
+          "langue": "francais",
+          "confiance": 0.5
+        },
+        "intention": {
+          "intention": "question_procedure",
+          "confiance": 0.29,
+          "domaine": "dgid"
+        },
+        "entites": {
+          "documents": [],
+          "lieux": [],
+          "montants": [],
+          "dates": []
+        }
+      },
+      "langue_finale": "francais",
+      "processing_time_ms": 58
+    },
+    "mcp_routing": {
+      "serveur_cible": "dgid",
+      "tools_invoked": [
+        "get_centre_fiscal",
+        "rechercher_contribuable"
+      ],
+      "description": "Expliquer la procédure fiscale",
+      "formulaire": "form-006"
+    },
+    "mcp_response": {
+      "status": "success",
+      "response_text": "💰 **Procédure fiscale (DGID)**\n\n**Modes de paiement :**\n- 🏦 Virement bancaire\n- 📱 Mobile Money (Orange Money, Wave)\n- 💵 Espèces au guichet\n- 🌐 En ligne : etax.dgid.sn\n\n**Échéances principales :**...",
+      "langue_reponse": "francais",
+      "intent_resolved": "question_procedure",
+      "domaine_resolved": "dgid"
+    },
+    "db_log": {
+      "table": "ConversationLog",
+      "saved": true
+    },
+    "total_processing_time_ms": 63
+  },
+  {
+    "trace_id": "MCP-20261111125455-1uiz",
+    "timestamp": "2026-11-11T12:54:55.552Z",
+    "client_request": {
+      "method": "POST",
+      "endpoint": "/api/chat",
+      "body": {
+        "message": "Dama begg sama kart becceg"
+      }
+    },
+    "nlp_analysis": {
+      "mode": "python_api",
+      "request_to_nlp": {
+        "method": "POST",
+        "url": "http://localhost:8000/analyser",
+        "body": {
+          "texte": "Dama begg sama kart becceg"
+        }
+      },
+      "response_from_nlp": {
+        "langue": {
+          "langue": "wolof",
+          "confiance": 0.52
+        },
+        "intention": {
+          "intention": "demande_document",
+          "confiance": 0.712,
+          "domaine": "etat_civil"
+        },
+        "entites": {
+          "documents": [],
+          "lieux": [],
+          "montants": [],
+          "dates": []
+        }
+      },
+      "langue_finale": "wolof",
+      "processing_time_ms": 66
+    },
+    "mcp_routing": {
+      "serveur_cible": "etat-civil",
+      "tools_invoked": [
+        "rechercher_citoyen",
+        "get_acte_naissance"
+      ],
+      "description": "Rechercher le citoyen puis proposer le formulaire de demande",
+      "formulaire": "form-001"
+    },
+    "mcp_response": {
+      "status": "success",
+      "response_text": "📋 **Laaj kàrt ci état civil**\n\n**Papye yi nga war a indil :**\n1. Kàrt boppam (CNI walla passeport)\n2. Kàrt bu yàgg (su am)\n3. Timbre fiscal 200 FCFA\n\n**Ñaata :** 200 FCFA\n**Ñaata bés :** 3 ba 5 bés\n*...",
+      "langue_reponse": "wolof",
+      "intent_resolved": "demande_document",
+      "domaine_resolved": "etat_civil"
+    },
+    "db_log": {
+      "table": "ConversationLog",
+      "saved": true
+    },
+    "total_processing_time_ms": 70
+  },
+  {
+    "trace_id": "MCP-20261111125455-gr6g",
+    "timestamp": "2026-11-11T12:54:55.632Z",
+    "client_request": {
+      "method": "POST",
+      "endpoint": "/api/chat",
+      "body": {
+        "message": "Je veux mon acte de naissance"
+      }
+    },
+    "nlp_analysis": {
+      "mode": "python_api",
+      "request_to_nlp": {
+        "method": "POST",
+        "url": "http://localhost:8000/analyser",
+        "body": {
+          "texte": "Je veux mon acte de naissance"
+        }
+      },
+      "response_from_nlp": {
+        "langue": {
+          "langue": "francais",
+          "confiance": 0.5
+        },
+        "intention": {
+          "intention": "demande_document",
+          "confiance": 0.64,
+          "domaine": "etat_civil"
+        },
+        "entites": {
+          "documents": [
+            "acte_naissance"
+          ],
+          "lieux": [],
+          "montants": [],
+          "dates": []
+        }
+      },
+      "langue_finale": "francais",
+      "processing_time_ms": 43
+    },
+    "mcp_routing": {
+      "serveur_cible": "etat-civil",
+      "tools_invoked": [
+        "rechercher_citoyen",
+        "get_acte_naissance"
+      ],
+      "description": "Rechercher le citoyen puis proposer le formulaire de demande",
+      "formulaire": "form-001"
+    },
+    "mcp_response": {
+      "status": "success",
+      "response_text": "📋 **Demande d'acte d'état civil**\n\nVoici les informations :\n\n**Pièces requises :**\n1. Pièce d'identité (CNI ou passeport)\n2. Ancien acte (si disponible)\n3. Timbre fiscal de 200 FCFA\n\n**Coût :** 200 F...",
+      "langue_reponse": "francais",
+      "intent_resolved": "demande_document",
+      "domaine_resolved": "etat_civil"
+    },
+    "db_log": {
+      "table": "ConversationLog",
+      "saved": true
+    },
+    "total_processing_time_ms": 49
+  },
+  {
+    "trace_id": "MCP-20261111125455-iqsm",
+    "timestamp": "2026-11-11T12:54:55.692Z",
+    "client_request": {
+      "method": "POST",
+      "endpoint": "/api/chat",
+      "body": {
+        "message": "Na nga def"
+      }
+    },
+    "nlp_analysis": {
+      "mode": "python_api",
+      "request_to_nlp": {
+        "method": "POST",
+        "url": "http://localhost:8000/analyser",
+        "body": {
+          "texte": "Na nga def"
+        }
+      },
+      "response_from_nlp": {
+        "langue": {
+          "langue": "wolof",
+          "confiance": 1
+        },
+        "intention": {
+          "intention": "inscription",
+          "confiance": 0.234,
+          "domaine": "general"
+        },
+        "entites": {
+          "documents": [],
+          "lieux": [],
+          "montants": [],
+          "dates": []
+        }
+      },
+      "langue_finale": "wolof",
+      "processing_time_ms": 41
+    },
+    "mcp_routing": {
+      "serveur_cible": "orchestrateur",
+      "tools_invoked": [],
+      "description": "Demander des précisions à l'utilisateur",
+      "formulaire": null
+    },
+    "mcp_response": {
+      "status": "success",
+      "response_text": "Dégg naa sa laaj. Man naa la ndimbal ci :\n- 📋 État civil\n- 💰 Wàll (DGID)\n- 🏥 CNSS\n- 📝 Formulaires\n\nWax ma lu gën a leer lan la bëgg.",
+      "langue_reponse": "wolof",
+      "intent_resolved": "inscription",
+      "domaine_resolved": "general"
+    },
+    "db_log": {
+      "table": "ConversationLog",
+      "saved": true
+    },
+    "total_processing_time_ms": 45
+  },
+  {
+    "trace_id": "MCP-20261111125729-v6yy",
+    "timestamp": "2026-11-11T12:57:29.572Z",
+    "client_request": {
+      "method": "POST",
+      "endpoint": "/api/chat",
+      "body": {
+        "message": "Bonjour"
+      }
+    },
+    "nlp_analysis": {
+      "mode": "python_api",
+      "request_to_nlp": {
+        "method": "POST",
+        "url": "http://localhost:8000/analyser",
+        "body": {
+          "texte": "Bonjour"
+        }
+      },
+      "response_from_nlp": {
+        "langue": {
+          "langue": "francais",
+          "confiance": 1
+        },
+        "intention": {
+          "intention": "salutation",
+          "confiance": 0.794,
+          "domaine": "general"
+        },
+        "entites": {
+          "documents": [],
+          "lieux": [],
+          "montants": [],
+          "dates": []
+        }
+      },
+      "langue_finale": "francais",
+      "processing_time_ms": 109
+    },
+    "mcp_routing": {
+      "serveur_cible": "orchestrateur",
+      "tools_invoked": [],
+      "description": "Répondre à la salutation et proposer les services",
+      "formulaire": null
+    },
+    "mcp_response": {
+      "status": "success",
+      "response_text": "Bonjour ! 👋 Je suis **SunuBot**, votre assistant administratif.\n\nJe peux vous accompagner pour :\n- 📋 **État civil** : actes de naissance, mariage, décès\n- 💰 **Fiscalité (DGID)** : impôts, NINEA, dé...",
+      "langue_reponse": "francais",
+      "intent_resolved": "salutation",
+      "domaine_resolved": "general"
+    },
+    "db_log": {
+      "table": "ConversationLog",
+      "saved": true
+    },
+    "total_processing_time_ms": 119
+  },
+  {
+    "trace_id": "MCP-20261111125729-tzjr",
+    "timestamp": "2026-11-11T12:57:29.703Z",
+    "client_request": {
+      "method": "POST",
+      "endpoint": "/api/chat",
+      "body": {
+        "message": "Comment payer mes impots ?"
+      }
+    },
+    "nlp_analysis": {
+      "mode": "python_api",
+      "request_to_nlp": {
+        "method": "POST",
+        "url": "http://localhost:8000/analyser",
+        "body": {
+          "texte": "Comment payer mes impots ?"
+        }
+      },
+      "response_from_nlp": {
+        "langue": {
+          "langue": "francais",
+          "confiance": 0.5
+        },
+        "intention": {
+          "intention": "question_procedure",
+          "confiance": 0.29,
+          "domaine": "dgid"
+        },
+        "entites": {
+          "documents": [],
+          "lieux": [],
+          "montants": [],
+          "dates": []
+        }
+      },
+      "langue_finale": "francais",
+      "processing_time_ms": 44
+    },
+    "mcp_routing": {
+      "serveur_cible": "dgid",
+      "tools_invoked": [
+        "get_centre_fiscal",
+        "rechercher_contribuable"
+      ],
+      "description": "Expliquer la procédure fiscale",
+      "formulaire": "form-006"
+    },
+    "mcp_response": {
+      "status": "success",
+      "response_text": "💰 **Procédure fiscale (DGID)**\n\n**Modes de paiement :**\n- 🏦 Virement bancaire\n- 📱 Mobile Money (Orange Money, Wave)\n- 💵 Espèces au guichet\n- 🌐 En ligne : etax.dgid.sn\n\n**Échéances principales :**...",
+      "langue_reponse": "francais",
+      "intent_resolved": "question_procedure",
+      "domaine_resolved": "dgid"
+    },
+    "db_log": {
+      "table": "ConversationLog",
+      "saved": true
+    },
+    "total_processing_time_ms": 49
+  },
+  {
+    "trace_id": "MCP-20261111125729-50i1",
+    "timestamp": "2026-11-11T12:57:29.761Z",
+    "client_request": {
+      "method": "POST",
+      "endpoint": "/api/chat",
+      "body": {
+        "message": "Dama begg sama kart becceg"
+      }
+    },
+    "nlp_analysis": {
+      "mode": "python_api",
+      "request_to_nlp": {
+        "method": "POST",
+        "url": "http://localhost:8000/analyser",
+        "body": {
+          "texte": "Dama begg sama kart becceg"
+        }
+      },
+      "response_from_nlp": {
+        "langue": {
+          "langue": "wolof",
+          "confiance": 0.52
+        },
+        "intention": {
+          "intention": "demande_document",
+          "confiance": 0.712,
+          "domaine": "etat_civil"
+        },
+        "entites": {
+          "documents": [],
+          "lieux": [],
+          "montants": [],
+          "dates": []
+        }
+      },
+      "langue_finale": "wolof",
+      "processing_time_ms": 59
+    },
+    "mcp_routing": {
+      "serveur_cible": "etat-civil",
+      "tools_invoked": [
+        "rechercher_citoyen",
+        "get_acte_naissance"
+      ],
+      "description": "Rechercher le citoyen puis proposer le formulaire de demande",
+      "formulaire": "form-001"
+    },
+    "mcp_response": {
+      "status": "success",
+      "response_text": "📋 **Laaj kàrt ci état civil**\n\n**Papye yi nga war a indil :**\n1. Kàrt boppam (CNI walla passeport)\n2. Kàrt bu yàgg (su am)\n3. Timbre fiscal 200 FCFA\n\n**Ñaata :** 200 FCFA\n**Ñaata bés :** 3 ba 5 bés\n*...",
+      "langue_reponse": "wolof",
+      "intent_resolved": "demande_document",
+      "domaine_resolved": "etat_civil"
+    },
+    "db_log": {
+      "table": "ConversationLog",
+      "saved": true
+    },
+    "total_processing_time_ms": 64
+  },
+  {
+    "trace_id": "MCP-20261111125729-ulki",
+    "timestamp": "2026-11-11T12:57:29.836Z",
+    "client_request": {
+      "method": "POST",
+      "endpoint": "/api/chat",
+      "body": {
+        "message": "Je veux mon acte de naissance"
+      }
+    },
+    "nlp_analysis": {
+      "mode": "python_api",
+      "request_to_nlp": {
+        "method": "POST",
+        "url": "http://localhost:8000/analyser",
+        "body": {
+          "texte": "Je veux mon acte de naissance"
+        }
+      },
+      "response_from_nlp": {
+        "langue": {
+          "langue": "francais",
+          "confiance": 0.5
+        },
+        "intention": {
+          "intention": "demande_document",
+          "confiance": 0.64,
+          "domaine": "etat_civil"
+        },
+        "entites": {
+          "documents": [
+            "acte_naissance"
+          ],
+          "lieux": [],
+          "montants": [],
+          "dates": []
+        }
+      },
+      "langue_finale": "francais",
+      "processing_time_ms": 45
+    },
+    "mcp_routing": {
+      "serveur_cible": "etat-civil",
+      "tools_invoked": [
+        "rechercher_citoyen",
+        "get_acte_naissance"
+      ],
+      "description": "Rechercher le citoyen puis proposer le formulaire de demande",
+      "formulaire": "form-001"
+    },
+    "mcp_response": {
+      "status": "success",
+      "response_text": "📋 **Demande d'acte d'état civil**\n\nVoici les informations :\n\n**Pièces requises :**\n1. Pièce d'identité (CNI ou passeport)\n2. Ancien acte (si disponible)\n3. Timbre fiscal de 200 FCFA\n\n**Coût :** 200 F...",
+      "langue_reponse": "francais",
+      "intent_resolved": "demande_document",
+      "domaine_resolved": "etat_civil"
+    },
+    "db_log": {
+      "table": "ConversationLog",
+      "saved": true
+    },
+    "total_processing_time_ms": 49
+  },
+  {
+    "trace_id": "MCP-20261111125729-vwch",
+    "timestamp": "2026-11-11T12:57:29.895Z",
+    "client_request": {
+      "method": "POST",
+      "endpoint": "/api/chat",
+      "body": {
+        "message": "Na nga def"
+      }
+    },
+    "nlp_analysis": {
+      "mode": "python_api",
+      "request_to_nlp": {
+        "method": "POST",
+        "url": "http://localhost:8000/analyser",
+        "body": {
+          "texte": "Na nga def"
+        }
+      },
+      "response_from_nlp": {
+        "langue": {
+          "langue": "wolof",
+          "confiance": 1
+        },
+        "intention": {
+          "intention": "salutation",
+          "confiance": 0.234,
+          "domaine": "general"
+        },
+        "entites": {
+          "documents": [],
+          "lieux": [],
+          "montants": [],
+          "dates": []
+        }
+      },
+      "langue_finale": "wolof",
+      "processing_time_ms": 107
+    },
+    "mcp_routing": {
+      "serveur_cible": "orchestrateur",
+      "tools_invoked": [],
+      "description": "Répondre à la salutation et proposer les services",
+      "formulaire": null
+    },
+    "mcp_response": {
+      "status": "success",
+      "response_text": "Jàmm rekk! 👋 Maa ngi **SunuBot**, sa ndimbalkat ci yoon wi.\n\nMan naa la ndimbal ci :\n- 📋 État civil (kàrt bëccëg, takk, dee)\n- 💰 Wàll (impôts, NINEA)\n- 🏥 CNSS (allocations, retraite)\n- 📝 Formulai...",
+      "langue_reponse": "wolof",
+      "intent_resolved": "salutation",
+      "domaine_resolved": "general"
+    },
+    "db_log": {
+      "table": "ConversationLog",
+      "saved": true
+    },
+    "total_processing_time_ms": 112
+  },
+  {
+    "trace_id": "MCP-20261111125730-3g3m",
+    "timestamp": "2026-11-11T12:57:30.015Z",
+    "client_request": {
+      "method": "POST",
+      "endpoint": "/api/chat",
+      "body": {
+        "message": "Je veux un NINEA"
+      }
+    },
+    "nlp_analysis": {
+      "mode": "python_api",
+      "request_to_nlp": {
+        "method": "POST",
+        "url": "http://localhost:8000/analyser",
+        "body": {
+          "texte": "Je veux un NINEA"
+        }
+      },
+      "response_from_nlp": {
+        "langue": {
+          "langue": "francais",
+          "confiance": 0.5
+        },
+        "intention": {
+          "intention": "salutation",
+          "confiance": 0.405,
+          "domaine": "dgid"
+        },
+        "entites": {
+          "documents": [
+            "ninea"
+          ],
+          "lieux": [],
+          "montants": [],
+          "dates": []
+        }
+      },
+      "langue_finale": "francais",
+      "processing_time_ms": 47
+    },
+    "mcp_routing": {
+      "serveur_cible": "dgid",
+      "tools_invoked": [
+        "rechercher_contribuable"
+      ],
+      "description": "Rechercher dans les données fiscales",
+      "formulaire": null
+    },
+    "mcp_response": {
+      "status": "success",
+      "response_text": "Bonjour ! 👋 Je suis **SunuBot**, votre assistant administratif.\n\nJe peux vous accompagner pour :\n- 📋 **État civil** : actes de naissance, mariage, décès\n- 💰 **Fiscalité (DGID)** : impôts, NINEA, dé...",
+      "langue_reponse": "francais",
+      "intent_resolved": "salutation",
+      "domaine_resolved": "dgid"
+    },
+    "db_log": {
+      "table": "ConversationLog",
+      "saved": true
+    },
+    "total_processing_time_ms": 51
+  },
+  {
+    "trace_id": "MCP-20261111125923-c95w",
+    "timestamp": "2026-11-11T12:59:23.615Z",
+    "client_request": {
+      "method": "POST",
+      "endpoint": "/api/chat",
+      "body": {
+        "message": "Bonjour"
+      }
+    },
+    "nlp_analysis": {
+      "mode": "python_api",
+      "request_to_nlp": {
+        "method": "POST",
+        "url": "http://localhost:8000/analyser",
+        "body": {
+          "texte": "Bonjour"
+        }
+      },
+      "response_from_nlp": {
+        "langue": {
+          "langue": "francais",
+          "confiance": 1
+        },
+        "intention": {
+          "intention": "salutation",
+          "confiance": 0.794,
+          "domaine": "general"
+        },
+        "entites": {
+          "documents": [],
+          "lieux": [],
+          "montants": [],
+          "dates": []
+        }
+      },
+      "langue_finale": "francais",
+      "processing_time_ms": 126
+    },
+    "mcp_routing": {
+      "serveur_cible": "orchestrateur",
+      "tools_invoked": [],
+      "description": "Répondre à la salutation et proposer les services",
+      "formulaire": null
+    },
+    "mcp_response": {
+      "status": "success",
+      "response_text": "Bonjour ! 👋 Je suis **SunuBot**, votre assistant administratif.\n\nJe peux vous accompagner pour :\n- 📋 **État civil** : actes de naissance, mariage, décès\n- 💰 **Fiscalité (DGID)** : impôts, NINEA, dé...",
+      "langue_reponse": "francais",
+      "intent_resolved": "salutation",
+      "domaine_resolved": "general"
+    },
+    "db_log": {
+      "table": "ConversationLog",
+      "saved": true
+    },
+    "total_processing_time_ms": 135
+  },
+  {
+    "trace_id": "MCP-20261111125923-okqf",
+    "timestamp": "2026-11-11T12:59:23.761Z",
+    "client_request": {
+      "method": "POST",
+      "endpoint": "/api/chat",
+      "body": {
+        "message": "Comment payer mes impots ?"
+      }
+    },
+    "nlp_analysis": {
+      "mode": "python_api",
+      "request_to_nlp": {
+        "method": "POST",
+        "url": "http://localhost:8000/analyser",
+        "body": {
+          "texte": "Comment payer mes impots ?"
+        }
+      },
+      "response_from_nlp": {
+        "langue": {
+          "langue": "francais",
+          "confiance": 0.5
+        },
+        "intention": {
+          "intention": "question_procedure",
+          "confiance": 0.29,
+          "domaine": "dgid"
+        },
+        "entites": {
+          "documents": [],
+          "lieux": [],
+          "montants": [],
+          "dates": []
+        }
+      },
+      "langue_finale": "francais",
+      "processing_time_ms": 52
+    },
+    "mcp_routing": {
+      "serveur_cible": "dgid",
+      "tools_invoked": [
+        "get_centre_fiscal",
+        "rechercher_contribuable"
+      ],
+      "description": "Expliquer la procédure fiscale",
+      "formulaire": "form-006"
+    },
+    "mcp_response": {
+      "status": "success",
+      "response_text": "💰 **Procédure fiscale (DGID)**\n\n**Modes de paiement :**\n- 🏦 Virement bancaire\n- 📱 Mobile Money (Orange Money, Wave)\n- 💵 Espèces au guichet\n- 🌐 En ligne : etax.dgid.sn\n\n**Échéances principales :**...",
+      "langue_reponse": "francais",
+      "intent_resolved": "question_procedure",
+      "domaine_resolved": "dgid"
+    },
+    "db_log": {
+      "table": "ConversationLog",
+      "saved": true
+    },
+    "total_processing_time_ms": 58
+  },
+  {
+    "trace_id": "MCP-20261111125923-35qy",
+    "timestamp": "2026-11-11T12:59:23.830Z",
+    "client_request": {
+      "method": "POST",
+      "endpoint": "/api/chat",
+      "body": {
+        "message": "Dama begg sama kart becceg"
+      }
+    },
+    "nlp_analysis": {
+      "mode": "python_api",
+      "request_to_nlp": {
+        "method": "POST",
+        "url": "http://localhost:8000/analyser",
+        "body": {
+          "texte": "Dama begg sama kart becceg"
+        }
+      },
+      "response_from_nlp": {
+        "langue": {
+          "langue": "wolof",
+          "confiance": 0.52
+        },
+        "intention": {
+          "intention": "demande_document",
+          "confiance": 0.712,
+          "domaine": "etat_civil"
+        },
+        "entites": {
+          "documents": [],
+          "lieux": [],
+          "montants": [],
+          "dates": []
+        }
+      },
+      "langue_finale": "wolof",
+      "processing_time_ms": 63
+    },
+    "mcp_routing": {
+      "serveur_cible": "etat-civil",
+      "tools_invoked": [
+        "rechercher_citoyen",
+        "get_acte_naissance"
+      ],
+      "description": "Rechercher le citoyen puis proposer le formulaire de demande",
+      "formulaire": "form-001"
+    },
+    "mcp_response": {
+      "status": "success",
+      "response_text": "📋 **Laaj kàrt ci état civil**\n\n**Papye yi nga war a indil :**\n1. Kàrt boppam (CNI walla passeport)\n2. Kàrt bu yàgg (su am)\n3. Timbre fiscal 200 FCFA\n\n**Ñaata :** 200 FCFA\n**Ñaata bés :** 3 ba 5 bés\n*...",
+      "langue_reponse": "wolof",
+      "intent_resolved": "demande_document",
+      "domaine_resolved": "etat_civil"
+    },
+    "db_log": {
+      "table": "ConversationLog",
+      "saved": true
+    },
+    "total_processing_time_ms": 68
+  },
+  {
+    "trace_id": "MCP-20261111125923-98k7",
+    "timestamp": "2026-11-11T12:59:23.907Z",
+    "client_request": {
+      "method": "POST",
+      "endpoint": "/api/chat",
+      "body": {
+        "message": "Je veux mon acte de naissance"
+      }
+    },
+    "nlp_analysis": {
+      "mode": "python_api",
+      "request_to_nlp": {
+        "method": "POST",
+        "url": "http://localhost:8000/analyser",
+        "body": {
+          "texte": "Je veux mon acte de naissance"
+        }
+      },
+      "response_from_nlp": {
+        "langue": {
+          "langue": "francais",
+          "confiance": 0.5
+        },
+        "intention": {
+          "intention": "demande_document",
+          "confiance": 0.64,
+          "domaine": "etat_civil"
+        },
+        "entites": {
+          "documents": [
+            "acte_naissance"
+          ],
+          "lieux": [],
+          "montants": [],
+          "dates": []
+        }
+      },
+      "langue_finale": "francais",
+      "processing_time_ms": 63
+    },
+    "mcp_routing": {
+      "serveur_cible": "etat-civil",
+      "tools_invoked": [
+        "rechercher_citoyen",
+        "get_acte_naissance"
+      ],
+      "description": "Rechercher le citoyen puis proposer le formulaire de demande",
+      "formulaire": "form-001"
+    },
+    "mcp_response": {
+      "status": "success",
+      "response_text": "📋 **Demande d'acte d'état civil**\n\nVoici les informations :\n\n**Pièces requises :**\n1. Pièce d'identité (CNI ou passeport)\n2. Ancien acte (si disponible)\n3. Timbre fiscal de 200 FCFA\n\n**Coût :** 200 F...",
+      "langue_reponse": "francais",
+      "intent_resolved": "demande_document",
+      "domaine_resolved": "etat_civil"
+    },
+    "db_log": {
+      "table": "ConversationLog",
+      "saved": true
+    },
+    "total_processing_time_ms": 66
+  },
+  {
+    "trace_id": "MCP-20261111125923-a6a4",
+    "timestamp": "2026-11-11T12:59:23.985Z",
+    "client_request": {
+      "method": "POST",
+      "endpoint": "/api/chat",
+      "body": {
+        "message": "Na nga def"
+      }
+    },
+    "nlp_analysis": {
+      "mode": "python_api",
+      "request_to_nlp": {
+        "method": "POST",
+        "url": "http://localhost:8000/analyser",
+        "body": {
+          "texte": "Na nga def"
+        }
+      },
+      "response_from_nlp": {
+        "langue": {
+          "langue": "wolof",
+          "confiance": 1
+        },
+        "intention": {
+          "intention": "salutation",
+          "confiance": 0.234,
+          "domaine": "general"
+        },
+        "entites": {
+          "documents": [],
+          "lieux": [],
+          "montants": [],
+          "dates": []
+        }
+      },
+      "langue_finale": "wolof",
+      "processing_time_ms": 57
+    },
+    "mcp_routing": {
+      "serveur_cible": "orchestrateur",
+      "tools_invoked": [],
+      "description": "Répondre à la salutation et proposer les services",
+      "formulaire": null
+    },
+    "mcp_response": {
+      "status": "success",
+      "response_text": "Jàmm rekk! 👋 Maa ngi **SunuBot**, sa ndimbalkat ci yoon wi.\n\nMan naa la ndimbal ci :\n- 📋 État civil (kàrt bëccëg, takk, dee)\n- 💰 Wàll (impôts, NINEA)\n- 🏥 CNSS (allocations, retraite)\n- 📝 Formulai...",
+      "langue_reponse": "wolof",
+      "intent_resolved": "salutation",
+      "domaine_resolved": "general"
+    },
+    "db_log": {
+      "table": "ConversationLog",
+      "saved": true
+    },
+    "total_processing_time_ms": 62
+  },
+  {
+    "trace_id": "MCP-20261111125924-fmlr",
+    "timestamp": "2026-11-11T12:59:24.059Z",
+    "client_request": {
+      "method": "POST",
+      "endpoint": "/api/chat",
+      "body": {
+        "message": "Je veux un NINEA"
+      }
+    },
+    "nlp_analysis": {
+      "mode": "python_api",
+      "request_to_nlp": {
+        "method": "POST",
+        "url": "http://localhost:8000/analyser",
+        "body": {
+          "texte": "Je veux un NINEA"
+        }
+      },
+      "response_from_nlp": {
+        "langue": {
+          "langue": "francais",
+          "confiance": 0.5
+        },
+        "intention": {
+          "intention": "demande_document",
+          "confiance": 0.405,
+          "domaine": "dgid"
+        },
+        "entites": {
+          "documents": [
+            "ninea"
+          ],
+          "lieux": [],
+          "montants": [],
+          "dates": []
+        }
+      },
+      "langue_finale": "francais",
+      "processing_time_ms": 61
+    },
+    "mcp_routing": {
+      "serveur_cible": "dgid",
+      "tools_invoked": [
+        "rechercher_contribuable",
+        "get_statut_fiscal"
+      ],
+      "description": "Vérifier le statut et proposer l'immatriculation",
+      "formulaire": "form-005"
+    },
+    "mcp_response": {
+      "status": "success",
+      "response_text": "🏢 **Demande de document fiscal**\n\nPour obtenir votre attestation fiscale ou NINEA :\n\n**Pièces requises :**\n1. CNI du gérant\n2. Registre de commerce (RCCM)\n3. Statuts de la société\n4. Plan de localisa...",
+      "langue_reponse": "francais",
+      "intent_resolved": "demande_document",
+      "domaine_resolved": "dgid"
+    },
+    "db_log": {
+      "table": "ConversationLog",
+      "saved": true
+    },
+    "total_processing_time_ms": 66
+  },
+  {
+    "trace_id": "MCP-20261111130534-d1lf",
+    "timestamp": "2026-11-11T13:05:34.295Z",
+    "client_request": {
+      "method": "POST",
+      "endpoint": "/api/chat",
+      "body": {
+        "message": "Bonjour"
+      }
+    },
+    "nlp_analysis": {
+      "mode": "python_api",
+      "request_to_nlp": {
+        "method": "POST",
+        "url": "http://localhost:8000/analyser",
+        "body": {
+          "texte": "Bonjour"
+        }
+      },
+      "response_from_nlp": {
+        "langue": {
+          "langue": "francais",
+          "confiance": 1
+        },
+        "intention": {
+          "intention": "salutation",
+          "confiance": 0.794,
+          "domaine": "general"
+        },
+        "entites": {
+          "documents": [],
+          "lieux": [],
+          "montants": [],
+          "dates": []
+        }
+      },
+      "langue_finale": "francais",
+      "processing_time_ms": 54
+    },
+    "mcp_routing": {
+      "serveur_cible": "orchestrateur",
+      "tools_invoked": [],
+      "description": "Répondre à la salutation et proposer les services",
+      "formulaire": null
+    },
+    "mcp_response": {
+      "status": "success",
+      "response_text": "Bonjour ! 👋 Je suis **SunuBot**, votre assistant administratif.\n\nJe peux vous accompagner pour :\n- 📋 **État civil** : actes de naissance, mariage, décès\n- 💰 **Fiscalité (DGID)** : impôts, NINEA, dé...",
+      "langue_reponse": "francais",
+      "intent_resolved": "salutation",
+      "domaine_resolved": "general"
+    },
+    "db_log": {
+      "table": "ConversationLog",
+      "saved": true
+    },
+    "total_processing_time_ms": 118
+  },
+  {
+    "trace_id": "MCP-20261111130534-6m1a",
+    "timestamp": "2026-11-11T13:05:34.426Z",
+    "client_request": {
+      "method": "POST",
+      "endpoint": "/api/chat",
+      "body": {
+        "message": "Na nga def"
+      }
+    },
+    "nlp_analysis": {
+      "mode": "python_api",
+      "request_to_nlp": {
+        "method": "POST",
+        "url": "http://localhost:8000/analyser",
+        "body": {
+          "texte": "Na nga def"
+        }
+      },
+      "response_from_nlp": {
+        "langue": {
+          "langue": "wolof",
+          "confiance": 1
+        },
+        "intention": {
+          "intention": "salutation",
+          "confiance": 0.234,
+          "domaine": "general"
+        },
+        "entites": {
+          "documents": [],
+          "lieux": [],
+          "montants": [],
+          "dates": []
+        }
+      },
+      "langue_finale": "wolof",
+      "processing_time_ms": 43
+    },
+    "mcp_routing": {
+      "serveur_cible": "orchestrateur",
+      "tools_invoked": [],
+      "description": "Répondre à la salutation et proposer les services",
+      "formulaire": null
+    },
+    "mcp_response": {
+      "status": "success",
+      "response_text": "Jàmm rekk! 👋 Maa ngi **SunuBot**, sa ndimbalkat ci yoon wi.\n\nMan naa la ndimbal ci :\n- 📋 État civil (kàrt bëccëg, takk, dee)\n- 💰 Wàll (impôts, NINEA)\n- 🏥 CNSS (allocations, retraite)\n- 📝 Formulai...",
+      "langue_reponse": "wolof",
+      "intent_resolved": "salutation",
+      "domaine_resolved": "general"
+    },
+    "db_log": {
+      "table": "ConversationLog",
+      "saved": true
+    },
+    "total_processing_time_ms": 46
+  },
+  {
+    "trace_id": "MCP-20261111130534-yw5c",
+    "timestamp": "2026-11-11T13:05:34.488Z",
+    "client_request": {
+      "method": "POST",
+      "endpoint": "/api/chat",
+      "body": {
+        "message": "Comment payer mes impots ?"
+      }
+    },
+    "nlp_analysis": {
+      "mode": "python_api",
+      "request_to_nlp": {
+        "method": "POST",
+        "url": "http://localhost:8000/analyser",
+        "body": {
+          "texte": "Comment payer mes impots ?"
+        }
+      },
+      "response_from_nlp": {
+        "langue": {
+          "langue": "francais",
+          "confiance": 0.5
+        },
+        "intention": {
+          "intention": "question_procedure",
+          "confiance": 0.29,
+          "domaine": "dgid"
+        },
+        "entites": {
+          "documents": [],
+          "lieux": [],
+          "montants": [],
+          "dates": []
+        }
+      },
+      "langue_finale": "francais",
+      "processing_time_ms": 55
+    },
+    "mcp_routing": {
+      "serveur_cible": "dgid",
+      "tools_invoked": [
+        "get_centre_fiscal",
+        "rechercher_contribuable"
+      ],
+      "description": "Expliquer la procédure fiscale",
+      "formulaire": "form-006"
+    },
+    "mcp_response": {
+      "status": "success",
+      "response_text": "💰 **Procédure fiscale (DGID)**\n\n**Modes de paiement :**\n- 🏦 Virement bancaire\n- 📱 Mobile Money (Orange Money, Wave)\n- 💵 Espèces au guichet\n- 🌐 En ligne : etax.dgid.sn\n\n**Échéances principales :**...",
+      "langue_reponse": "francais",
+      "intent_resolved": "question_procedure",
+      "domaine_resolved": "dgid"
+    },
+    "db_log": {
+      "table": "ConversationLog",
+      "saved": true
+    },
+    "total_processing_time_ms": 62
+  },
+  {
+    "trace_id": "MCP-20261111130534-u8rd",
+    "timestamp": "2026-11-11T13:05:34.561Z",
+    "client_request": {
+      "method": "POST",
+      "endpoint": "/api/chat",
+      "body": {
+        "message": "Je veux mon acte de naissance"
+      }
+    },
+    "nlp_analysis": {
+      "mode": "python_api",
+      "request_to_nlp": {
+        "method": "POST",
+        "url": "http://localhost:8000/analyser",
+        "body": {
+          "texte": "Je veux mon acte de naissance"
+        }
+      },
+      "response_from_nlp": {
+        "langue": {
+          "langue": "francais",
+          "confiance": 0.5
+        },
+        "intention": {
+          "intention": "demande_document",
+          "confiance": 0.64,
+          "domaine": "etat_civil"
+        },
+        "entites": {
+          "documents": [
+            "acte_naissance"
+          ],
+          "lieux": [],
+          "montants": [],
+          "dates": []
+        }
+      },
+      "langue_finale": "francais",
+      "processing_time_ms": 52
+    },
+    "mcp_routing": {
+      "serveur_cible": "etat-civil",
+      "tools_invoked": [
+        "rechercher_citoyen",
+        "get_acte_naissance"
+      ],
+      "description": "Rechercher le citoyen puis proposer le formulaire de demande",
+      "formulaire": "form-001"
+    },
+    "mcp_response": {
+      "status": "success",
+      "response_text": "📋 **Demande d'acte d'état civil**\n\nVoici les informations :\n\n**Pièces requises :**\n1. Pièce d'identité (CNI ou passeport)\n2. Ancien acte (si disponible)\n3. Timbre fiscal de 200 FCFA\n\n**Coût :** 200 F...",
+      "langue_reponse": "francais",
+      "intent_resolved": "demande_document",
+      "domaine_resolved": "etat_civil"
+    },
+    "db_log": {
+      "table": "ConversationLog",
+      "saved": true
+    },
+    "total_processing_time_ms": 57
+  },
+  {
+    "trace_id": "MCP-20261111130534-ferh",
+    "timestamp": "2026-11-11T13:05:34.626Z",
+    "client_request": {
+      "method": "POST",
+      "endpoint": "/api/chat",
+      "body": {
+        "message": "Dama begg sama kart becceg"
+      }
+    },
+    "nlp_analysis": {
+      "mode": "python_api",
+      "request_to_nlp": {
+        "method": "POST",
+        "url": "http://localhost:8000/analyser",
+        "body": {
+          "texte": "Dama begg sama kart becceg"
+        }
+      },
+      "response_from_nlp": {
+        "langue": {
+          "langue": "wolof",
+          "confiance": 0.52
+        },
+        "intention": {
+          "intention": "demande_document",
+          "confiance": 0.712,
+          "domaine": "etat_civil"
+        },
+        "entites": {
+          "documents": [],
+          "lieux": [],
+          "montants": [],
+          "dates": []
+        }
+      },
+      "langue_finale": "wolof",
+      "processing_time_ms": 59
+    },
+    "mcp_routing": {
+      "serveur_cible": "etat-civil",
+      "tools_invoked": [
+        "rechercher_citoyen",
+        "get_acte_naissance"
+      ],
+      "description": "Rechercher le citoyen puis proposer le formulaire de demande",
+      "formulaire": "form-001"
+    },
+    "mcp_response": {
+      "status": "success",
+      "response_text": "📋 **Laaj kàrt ci état civil**\n\n**Papye yi nga war a indil :**\n1. Kàrt boppam (CNI walla passeport)\n2. Kàrt bu yàgg (su am)\n3. Timbre fiscal 200 FCFA\n\n**Ñaata :** 200 FCFA\n**Ñaata bés :** 3 ba 5 bés\n*...",
+      "langue_reponse": "wolof",
+      "intent_resolved": "demande_document",
+      "domaine_resolved": "etat_civil"
+    },
+    "db_log": {
+      "table": "ConversationLog",
+      "saved": true
+    },
+    "total_processing_time_ms": 62
+  },
+  {
+    "trace_id": "MCP-20261111130534-ewlg",
+    "timestamp": "2026-11-11T13:05:34.698Z",
+    "client_request": {
+      "method": "POST",
+      "endpoint": "/api/chat",
+      "body": {
+        "message": "Je veux un NINEA"
+      }
+    },
+    "nlp_analysis": {
+      "mode": "python_api",
+      "request_to_nlp": {
+        "method": "POST",
+        "url": "http://localhost:8000/analyser",
+        "body": {
+          "texte": "Je veux un NINEA"
+        }
+      },
+      "response_from_nlp": {
+        "langue": {
+          "langue": "francais",
+          "confiance": 0.5
+        },
+        "intention": {
+          "intention": "demande_document",
+          "confiance": 0.405,
+          "domaine": "dgid"
+        },
+        "entites": {
+          "documents": [
+            "ninea"
+          ],
+          "lieux": [],
+          "montants": [],
+          "dates": []
+        }
+      },
+      "langue_finale": "francais",
+      "processing_time_ms": 49
+    },
+    "mcp_routing": {
+      "serveur_cible": "dgid",
+      "tools_invoked": [
+        "rechercher_contribuable",
+        "get_statut_fiscal"
+      ],
+      "description": "Vérifier le statut et proposer l'immatriculation",
+      "formulaire": "form-005"
+    },
+    "mcp_response": {
+      "status": "success",
+      "response_text": "🏢 **Demande de document fiscal**\n\nPour obtenir votre attestation fiscale ou NINEA :\n\n**Pièces requises :**\n1. CNI du gérant\n2. Registre de commerce (RCCM)\n3. Statuts de la société\n4. Plan de localisa...",
+      "langue_reponse": "francais",
+      "intent_resolved": "demande_document",
+      "domaine_resolved": "dgid"
+    },
+    "db_log": {
+      "table": "ConversationLog",
+      "saved": true
+    },
+    "total_processing_time_ms": 54
+  },
+  {
+    "trace_id": "MCP-20261111130534-l1qm",
+    "timestamp": "2026-11-11T13:05:34.761Z",
+    "client_request": {
+      "method": "POST",
+      "endpoint": "/api/chat",
+      "body": {
+        "message": "Ou se trouve le bureau des impots ?"
+      }
+    },
+    "nlp_analysis": {
+      "mode": "python_api",
+      "request_to_nlp": {
+        "method": "POST",
+        "url": "http://localhost:8000/analyser",
+        "body": {
+          "texte": "Ou se trouve le bureau des impots ?"
+        }
+      },
+      "response_from_nlp": {
+        "langue": {
+          "langue": "francais",
+          "confiance": 0.429
+        },
+        "intention": {
+          "intention": "question_lieu",
+          "confiance": 0.486,
+          "domaine": "dgid"
+        },
+        "entites": {
+          "documents": [],
+          "lieux": [],
+          "montants": [],
+          "dates": []
+        }
+      },
+      "langue_finale": "francais",
+      "processing_time_ms": 65
+    },
+    "mcp_routing": {
+      "serveur_cible": "dgid",
+      "tools_invoked": [
+        "rechercher_contribuable"
+      ],
+      "description": "Rechercher dans les données fiscales",
+      "formulaire": null
+    },
+    "mcp_response": {
+      "status": "success",
+      "response_text": "📍 **Centres fiscaux (DGID)**\n\nLes centres des services fiscaux :\n- **Dakar :** Centre fiscal de Dakar, Plateau\n- **Thiès :** Centre fiscal régional de Thiès\n- **Saint-Louis :** Centre fiscal de Saint...",
+      "langue_reponse": "francais",
+      "intent_resolved": "question_lieu",
+      "domaine_resolved": "dgid"
+    },
+    "db_log": {
+      "table": "ConversationLog",
+      "saved": true
+    },
+    "total_processing_time_ms": 69
+  },
+  {
+    "trace_id": "MCP-20261111130534-zdbp",
+    "timestamp": "2026-11-11T13:05:34.839Z",
+    "client_request": {
+      "method": "POST",
+      "endpoint": "/api/chat",
+      "body": {
+        "message": "Combien coute l acte de naissance ?"
+      }
+    },
+    "nlp_analysis": {
+      "mode": "python_api",
+      "request_to_nlp": {
+        "method": "POST",
+        "url": "http://localhost:8000/analyser",
+        "body": {
+          "texte": "Combien coute l acte de naissance ?"
+        }
+      },
+      "response_from_nlp": {
+        "langue": {
+          "langue": "francais",
+          "confiance": 0.333
+        },
+        "intention": {
+          "intention": "question_cout",
+          "confiance": 0.259,
+          "domaine": "etat_civil"
+        },
+        "entites": {
+          "documents": [
+            "acte_naissance"
+          ],
+          "lieux": [],
+          "montants": [],
+          "dates": []
+        }
+      },
+      "langue_finale": "francais",
+      "processing_time_ms": 66
+    },
+    "mcp_routing": {
+      "serveur_cible": "formulaires",
+      "tools_invoked": [
+        "get_formulaire"
+      ],
+      "description": "Indiquer le coût de la démarche",
+      "formulaire": "form-001"
+    },
+    "mcp_response": {
+      "status": "success",
+      "response_text": "💵 **Coûts état civil**\n\n| Document | Coût |\n|----------|------|\n| Acte de naissance | 200 FCFA |\n| Copie certifiée | 500 FCFA |\n| Acte de mariage | 2 000 FCFA |\n| Acte de décès | 200 FCFA |\n| Certifi...",
+      "langue_reponse": "francais",
+      "intent_resolved": "question_cout",
+      "domaine_resolved": "etat_civil"
+    },
+    "db_log": {
+      "table": "ConversationLog",
+      "saved": true
+    },
+    "total_processing_time_ms": 71
+  },
+  {
+    "trace_id": "MCP-20261111130534-0zng",
+    "timestamp": "2026-11-11T13:05:34.923Z",
+    "client_request": {
+      "method": "POST",
+      "endpoint": "/api/chat",
+      "body": {
+        "message": "Je veux m inscrire a la CNSS"
+      }
+    },
+    "nlp_analysis": {
+      "mode": "python_api",
+      "request_to_nlp": {
+        "method": "POST",
+        "url": "http://localhost:8000/analyser",
+        "body": {
+          "texte": "Je veux m inscrire a la CNSS"
+        }
+      },
+      "response_from_nlp": {
+        "langue": {
+          "langue": "francais",
+          "confiance": 0.286
+        },
+        "intention": {
+          "intention": "demande_document",
+          "confiance": 0.343,
+          "domaine": "cnss"
+        },
+        "entites": {
+          "documents": [],
+          "lieux": [
+            "cnss"
+          ],
+          "montants": [],
+          "dates": []
+        }
+      },
+      "langue_finale": "francais",
+      "processing_time_ms": 66
+    },
+    "mcp_routing": {
+      "serveur_cible": "formulaires",
+      "tools_invoked": [
+        "lister_formulaires"
+      ],
+      "description": "Lister les formulaires CNSS disponibles",
+      "formulaire": null
+    },
+    "mcp_response": {
+      "status": "success",
+      "response_text": "🏥 **Demande de document CNSS**\n\nPour obtenir votre attestation ou carte CNSS :\n\n**Pièces requises :**\n1. CNI\n2. Bulletins de salaire (3 derniers mois)\n3. Contrat de travail\n\n**Lieu :** Agence CNSS la...",
+      "langue_reponse": "francais",
+      "intent_resolved": "demande_document",
+      "domaine_resolved": "cnss"
+    },
+    "db_log": {
+      "table": "ConversationLog",
+      "saved": true
+    },
+    "total_processing_time_ms": 71
+  },
+  {
+    "trace_id": "MCP-20261111130535-akuk",
+    "timestamp": "2026-11-11T13:05:35.008Z",
+    "client_request": {
+      "method": "POST",
+      "endpoint": "/api/chat",
+      "body": {
+        "message": "Naka laa feyee sama wall ?"
+      }
+    },
+    "nlp_analysis": {
+      "mode": "python_api",
+      "request_to_nlp": {
+        "method": "POST",
+        "url": "http://localhost:8000/analyser",
+        "body": {
+          "texte": "Naka laa feyee sama wall ?"
+        }
+      },
+      "response_from_nlp": {
+        "langue": {
+          "langue": "wolof",
+          "confiance": 0.52
+        },
+        "intention": {
+          "intention": "question_delai",
+          "confiance": 0.262,
+          "domaine": "general"
+        },
+        "entites": {
+          "documents": [],
+          "lieux": [],
+          "montants": [],
+          "dates": []
+        }
+      },
+      "langue_finale": "wolof",
+      "processing_time_ms": 74
+    },
+    "mcp_routing": {
+      "serveur_cible": "orchestrateur",
+      "tools_invoked": [],
+      "description": "Demander des précisions à l'utilisateur",
+      "formulaire": null
+    },
+    "mcp_response": {
+      "status": "success",
+      "response_text": "Dégg naa sa laaj. Man naa la ndimbal ci :\n- 📋 État civil\n- 💰 Wàll (DGID)\n- 🏥 CNSS\n- 📝 Formulaires\n\nWax ma lu gën a leer lan la bëgg.",
+      "langue_reponse": "wolof",
+      "intent_resolved": "question_delai",
+      "domaine_resolved": "general"
+    },
+    "db_log": {
+      "table": "ConversationLog",
+      "saved": true
+    },
+    "total_processing_time_ms": 77
+  },
+  {
+    "trace_id": "MCP-20261111132607-kxzs",
+    "timestamp": "2026-11-11T13:26:07.503Z",
+    "client_request": {
+      "method": "POST",
+      "endpoint": "/api/chat",
+      "body": {
+        "message": "bonjour"
+      }
+    },
+    "nlp_analysis": {
+      "mode": "python_api",
+      "request_to_nlp": {
+        "method": "POST",
+        "url": "http://localhost:8000/analyser",
+        "body": {
+          "texte": "bonjour"
+        }
+      },
+      "response_from_nlp": {
+        "langue": {
+          "langue": "francais",
+          "confiance": 1
+        },
+        "intention": {
+          "intention": "salutation",
+          "confiance": 0.794,
+          "domaine": "general"
+        },
+        "entites": {
+          "documents": [],
+          "lieux": [],
+          "montants": [],
+          "dates": []
+        }
+      },
+      "langue_finale": "francais",
+      "processing_time_ms": 110
+    },
+    "mcp_routing": {
+      "serveur_cible": "orchestrateur",
+      "tools_invoked": [],
+      "description": "Répondre à la salutation et proposer les services",
+      "formulaire": null
+    },
+    "mcp_response": {
+      "status": "success",
+      "response_text": "Bonjour ! 👋 Je suis **SunuBot**, votre assistant administratif.\n\nJe peux vous accompagner pour :\n- 📋 **État civil** : actes de naissance, mariage, décès\n- 💰 **Fiscalité (DGID)** : impôts, NINEA, dé...",
+      "langue_reponse": "francais",
+      "intent_resolved": "salutation",
+      "domaine_resolved": "general"
+    },
+    "db_log": {
+      "table": "ConversationLog",
+      "saved": true
+    },
+    "total_processing_time_ms": 130
+  },
+  {
+    "trace_id": "MCP-20261111132744-45fb",
+    "timestamp": "2026-11-11T13:27:44.886Z",
+    "client_request": {
+      "method": "POST",
+      "endpoint": "/api/chat",
+      "body": {
+        "message": "Comment payer mes impôts ?"
+      }
+    },
+    "nlp_analysis": {
+      "mode": "python_api",
+      "request_to_nlp": {
+        "method": "POST",
+        "url": "http://localhost:8000/analyser",
+        "body": {
+          "texte": "Comment payer mes impôts ?"
+        }
+      },
+      "response_from_nlp": {
+        "langue": {
+          "langue": "francais",
+          "confiance": 0.5
+        },
+        "intention": {
+          "intention": "question_procedure",
+          "confiance": 0.33,
+          "domaine": "dgid"
+        },
+        "entites": {
+          "documents": [],
+          "lieux": [],
+          "montants": [],
+          "dates": []
+        }
+      },
+      "langue_finale": "francais",
+      "processing_time_ms": 109
+    },
+    "mcp_routing": {
+      "serveur_cible": "dgid",
+      "tools_invoked": [
+        "get_centre_fiscal",
+        "rechercher_contribuable"
+      ],
+      "description": "Expliquer la procédure fiscale",
+      "formulaire": "form-006"
+    },
+    "mcp_response": {
+      "status": "success",
+      "response_text": "💰 **Procédure fiscale (DGID)**\n\n**Modes de paiement :**\n- 🏦 Virement bancaire\n- 📱 Mobile Money (Orange Money, Wave)\n- 💵 Espèces au guichet\n- 🌐 En ligne : etax.dgid.sn\n\n**Échéances principales :**...",
+      "langue_reponse": "francais",
+      "intent_resolved": "question_procedure",
+      "domaine_resolved": "dgid"
+    },
+    "db_log": {
+      "table": "ConversationLog",
+      "saved": true
+    },
+    "total_processing_time_ms": 126
+  },
+  {
+    "trace_id": "MCP-20261111143024-swig",
+    "timestamp": "2026-11-11T14:30:24.937Z",
+    "client_request": {
+      "method": "POST",
+      "endpoint": "/api/chat",
+      "body": {
+        "message": "Na nga def"
+      }
+    },
+    "nlp_analysis": {
+      "mode": "python_api",
+      "request_to_nlp": {
+        "method": "POST",
+        "url": "http://localhost:8000/analyser",
+        "body": {
+          "texte": "Na nga def"
+        }
+      },
+      "response_from_nlp": {
+        "langue": {
+          "langue": "wolof",
+          "confiance": 1
+        },
+        "intention": {
+          "intention": "salutation",
+          "confiance": 0.234,
+          "domaine": "general"
+        },
+        "entites": {
+          "documents": [],
+          "lieux": [],
+          "montants": [],
+          "dates": []
+        }
+      },
+      "langue_finale": "wolof",
+      "processing_time_ms": 143
+    },
+    "mcp_routing": {
+      "serveur_cible": "orchestrateur",
+      "tools_invoked": [],
+      "description": "Répondre à la salutation et proposer les services",
+      "formulaire": null
+    },
+    "mcp_response": {
+      "status": "success",
+      "response_text": "Jàmm rekk! 👋 Maa ngi **SunuBot**, sa ndimbalkat ci yoon wi.\n\nMan naa la ndimbal ci :\n- 📋 État civil (kàrt bëccëg, takk, dee)\n- 💰 Wàll (impôts, NINEA)\n- 🏥 CNSS (allocations, retraite)\n- 📝 Formulai...",
+      "langue_reponse": "wolof",
+      "intent_resolved": "salutation",
+      "domaine_resolved": "general"
+    },
+    "db_log": {
+      "table": "ConversationLog",
+      "saved": true
+    },
+    "total_processing_time_ms": 248
+  },
+  {
+    "trace_id": "MCP-20261111161340-0pcb",
+    "timestamp": "2026-11-11T16:13:40.416Z",
+    "client_request": {
+      "method": "POST",
+      "endpoint": "/api/chat",
+      "body": {
+        "message": "Bonjour"
+      }
+    },
+    "nlp_analysis": {
+      "mode": "python_api",
+      "request_to_nlp": {
+        "method": "POST",
+        "url": "http://localhost:8000/analyser",
+        "body": {
+          "texte": "Bonjour"
+        }
+      },
+      "response_from_nlp": {
+        "langue": {
+          "langue": "francais",
+          "confiance": 1
+        },
+        "intention": {
+          "intention": "salutation",
+          "confiance": 0.794,
+          "domaine": "general"
+        },
+        "entites": {}
+      },
+      "langue_finale": "francais",
+      "processing_time_ms": 1853
+    },
+    "mcp_routing": {
+      "serveur_cible": "orchestrateur",
+      "tools_invoked": [],
+      "description": "Répondre à la salutation et proposer les services",
+      "formulaire": null
+    },
+    "mcp_response": {
+      "status": "success",
+      "response_text": "Bonjour ! 👋 Je suis **SunuBot**, votre assistant administratif.\n\nJe peux vous accompagner pour :\n- 📋 **État civil** : actes de naissance, mariage, décès\n- 💰 **Fiscalité (DGID)** : impôts, NINEA, dé...",
+      "langue_reponse": "francais",
+      "intent_resolved": "salutation",
+      "domaine_resolved": "general"
+    },
+    "db_log": {
+      "table": "ConversationLog",
+      "saved": true
+    },
+    "total_processing_time_ms": 1938
+  },
+  {
+    "trace_id": "MCP-20261111161342-qgzw",
+    "timestamp": "2026-11-11T16:13:42.364Z",
+    "client_request": {
+      "method": "POST",
+      "endpoint": "/api/chat",
+      "body": {
+        "message": "Na nga def"
+      }
+    },
+    "nlp_analysis": {
+      "mode": "python_api",
+      "request_to_nlp": {
+        "method": "POST",
+        "url": "http://localhost:8000/analyser",
+        "body": {
+          "texte": "Na nga def"
+        }
+      },
+      "response_from_nlp": {
+        "langue": {
+          "langue": "wolof",
+          "confiance": 1
+        },
+        "intention": {
+          "intention": "salutation",
+          "confiance": 0.234,
+          "domaine": "general"
+        },
+        "entites": {}
+      },
+      "langue_finale": "wolof",
+      "processing_time_ms": 889
+    },
+    "mcp_routing": {
+      "serveur_cible": "orchestrateur",
+      "tools_invoked": [],
+      "description": "Répondre à la salutation et proposer les services",
+      "formulaire": null
+    },
+    "mcp_response": {
+      "status": "success",
+      "response_text": "Jàmm rekk! 👋 Maa ngi **SunuBot**, sa ndimbalkat ci yoon wi.\n\nMan naa la ndimbal ci :\n- 📋 État civil (kàrt bëccëg, takk, dee)\n- 💰 Wàll (impôts, NINEA)\n- 🏥 CNSS (allocations, retraite)\n- 📝 Formulai...",
+      "langue_reponse": "wolof",
+      "intent_resolved": "salutation",
+      "domaine_resolved": "general"
+    },
+    "db_log": {
+      "table": "ConversationLog",
+      "saved": true
+    },
+    "total_processing_time_ms": 895
+  },
+  {
+    "trace_id": "MCP-20261111161343-po5w",
+    "timestamp": "2026-11-11T16:13:43.269Z",
+    "client_request": {
+      "method": "POST",
+      "endpoint": "/api/chat",
+      "body": {
+        "message": "Comment payer mes impots ?"
+      }
+    },
+    "nlp_analysis": {
+      "mode": "python_api",
+      "request_to_nlp": {
+        "method": "POST",
+        "url": "http://localhost:8000/analyser",
+        "body": {
+          "texte": "Comment payer mes impots ?"
+        }
+      },
+      "response_from_nlp": {
+        "langue": {
+          "langue": "francais",
+          "confiance": 0.5
+        },
+        "intention": {
+          "intention": "question_procedure",
+          "confiance": 0.29,
+          "domaine": "dgid"
+        },
+        "entites": {}
+      },
+      "langue_finale": "francais",
+      "processing_time_ms": 945
+    },
+    "mcp_routing": {
+      "serveur_cible": "dgid",
+      "tools_invoked": [
+        "get_centre_fiscal",
+        "rechercher_contribuable"
+      ],
+      "description": "Expliquer la procédure fiscale",
+      "formulaire": "form-006"
+    },
+    "mcp_response": {
+      "status": "success",
+      "response_text": "💰 **Procédure fiscale (DGID)**\n\n**Modes de paiement :**\n- 🏦 Virement bancaire\n- 📱 Mobile Money (Orange Money, Wave)\n- 💵 Espèces au guichet\n- 🌐 En ligne : etax.dgid.sn\n\n**Échéances principales :**...",
+      "langue_reponse": "francais",
+      "intent_resolved": "question_procedure",
+      "domaine_resolved": "dgid"
+    },
+    "db_log": {
+      "table": "ConversationLog",
+      "saved": true
+    },
+    "total_processing_time_ms": 951
+  },
+  {
+    "trace_id": "MCP-20261111161344-49ok",
+    "timestamp": "2026-11-11T16:13:44.231Z",
+    "client_request": {
+      "method": "POST",
+      "endpoint": "/api/chat",
+      "body": {
+        "message": "Je veux mon acte de naissance"
+      }
+    },
+    "nlp_analysis": {
+      "mode": "python_api",
+      "request_to_nlp": {
+        "method": "POST",
+        "url": "http://localhost:8000/analyser",
+        "body": {
+          "texte": "Je veux mon acte de naissance"
+        }
+      },
+      "response_from_nlp": {
+        "langue": {
+          "langue": "francais",
+          "confiance": 0.5
+        },
+        "intention": {
+          "intention": "demande_document",
+          "confiance": 0.64,
+          "domaine": "etat_civil"
+        },
+        "entites": {}
+      },
+      "langue_finale": "francais",
+      "processing_time_ms": 1209
+    },
+    "mcp_routing": {
+      "serveur_cible": "etat-civil",
+      "tools_invoked": [
+        "rechercher_citoyen",
+        "get_acte_naissance"
+      ],
+      "description": "Rechercher le citoyen puis proposer le formulaire de demande",
+      "formulaire": "form-001"
+    },
+    "mcp_response": {
+      "status": "success",
+      "response_text": "📋 **Demande d'acte d'état civil**\n\nVoici les informations :\n\n**Pièces requises :**\n1. Pièce d'identité (CNI ou passeport)\n2. Ancien acte (si disponible)\n3. Timbre fiscal de 200 FCFA\n\n**Coût :** 200 F...",
+      "langue_reponse": "francais",
+      "intent_resolved": "demande_document",
+      "domaine_resolved": "etat_civil"
+    },
+    "db_log": {
+      "table": "ConversationLog",
+      "saved": true
+    },
+    "total_processing_time_ms": 1214
+  },
+  {
+    "trace_id": "MCP-20261111161345-hcsg",
+    "timestamp": "2026-11-11T16:13:45.456Z",
+    "client_request": {
+      "method": "POST",
+      "endpoint": "/api/chat",
+      "body": {
+        "message": "Dama begg sama kart becceg"
+      }
+    },
+    "nlp_analysis": {
+      "mode": "python_api",
+      "request_to_nlp": {
+        "method": "POST",
+        "url": "http://localhost:8000/analyser",
+        "body": {
+          "texte": "Dama begg sama kart becceg"
+        }
+      },
+      "response_from_nlp": {
+        "langue": {
+          "langue": "wolof",
+          "confiance": 0.52
+        },
+        "intention": {
+          "intention": "demande_document",
+          "confiance": 0.712,
+          "domaine": "etat_civil"
+        },
+        "entites": {}
+      },
+      "langue_finale": "wolof",
+      "processing_time_ms": 910
+    },
+    "mcp_routing": {
+      "serveur_cible": "etat-civil",
+      "tools_invoked": [
+        "rechercher_citoyen",
+        "get_acte_naissance"
+      ],
+      "description": "Rechercher le citoyen puis proposer le formulaire de demande",
+      "formulaire": "form-001"
+    },
+    "mcp_response": {
+      "status": "success",
+      "response_text": "📋 **Laaj kàrt ci état civil**\n\n**Papye yi nga war a indil :**\n1. Kàrt boppam (CNI walla passeport)\n2. Kàrt bu yàgg (su am)\n3. Timbre fiscal 200 FCFA\n\n**Ñaata :** 200 FCFA\n**Ñaata bés :** 3 ba 5 bés\n*...",
+      "langue_reponse": "wolof",
+      "intent_resolved": "demande_document",
+      "domaine_resolved": "etat_civil"
+    },
+    "db_log": {
+      "table": "ConversationLog",
+      "saved": true
+    },
+    "total_processing_time_ms": 917
+  },
+  {
+    "trace_id": "MCP-20261111161346-5a4s",
+    "timestamp": "2026-11-11T16:13:46.386Z",
+    "client_request": {
+      "method": "POST",
+      "endpoint": "/api/chat",
+      "body": {
+        "message": "Je veux un NINEA"
+      }
+    },
+    "nlp_analysis": {
+      "mode": "python_api",
+      "request_to_nlp": {
+        "method": "POST",
+        "url": "http://localhost:8000/analyser",
+        "body": {
+          "texte": "Je veux un NINEA"
+        }
+      },
+      "response_from_nlp": {
+        "langue": {
+          "langue": "francais",
+          "confiance": 0.5
+        },
+        "intention": {
+          "intention": "demande_document",
+          "confiance": 0.405,
+          "domaine": "dgid"
+        },
+        "entites": {}
+      },
+      "langue_finale": "francais",
+      "processing_time_ms": 1210
+    },
+    "mcp_routing": {
+      "serveur_cible": "dgid",
+      "tools_invoked": [
+        "rechercher_contribuable",
+        "get_statut_fiscal"
+      ],
+      "description": "Vérifier le statut et proposer l'immatriculation",
+      "formulaire": "form-005"
+    },
+    "mcp_response": {
+      "status": "success",
+      "response_text": "🏢 **Demande de document fiscal**\n\nPour obtenir votre attestation fiscale ou NINEA :\n\n**Pièces requises :**\n1. CNI du gérant\n2. Registre de commerce (RCCM)\n3. Statuts de la société\n4. Plan de localisa...",
+      "langue_reponse": "francais",
+      "intent_resolved": "demande_document",
+      "domaine_resolved": "dgid"
+    },
+    "db_log": {
+      "table": "ConversationLog",
+      "saved": true
+    },
+    "total_processing_time_ms": 1216
+  },
+  {
+    "trace_id": "MCP-20261111161347-dm3m",
+    "timestamp": "2026-11-11T16:13:47.614Z",
+    "client_request": {
+      "method": "POST",
+      "endpoint": "/api/chat",
+      "body": {
+        "message": "Ou se trouve le bureau des impots ?"
+      }
+    },
+    "nlp_analysis": {
+      "mode": "python_api",
+      "request_to_nlp": {
+        "method": "POST",
+        "url": "http://localhost:8000/analyser",
+        "body": {
+          "texte": "Ou se trouve le bureau des impots ?"
+        }
+      },
+      "response_from_nlp": {
+        "langue": {
+          "langue": "francais",
+          "confiance": 0.429
+        },
+        "intention": {
+          "intention": "question_lieu",
+          "confiance": 0.486,
+          "domaine": "dgid"
+        },
+        "entites": {}
+      },
+      "langue_finale": "francais",
+      "processing_time_ms": 917
+    },
+    "mcp_routing": {
+      "serveur_cible": "dgid",
+      "tools_invoked": [
+        "rechercher_contribuable"
+      ],
+      "description": "Rechercher dans les données fiscales",
+      "formulaire": null
+    },
+    "mcp_response": {
+      "status": "success",
+      "response_text": "📍 **Centres fiscaux (DGID)**\n\nLes centres des services fiscaux :\n- **Dakar :** Centre fiscal de Dakar, Plateau\n- **Thiès :** Centre fiscal régional de Thiès\n- **Saint-Louis :** Centre fiscal de Saint...",
+      "langue_reponse": "francais",
+      "intent_resolved": "question_lieu",
+      "domaine_resolved": "dgid"
+    },
+    "db_log": {
+      "table": "ConversationLog",
+      "saved": true
+    },
+    "total_processing_time_ms": 923
+  },
+  {
+    "trace_id": "MCP-20261111161348-gp75",
+    "timestamp": "2026-11-11T16:13:48.552Z",
+    "client_request": {
+      "method": "POST",
+      "endpoint": "/api/chat",
+      "body": {
+        "message": "Combien coute l acte de naissance ?"
+      }
+    },
+    "nlp_analysis": {
+      "mode": "python_api",
+      "request_to_nlp": {
+        "method": "POST",
+        "url": "http://localhost:8000/analyser",
+        "body": {
+          "texte": "Combien coute l acte de naissance ?"
+        }
+      },
+      "response_from_nlp": {
+        "langue": {
+          "langue": "francais",
+          "confiance": 0.333
+        },
+        "intention": {
+          "intention": "question_cout",
+          "confiance": 0.259,
+          "domaine": "etat_civil"
+        },
+        "entites": {}
+      },
+      "langue_finale": "francais",
+      "processing_time_ms": 984
+    },
+    "mcp_routing": {
+      "serveur_cible": "formulaires",
+      "tools_invoked": [
+        "get_formulaire"
+      ],
+      "description": "Indiquer le coût de la démarche",
+      "formulaire": "form-001"
+    },
+    "mcp_response": {
+      "status": "success",
+      "response_text": "💵 **Coûts état civil**\n\n| Document | Coût |\n|----------|------|\n| Acte de naissance | 200 FCFA |\n| Copie certifiée | 500 FCFA |\n| Acte de mariage | 2 000 FCFA |\n| Acte de décès | 200 FCFA |\n| Certifi...",
+      "langue_reponse": "francais",
+      "intent_resolved": "question_cout",
+      "domaine_resolved": "etat_civil"
+    },
+    "db_log": {
+      "table": "ConversationLog",
+      "saved": true
+    },
+    "total_processing_time_ms": 990
+  },
+  {
+    "trace_id": "MCP-20261111161349-farg",
+    "timestamp": "2026-11-11T16:13:49.555Z",
+    "client_request": {
+      "method": "POST",
+      "endpoint": "/api/chat",
+      "body": {
+        "message": "Je veux m inscrire a la CNSS"
+      }
+    },
+    "nlp_analysis": {
+      "mode": "python_api",
+      "request_to_nlp": {
+        "method": "POST",
+        "url": "http://localhost:8000/analyser",
+        "body": {
+          "texte": "Je veux m inscrire a la CNSS"
+        }
+      },
+      "response_from_nlp": {
+        "langue": {
+          "langue": "francais",
+          "confiance": 0.286
+        },
+        "intention": {
+          "intention": "demande_document",
+          "confiance": 0.343,
+          "domaine": "cnss"
+        },
+        "entites": {}
+      },
+      "langue_finale": "francais",
+      "processing_time_ms": 906
+    },
+    "mcp_routing": {
+      "serveur_cible": "formulaires",
+      "tools_invoked": [
+        "lister_formulaires"
+      ],
+      "description": "Lister les formulaires CNSS disponibles",
+      "formulaire": null
+    },
+    "mcp_response": {
+      "status": "success",
+      "response_text": "🏥 **Demande de document CNSS**\n\nPour obtenir votre attestation ou carte CNSS :\n\n**Pièces requises :**\n1. CNI\n2. Bulletins de salaire (3 derniers mois)\n3. Contrat de travail\n\n**Lieu :** Agence CNSS la...",
+      "langue_reponse": "francais",
+      "intent_resolved": "demande_document",
+      "domaine_resolved": "cnss"
+    },
+    "db_log": {
+      "table": "ConversationLog",
+      "saved": true
+    },
+    "total_processing_time_ms": 948
+  },
+  {
+    "trace_id": "MCP-20261111161350-npup",
+    "timestamp": "2026-11-11T16:13:50.516Z",
+    "client_request": {
+      "method": "POST",
+      "endpoint": "/api/chat",
+      "body": {
+        "message": "Naka laa feyee sama wall ?"
+      }
+    },
+    "nlp_analysis": {
+      "mode": "python_api",
+      "request_to_nlp": {
+        "method": "POST",
+        "url": "http://localhost:8000/analyser",
+        "body": {
+          "texte": "Naka laa feyee sama wall ?"
+        }
+      },
+      "response_from_nlp": {
+        "langue": {
+          "langue": "wolof",
+          "confiance": 0.52
+        },
+        "intention": {
+          "intention": "question_delai",
+          "confiance": 0.262,
+          "domaine": "general"
+        },
+        "entites": {}
+      },
+      "langue_finale": "wolof",
+      "processing_time_ms": 1081
+    },
+    "mcp_routing": {
+      "serveur_cible": "orchestrateur",
+      "tools_invoked": [],
+      "description": "Demander des précisions à l'utilisateur",
+      "formulaire": null
+    },
+    "mcp_response": {
+      "status": "success",
+      "response_text": "Dégg naa sa laaj. Man naa la ndimbal ci :\n- 📋 État civil\n- 💰 Wàll (DGID)\n- 🏥 CNSS\n- 📝 Formulaires\n\nWax ma lu gën a leer lan la bëgg.",
+      "langue_reponse": "wolof",
+      "intent_resolved": "question_delai",
+      "domaine_resolved": "general"
+    },
+    "db_log": {
+      "table": "ConversationLog",
+      "saved": true
+    },
+    "total_processing_time_ms": 1122
+  }
+]

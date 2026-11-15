@@ -1,0 +1,31 @@
+{
+  "date_utc": "2026-11-02T00:35:47.484Z",
+  "environment": {
+    "frontend": "Next.js local sur http://localhost:3001",
+    "database": "PostgreSQL 14, base sunubot, port 5433"
+  },
+  "request": {
+    "method": "POST",
+    "path": "/api/formulaire",
+    "action": "soumettre",
+    "type_document": "acte_naissance",
+    "dataset": "citoyen de démonstration déjà présent dans la base",
+    "personal_fields_omitted": true
+  },
+  "api_response": {
+    "success": true,
+    "reference": "DEM-2024-001",
+    "status": "soumise",
+    "date_prevue": "2026-11-03",
+    "lieu_retrait": "Centre d'état civil de Thiès"
+  },
+  "database_verification": {
+    "table": "service_records",
+    "reference": "DEM-2024-001",
+    "type": "etat_civil",
+    "status": "soumise",
+    "found": true,
+    "created_at_utc": "2026-11-02T00:35:47.484Z"
+  },
+  "scope_note": "Le POST API et la lecture PostgreSQL ont été vérifiés. Cette preuve ne remplace pas une capture du parcours saisi dans l'interface web."
+}

@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Architecture SunuBot</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f5f7fa;
+    padding: 30px;
+    min-height: 100vh;
+  }
+  .title-bar {
+    background: linear-gradient(135deg, #1a237e, #283593);
+    color: white;
+    text-align: center;
+    padding: 18px 30px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    font-size: 22px;
+    font-weight: bold;
+    letter-spacing: 1px;
+  }
+  .title-bar .sub {
+    font-size: 13px;
+    font-weight: normal;
+    opacity: 0.85;
+    margin-top: 5px;
+  }
+  .container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .row {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: stretch;
+  }
+  .box {
+    border-radius: 12px;
+    padding: 18px 22px;
+    color: white;
+    min-width: 200px;
+    text-align: center;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.15);
+    position: relative;
+  }
+  .box h3 { font-size: 15px; margin-bottom: 6px; }
+  .box p { font-size: 11.5px; opacity: 0.92; line-height: 1.4; }
+  .box .tech {
+    font-size: 10px;
+    background: rgba(255,255,255,0.2);
+    padding: 3px 8px;
+    border-radius: 20px;
+    display: inline-block;
+    margin-top: 6px;
+  }
+  .box .port {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    font-size: 10px;
+    background: rgba(0,0,0,0.25);
+    padding: 2px 7px;
+    border-radius: 10px;
+  }
+
+  /* Colors */
+  .client { background: linear-gradient(135deg, #00897b, #00695c); }
+  .frontend { background: linear-gradient(135deg, #1565c0, #0d47a1); flex: 1; }
+  .nlp { background: linear-gradient(135deg, #e65100, #bf360c); }
+  .db { background: linear-gradient(135deg, #2e7d32, #1b5e20); }
+  .mistral { background: linear-gradient(135deg, #6a1b9a, #4a148c); }
+  .mcp-server { background: linear-gradient(135deg, #37474f, #263238); min-width: 160px; }
+
+  /* Arrows */
+  .arrow-down {
+    text-align: center;
+    font-size: 13px;
+    color: #546e7a;
+    padding: 5px 0;
+  }
+  .arrow-down .label {
+    font-size: 11px;
+    background: #e0e0e0;
+    padding: 3px 12px;
+    border-radius: 20px;
+    display: inline-block;
+    margin: 3px 0;
+  }
+  .arrow-down .arrow { font-size: 22px; color: #90a4ae; }
+
+  /* Section groups */
+  .section-group {
+    border: 2px dashed #b0bec5;
+    border-radius: 14px;
+    padding: 16px;
+    background: rgba(255,255,255,0.5);
+  }
+  .section-group .section-title {
+    font-size: 12px;
+    color: #607d8b;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 12px;
+    text-align: center;
+  }
+
+  /* Tool list */
+  .tools {
+    text-align: left;
+    margin-top: 8px;
+    font-size: 10.5px;
+  }
+  .tools span {
+    display: block;
+    padding: 1px 0;
+    opacity: 0.9;
+  }
+
+  /* Legend */
+  .legend {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    padding: 12px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.08);
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: #455a64;
+  }
+  .legend-color {
+    width: 14px;
+    height: 14px;
+    border-radius: 4px;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="title-bar">
+    ARCHITECTURE GLOBALE — SunuBot
+    <div class="sub">Chatbot multilingue français/wolof avec MCP pour les services administratifs sénégalais</div>
+  </div>
+
+  <!-- CLIENT -->
+  <div class="row">
+    <div class="box client" style="width: 350px;">
+      <h3>🌐 Navigateur Web (Citoyen)</h3>
+      <p>Le citoyen accède au chatbot via son navigateur.<br>Il peut écrire en français ou en wolof.</p>
+      <span class="tech">HTTP / HTTPS</span>
+    </div>
+  </div>
+
+  <div class="arrow-down">
+    <div class="arrow">▼</div>
+    <div class="label">POST /api/chat — JSON</div>
+    <div class="arrow">▼</div>
+  </div>
+
+  <!-- FRONTEND -->
+  <div class="row">
+    <div class="box frontend" style="width: 700px;">
+      <span class="port">:5001</span>
+      <h3>⚡ Frontend + API — Next.js 15.3.3</h3>
+      <p>Interface chat, authentification, formulaires dynamiques,<br>
+         sélection de langue, orchestrateur MCP, système de traces</p>
+      <div style="margin-top: 10px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+        <span class="tech">React</span>
+        <span class="tech">API Routes</span>
+        <span class="tech">Prisma ORM</span>
+        <span class="tech">JWT Auth</span>
+        <span class="tech">MCP Tracer</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="arrow-down">
+    <div style="display: flex; justify-content: center; gap: 120px;">
+      <div>
+        <div class="arrow">▼</div>
+        <div class="label">POST /analyser</div>
+      </div>
+      <div>
+        <div class="arrow">▼</div>
+        <div class="label">SQL (Prisma)</div>
+      </div>
+      <div>
+        <div class="arrow">▼</div>
+        <div class="label">API REST</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NLP + DB + MISTRAL -->
+  <div class="row">
+    <div class="box nlp" style="flex: 1;">
+      <span class="port">:8000</span>
+      <h3>🧠 Serveur NLP — FastAPI Python</h3>
+      <p>Analyse du langage naturel<br>wolof + français</p>
+      <div style="margin-top: 10px; display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;">
+        <span class="tech">mBERT fine-tuné</span>
+        <span class="tech">TF-IDF</span>
+        <span class="tech">PyTorch 2.12</span>
+      </div>
+      <div class="tools">
+        <span>→ /analyser (pipeline complet)</span>
+        <span>→ /detecter-langue</span>
+        <span>→ /classifier-intention</span>
+        <span>→ /extraire-entites</span>
+      </div>
+    </div>
+
+    <div class="box db">
+      <span class="port">:5433</span>
+      <h3>🗄️ PostgreSQL 14</h3>
+      <p>Base de données sunubot</p>
+      <div class="tools" style="margin-top: 10px;">
+        <span>📋 comptes</span>
+        <span>📋 citoyens</span>
+        <span>📋 conversation_logs</span>
+        <span>📋 demandes</span>
+        <span>📋 service_records</span>
+      </div>
+    </div>
+
+    <div class="box mistral">
+      <h3>✨ Mistral API</h3>
+      <p>LLM cloud pour analyse fine<br>et génération de réponses</p>
+      <div style="margin-top: 8px;">
+        <span class="tech">mistral-small-latest</span>
+      </div>
+      <div class="tools" style="margin-top: 8px;">
+        <span>→ Analyse contextuelle</span>
+        <span>→ Extraction entités</span>
+        <span>→ Génération réponse</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="arrow-down">
+    <div class="arrow">▼</div>
+    <div class="label">Routage MCP — sélection du serveur et des outils</div>
+    <div class="arrow">▼</div>
+  </div>
+
+  <!-- 4 SERVEURS MCP -->
+  <div class="section-group">
+    <div class="section-title">4 Serveurs MCP (Model Context Protocol)</div>
+    <div class="row">
+      <div class="box mcp-server">
+        <h3>📋 État Civil</h3>
+        <div class="tools">
+          <span>🔧 rechercher_citoyen</span>
+          <span>🔧 get_acte_naissance</span>
+          <span>🔧 get_acte_mariage</span>
+          <span>🔧 centres_etat_civil</span>
+        </div>
+      </div>
+
+      <div class="box mcp-server">
+        <h3>💰 DGID (Fiscalité)</h3>
+        <div class="tools">
+          <span>🔧 rechercher_contribuable</span>
+          <span>🔧 get_centre_fiscal</span>
+          <span>🔧 get_statut_fiscal</span>
+          <span>🔧 calculer_penalites</span>
+        </div>
+      </div>
+
+      <div class="box mcp-server">
+        <h3>🏥 CNSS</h3>
+        <div class="tools">
+          <span>🔧 lister_formulaires</span>
+          <span>🔧 preremplir_formulaire</span>
+          <span>🔧 soumettre_formulaire</span>
+        </div>
+      </div>
+
+      <div class="box mcp-server">
+        <h3>📝 Formulaires</h3>
+        <div class="tools">
+          <span>🔧 get_formulaire</span>
+          <span>🔧 get_pieces_requises</span>
+          <span>🔧 suivre_demande</span>
+          <span>🔧 soumettre</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LEGENDE -->
+  <div class="legend">
+    <div class="legend-item">
+      <div class="legend-color" style="background: #00897b;"></div>
+      Client (Navigateur)
+    </div>
+    <div class="legend-item">
+      <div class="legend-color" style="background: #1565c0;"></div>
+      Frontend (Next.js)
+    </div>
+    <div class="legend-item">
+      <div class="legend-color" style="background: #e65100;"></div>
+      NLP (FastAPI + mBERT)
+    </div>
+    <div class="legend-item">
+      <div class="legend-color" style="background: #2e7d32;"></div>
+      Base de données (PostgreSQL)
+    </div>
+    <div class="legend-item">
+      <div class="legend-color" style="background: #6a1b9a;"></div>
+      LLM (Mistral API)
+    </div>
+    <div class="legend-item">
+      <div class="legend-color" style="background: #37474f;"></div>
+      Serveurs MCP
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

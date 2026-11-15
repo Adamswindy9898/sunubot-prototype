@@ -1,0 +1,34 @@
+{
+  "titre": "Jeu de test initial indépendant pour la classification d'intentions mBERT",
+  "date_creation": "2026-11-02",
+  "nombre_exemples": 16,
+  "classes": [
+    "demande_document",
+    "question_procedure",
+    "question_lieu",
+    "question_cout",
+    "question_delai",
+    "salutation",
+    "inscription",
+    "suivi_demande"
+  ],
+  "note_annotation": "Étiquettes proposées selon l'intention dominante. Les phrases wolof doivent être relues par un locuteur compétent avant toute validation académique.",
+  "donnees": [
+    {"id": "I01", "texte": "Bonsoir, j'aurais besoin d'un renseignement administratif.", "langue": "francais", "intention_attendue": "salutation"},
+    {"id": "I02", "texte": "Salaam, maa ngi fi ngir laaj la benn laaj.", "langue": "wolof", "intention_attendue": "salutation", "relecture_wolof": "requise"},
+    {"id": "I03", "texte": "Il me faudrait un extrait d'etat civil pour mon dossier.", "langue": "francais", "intention_attendue": "demande_document"},
+    {"id": "I04", "texte": "Soxla naa am sama kart juddu.", "langue": "wolof", "intention_attendue": "demande_document", "relecture_wolof": "requise"},
+    {"id": "I05", "texte": "Je souhaite faire inscrire mon enfant au registre communal.", "langue": "francais", "intention_attendue": "inscription"},
+    {"id": "I06", "texte": "Dama begg bind sama doom ci registre bi.", "langue": "wolof", "intention_attendue": "inscription", "relecture_wolof": "requise"},
+    {"id": "I07", "texte": "Quelles demarches suivre pour declarer la TVA de mon activite ?", "langue": "francais", "intention_attendue": "question_procedure"},
+    {"id": "I08", "texte": "Naka laay def ngir yonnee sama declaration TVA ?", "langue": "wolof", "intention_attendue": "question_procedure", "relecture_wolof": "requise"},
+    {"id": "I09", "texte": "A quelle adresse dois-je me rendre pour le service fiscal de Thies ?", "langue": "francais", "intention_attendue": "question_lieu"},
+    {"id": "I10", "texte": "Fu lañu nekk ngir gis biro wall bi ?", "langue": "wolof", "intention_attendue": "question_lieu", "relecture_wolof": "requise"},
+    {"id": "I11", "texte": "Faut-il payer des frais pour obtenir une copie integrale d'un acte de deces ?", "langue": "francais", "intention_attendue": "question_cout"},
+    {"id": "I12", "texte": "Ñaata xaalis lañuy joxe ngir am koppi kàrt dee ?", "langue": "wolof", "intention_attendue": "question_cout", "relecture_wolof": "requise"},
+    {"id": "I13", "texte": "Combien de temps faut-il attendre avant le retrait du document ?", "langue": "francais", "intention_attendue": "question_delai"},
+    {"id": "I14", "texte": "Ñaata fan laay xaar ngir jël sama kàrt bi ?", "langue": "wolof", "intention_attendue": "question_delai", "relecture_wolof": "requise"},
+    {"id": "I15", "texte": "J'ai depose mon dossier la semaine derniere ; est-il deja traite ?", "langue": "francais", "intention_attendue": "suivi_demande"},
+    {"id": "I16", "texte": "Yónnee naa sama dossier bi ; ndax ñu ngi ko liggéey ?", "langue": "wolof", "intention_attendue": "suivi_demande", "relecture_wolof": "requise"}
+  ]
+}

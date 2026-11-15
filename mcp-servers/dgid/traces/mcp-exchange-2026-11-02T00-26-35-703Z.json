@@ -1,0 +1,291 @@
+{
+  "startedAt": "2026-11-02T00:26:35.033Z",
+  "client": {
+    "name": "sunubot-mcp-demo-client",
+    "version": "1.0.0"
+  },
+  "serverCommand": "C:\\Program Files\\nodejs\\node.exe",
+  "serverArgs": [
+    "C:\\Users\\DELL\\OneDrive\\Bureau\\Memoire\\prototype\\mcp-servers\\dgid\\dist\\index.js"
+  ],
+  "transport": "stdio",
+  "events": [
+    {
+      "at": "2026-11-02T00:26:35.056Z",
+      "direction": "client_to_server",
+      "message": {
+        "method": "initialize",
+        "params": {
+          "protocolVersion": "2025-11-25",
+          "capabilities": {},
+          "clientInfo": {
+            "name": "sunubot-mcp-demo-client",
+            "version": "1.0.0"
+          }
+        },
+        "jsonrpc": "2.0",
+        "id": 0
+      }
+    },
+    {
+      "at": "2026-11-02T00:26:35.658Z",
+      "direction": "server_stderr",
+      "text": "Serveur MCP DGID démarré avec succès."
+    },
+    {
+      "at": "2026-11-02T00:26:35.671Z",
+      "direction": "server_to_client",
+      "message": {
+        "jsonrpc": "2.0",
+        "id": 0,
+        "result": {
+          "protocolVersion": "2025-11-25",
+          "capabilities": {
+            "tools": {
+              "listChanged": true
+            },
+            "resources": {
+              "listChanged": true
+            }
+          },
+          "serverInfo": {
+            "name": "dgid-senegal",
+            "version": "1.0.0",
+            "description": "Serveur MCP pour la Direction Générale des Impôts et Domaines du Sénégal"
+          }
+        }
+      }
+    },
+    {
+      "at": "2026-11-02T00:26:35.673Z",
+      "direction": "client_to_server",
+      "message": {
+        "method": "notifications/initialized",
+        "jsonrpc": "2.0"
+      }
+    },
+    {
+      "at": "2026-11-02T00:26:35.674Z",
+      "direction": "client_to_server",
+      "message": {
+        "method": "tools/list",
+        "jsonrpc": "2.0",
+        "id": 1
+      }
+    },
+    {
+      "at": "2026-11-02T00:26:35.678Z",
+      "direction": "server_to_client",
+      "message": {
+        "jsonrpc": "2.0",
+        "id": 1,
+        "result": {
+          "tools": [
+            {
+              "name": "get_statut_fiscal",
+              "description": "Consulte le statut fiscal d'un contribuable par NINEA, NIF ou nom",
+              "inputSchema": {
+                "$schema": "http://json-schema.org/draft-07/schema#",
+                "type": "object",
+                "properties": {
+                  "identifiant": {
+                    "type": "string",
+                    "description": "NINEA (ex: 001234567-2A3), NIF (ex: NIF-2020-001-DKR) ou nom du contribuable"
+                  }
+                },
+                "required": [
+                  "identifiant"
+                ]
+              },
+              "execution": {
+                "taskSupport": "forbidden"
+              }
+            },
+            {
+              "name": "check_declarations",
+              "description": "Vérifie les déclarations fiscales d'un contribuable (TVA, IS, IR, patente, etc.)",
+              "inputSchema": {
+                "$schema": "http://json-schema.org/draft-07/schema#",
+                "type": "object",
+                "properties": {
+                  "contribuable_id": {
+                    "type": "string",
+                    "description": "ID du contribuable (ex: contrib-001) ou NINEA"
+                  },
+                  "type_declaration": {
+                    "description": "Type de déclaration à filtrer (TVA, IR, IS, patente, CFCE, BRS)",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "contribuable_id"
+                ]
+              },
+              "execution": {
+                "taskSupport": "forbidden"
+              }
+            },
+            {
+              "name": "get_paiements",
+              "description": "Consulte l'historique des paiements fiscaux d'un contribuable",
+              "inputSchema": {
+                "$schema": "http://json-schema.org/draft-07/schema#",
+                "type": "object",
+                "properties": {
+                  "contribuable_id": {
+                    "type": "string",
+                    "description": "ID du contribuable (ex: contrib-001) ou NINEA"
+                  }
+                },
+                "required": [
+                  "contribuable_id"
+                ]
+              },
+              "execution": {
+                "taskSupport": "forbidden"
+              }
+            },
+            {
+              "name": "calculer_penalites",
+              "description": "Calcule les pénalités de retard pour les déclarations ou paiements en retard",
+              "inputSchema": {
+                "$schema": "http://json-schema.org/draft-07/schema#",
+                "type": "object",
+                "properties": {
+                  "contribuable_id": {
+                    "type": "string",
+                    "description": "ID du contribuable (ex: contrib-001) ou NINEA"
+                  }
+                },
+                "required": [
+                  "contribuable_id"
+                ]
+              },
+              "execution": {
+                "taskSupport": "forbidden"
+              }
+            },
+            {
+              "name": "get_centre_fiscal",
+              "description": "Trouve le centre fiscal compétent pour un contribuable selon sa région ou son régime",
+              "inputSchema": {
+                "$schema": "http://json-schema.org/draft-07/schema#",
+                "type": "object",
+                "properties": {
+                  "region": {
+                    "description": "Région du contribuable (ex: Dakar, Thiès, Saint-Louis)",
+                    "type": "string"
+                  },
+                  "regime_fiscal": {
+                    "description": "Régime fiscal (reel_normal, reel_simplifie, contribution_globale_unique)",
+                    "type": "string"
+                  }
+                }
+              },
+              "execution": {
+                "taskSupport": "forbidden"
+              }
+            },
+            {
+              "name": "rechercher_contribuable",
+              "description": "Recherche un contribuable par nom, NINEA ou activité",
+              "inputSchema": {
+                "$schema": "http://json-schema.org/draft-07/schema#",
+                "type": "object",
+                "properties": {
+                  "query": {
+                    "type": "string",
+                    "description": "Terme de recherche (nom, NINEA, raison sociale ou activité)"
+                  }
+                },
+                "required": [
+                  "query"
+                ]
+              },
+              "execution": {
+                "taskSupport": "forbidden"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "at": "2026-11-02T00:26:35.680Z",
+      "direction": "client_to_server",
+      "message": {
+        "method": "tools/call",
+        "params": {
+          "name": "get_centre_fiscal",
+          "arguments": {
+            "region": "Thiès"
+          }
+        },
+        "jsonrpc": "2.0",
+        "id": 2
+      }
+    },
+    {
+      "at": "2026-11-02T00:26:35.682Z",
+      "direction": "server_to_client",
+      "message": {
+        "jsonrpc": "2.0",
+        "id": 2,
+        "result": {
+          "content": [
+            {
+              "type": "text",
+              "text": "{\n  \"centres_fiscaux\": [\n    {\n      \"nom\": \"Centre des Impôts de Thiès (CDI)\",\n      \"type\": \"CDI\",\n      \"region\": \"Thiès\",\n      \"adresse\": \"Avenue Léopold Sédar Senghor, Thiès\",\n      \"telephone\": \"+221 33 951 30 00\",\n      \"horaires\": \"Lundi-Vendredi 8h-16h\",\n      \"chef_centre\": \"M. Abdoulaye NDIAYE\"\n    }\n  ]\n}"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "server": {
+    "name": "dgid-senegal",
+    "version": "1.0.0",
+    "description": "Serveur MCP pour la Direction Générale des Impôts et Domaines du Sénégal"
+  },
+  "discoveredTools": [
+    {
+      "name": "get_statut_fiscal",
+      "description": "Consulte le statut fiscal d'un contribuable par NINEA, NIF ou nom"
+    },
+    {
+      "name": "check_declarations",
+      "description": "Vérifie les déclarations fiscales d'un contribuable (TVA, IS, IR, patente, etc.)"
+    },
+    {
+      "name": "get_paiements",
+      "description": "Consulte l'historique des paiements fiscaux d'un contribuable"
+    },
+    {
+      "name": "calculer_penalites",
+      "description": "Calcule les pénalités de retard pour les déclarations ou paiements en retard"
+    },
+    {
+      "name": "get_centre_fiscal",
+      "description": "Trouve le centre fiscal compétent pour un contribuable selon sa région ou son régime"
+    },
+    {
+      "name": "rechercher_contribuable",
+      "description": "Recherche un contribuable par nom, NINEA ou activité"
+    }
+  ],
+  "demoCall": {
+    "name": "get_centre_fiscal",
+    "arguments": {
+      "region": "Thiès"
+    }
+  },
+  "demoResult": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"centres_fiscaux\": [\n    {\n      \"nom\": \"Centre des Impôts de Thiès (CDI)\",\n      \"type\": \"CDI\",\n      \"region\": \"Thiès\",\n      \"adresse\": \"Avenue Léopold Sédar Senghor, Thiès\",\n      \"telephone\": \"+221 33 951 30 00\",\n      \"horaires\": \"Lundi-Vendredi 8h-16h\",\n      \"chef_centre\": \"M. Abdoulaye NDIAYE\"\n    }\n  ]\n}"
+      }
+    ]
+  },
+  "completedAt": "2026-11-02T00:26:35.683Z"
+}

@@ -1,0 +1,124 @@
+version: "3.9"
+
+# ── SunuBot — Docker Compose ─────────────────────────────────────
+# Chatbot Administratif Multilingue Francais/Wolof
+# Memoire M2 IA — Universite de Thies
+# Auteur : Adama Gaye
+
+services:
+
+  # ── Frontend Next.js ─────────────────────────────────────────
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: sunubot-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=${DATABASE_URL}
+      - JWT_SECRET=${JWT_SECRET}
+      - SMTP_HOST=${SMTP_HOST}
+      - SMTP_PORT=${SMTP_PORT}
+      - SMTP_USER=${SMTP_USER}
+      - SMTP_PASS=${SMTP_PASS}
+      - WHATSAPP_TOKEN=${WHATSAPP_TOKEN}
+      - WHATSAPP_PHONE_ID=${WHATSAPP_PHONE_ID}
+    depends_on:
+      - nlp
+    networks:
+      - sunubot-network
+    restart: unless-stopped
+    labels:
+      - "com.sunubot.service=frontend"
+      - "com.sunubot.version=1.0"
+
+  # ── Backend NLP Python ───────────────────────────────────────
+  nlp:
+    build:
+      context: ./nlp
+      dockerfile: Dockerfile
+    container_name: sunubot-nlp
+    ports:
+      - "8000:8000"
+    environment:
+      - MISTRAL_API_KEY=${MISTRAL_API_KEY}
+      - MISTRAL_MODEL=${MISTRAL_MODEL:-mistral-small-latest}
+    volumes:
+      # Monter le dossier models pour persister le modele mBERT fine-tune
+      - nlp-models:/app/models
+    networks:
+      - sunubot-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    labels:
+      - "com.sunubot.service=nlp"
+      - "com.sunubot.version=1.0"
+
+  # ── MCP Server Etat Civil ────────────────────────────────────
+  mcp-etat-civil:
+    build:
+      context: ./mcp-servers/etat-civil
+      dockerfile: Dockerfile
+    container_name: sunubot-mcp-etat-civil
+    networks:
+      - sunubot-network
+    restart: unless-stopped
+    labels:
+      - "com.sunubot.service=mcp-etat-civil"
+
+  # ── MCP Server DGID ──────────────────────────────────────────
+  mcp-dgid:
+    build:
+      context: ./mcp-servers/dgid
+      dockerfile: Dockerfile
+    container_name: sunubot-mcp-dgid
+    networks:
+      - sunubot-network
+    restart: unless-stopped
+    labels:
+      - "com.sunubot.service=mcp-dgid"
+
+  # ── MCP Server Wolof NLP ─────────────────────────────────────
+  mcp-wolof-nlp:
+    build:
+      context: ./mcp-servers/wolof-nlp
+      dockerfile: Dockerfile
+    container_name: sunubot-mcp-wolof-nlp
+    networks:
+      - sunubot-network
+    restart: unless-stopped
+    labels:
+      - "com.sunubot.service=mcp-wolof-nlp"
+
+  # ── MCP Server Formulaires ───────────────────────────────────
+  mcp-formulaires:
+    build:
+      context: ./mcp-servers/formulaires
+      dockerfile: Dockerfile
+    container_name: sunubot-mcp-formulaires
+    networks:
+      - sunubot-network
+    restart: unless-stopped
+    labels:
+      - "com.sunubot.service=mcp-formulaires"
+
+# ── Volumes ──────────────────────────────────────────────────────
+volumes:
+  nlp-models:
+    driver: local
+    labels:
+      - "com.sunubot.volume=nlp-models"
+
+# ── Networks ─────────────────────────────────────────────────────
+networks:
+  sunubot-network:
+    driver: bridge
+    labels:
+      - "com.sunubot.network=main"

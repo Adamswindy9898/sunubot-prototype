@@ -1,0 +1,303 @@
+{
+  "jeu_test": "C:\\Users\\DELL\\OneDrive\\Bureau\\Memoire\\prototype\\nlp\\data\\jeu_test_mbert_initial.json",
+  "nombre_exemples": 16,
+  "corpus_brut_entrainement": 83,
+  "doublons_exacts_avec_corpus_brut": 0,
+  "accuracy_intention": 0.25,
+  "f1_macro_intention": 0.1833,
+  "latence_moyenne_ms": 76.12,
+  "repartition_langue": {
+    "francais": 8,
+    "wolof": 8
+  },
+  "note": "Étiquettes proposées selon l'intention dominante. Les phrases wolof doivent être relues par un locuteur compétent avant toute validation académique.",
+  "resultats": [
+    {
+      "id": "I01",
+      "texte": "Bonsoir, j'aurais besoin d'un renseignement administratif.",
+      "langue_annotee": "francais",
+      "intention_attendue": "salutation",
+      "intention_predite": "inscription",
+      "domaine_infere": "general",
+      "langue_predite_detecteur_separe": "francais",
+      "mode_detection_langue": "marqueurs_ngrams",
+      "confiance": 0.241,
+      "latence_ms": 153.21,
+      "correct": false,
+      "relecture_wolof": "non requise"
+    },
+    {
+      "id": "I02",
+      "texte": "Salaam, maa ngi fi ngir laaj la benn laaj.",
+      "langue_annotee": "wolof",
+      "intention_attendue": "salutation",
+      "intention_predite": "demande_document",
+      "domaine_infere": "general",
+      "langue_predite_detecteur_separe": "wolof",
+      "mode_detection_langue": "marqueurs_ngrams",
+      "confiance": 0.324,
+      "latence_ms": 70.42,
+      "correct": false,
+      "relecture_wolof": "requise"
+    },
+    {
+      "id": "I03",
+      "texte": "Il me faudrait un extrait d'etat civil pour mon dossier.",
+      "langue_annotee": "francais",
+      "intention_attendue": "demande_document",
+      "intention_predite": "inscription",
+      "domaine_infere": "general",
+      "langue_predite_detecteur_separe": "francais",
+      "mode_detection_langue": "marqueurs_ngrams",
+      "confiance": 0.223,
+      "latence_ms": 74.36,
+      "correct": false,
+      "relecture_wolof": "non requise"
+    },
+    {
+      "id": "I04",
+      "texte": "Soxla naa am sama kart juddu.",
+      "langue_annotee": "wolof",
+      "intention_attendue": "demande_document",
+      "intention_predite": "question_delai",
+      "domaine_infere": "etat_civil",
+      "langue_predite_detecteur_separe": "wolof",
+      "mode_detection_langue": "marqueurs_ngrams",
+      "confiance": 0.158,
+      "latence_ms": 54.61,
+      "correct": false,
+      "relecture_wolof": "requise"
+    },
+    {
+      "id": "I05",
+      "texte": "Je souhaite faire inscrire mon enfant au registre communal.",
+      "langue_annotee": "francais",
+      "intention_attendue": "inscription",
+      "intention_predite": "inscription",
+      "domaine_infere": "general",
+      "langue_predite_detecteur_separe": "francais",
+      "mode_detection_langue": "marqueurs_ngrams",
+      "confiance": 0.266,
+      "latence_ms": 53.2,
+      "correct": true,
+      "relecture_wolof": "non requise"
+    },
+    {
+      "id": "I06",
+      "texte": "Dama begg bind sama doom ci registre bi.",
+      "langue_annotee": "wolof",
+      "intention_attendue": "inscription",
+      "intention_predite": "suivi_demande",
+      "domaine_infere": "general",
+      "langue_predite_detecteur_separe": "wolof",
+      "mode_detection_langue": "marqueurs_ngrams",
+      "confiance": 0.25,
+      "latence_ms": 49.49,
+      "correct": false,
+      "relecture_wolof": "requise"
+    },
+    {
+      "id": "I07",
+      "texte": "Quelles demarches suivre pour declarer la TVA de mon activite ?",
+      "langue_annotee": "francais",
+      "intention_attendue": "question_procedure",
+      "intention_predite": "question_delai",
+      "domaine_infere": "dgid",
+      "langue_predite_detecteur_separe": "francais",
+      "mode_detection_langue": "marqueurs_ngrams",
+      "confiance": 0.318,
+      "latence_ms": 73.34,
+      "correct": false,
+      "relecture_wolof": "non requise"
+    },
+    {
+      "id": "I08",
+      "texte": "Naka laay def ngir yonnee sama declaration TVA ?",
+      "langue_annotee": "wolof",
+      "intention_attendue": "question_procedure",
+      "intention_predite": "question_procedure",
+      "domaine_infere": "dgid",
+      "langue_predite_detecteur_separe": "wolof",
+      "mode_detection_langue": "marqueurs_ngrams",
+      "confiance": 0.323,
+      "latence_ms": 71.85,
+      "correct": true,
+      "relecture_wolof": "requise"
+    },
+    {
+      "id": "I09",
+      "texte": "A quelle adresse dois-je me rendre pour le service fiscal de Thies ?",
+      "langue_annotee": "francais",
+      "intention_attendue": "question_lieu",
+      "intention_predite": "question_delai",
+      "domaine_infere": "dgid",
+      "langue_predite_detecteur_separe": "francais",
+      "mode_detection_langue": "marqueurs_ngrams",
+      "confiance": 0.322,
+      "latence_ms": 76.71,
+      "correct": false,
+      "relecture_wolof": "non requise"
+    },
+    {
+      "id": "I10",
+      "texte": "Fu lañu nekk ngir gis biro wall bi ?",
+      "langue_annotee": "wolof",
+      "intention_attendue": "question_lieu",
+      "intention_predite": "question_cout",
+      "domaine_infere": "general",
+      "langue_predite_detecteur_separe": "wolof",
+      "mode_detection_langue": "marqueurs_ngrams",
+      "confiance": 0.264,
+      "latence_ms": 72.6,
+      "correct": false,
+      "relecture_wolof": "requise"
+    },
+    {
+      "id": "I11",
+      "texte": "Faut-il payer des frais pour obtenir une copie integrale d'un acte de deces ?",
+      "langue_annotee": "francais",
+      "intention_attendue": "question_cout",
+      "intention_predite": "question_delai",
+      "domaine_infere": "etat_civil",
+      "langue_predite_detecteur_separe": "francais",
+      "mode_detection_langue": "marqueurs_ngrams",
+      "confiance": 0.352,
+      "latence_ms": 74.99,
+      "correct": false,
+      "relecture_wolof": "non requise"
+    },
+    {
+      "id": "I12",
+      "texte": "Ñaata xaalis lañuy joxe ngir am koppi kàrt dee ?",
+      "langue_annotee": "wolof",
+      "intention_attendue": "question_cout",
+      "intention_predite": "question_delai",
+      "domaine_infere": "etat_civil",
+      "langue_predite_detecteur_separe": "wolof",
+      "mode_detection_langue": "marqueurs_ngrams",
+      "confiance": 0.313,
+      "latence_ms": 77.74,
+      "correct": false,
+      "relecture_wolof": "requise"
+    },
+    {
+      "id": "I13",
+      "texte": "Combien de temps faut-il attendre avant le retrait du document ?",
+      "langue_annotee": "francais",
+      "intention_attendue": "question_delai",
+      "intention_predite": "question_delai",
+      "domaine_infere": "general",
+      "langue_predite_detecteur_separe": "francais",
+      "mode_detection_langue": "marqueurs_ngrams",
+      "confiance": 0.363,
+      "latence_ms": 73.73,
+      "correct": true,
+      "relecture_wolof": "non requise"
+    },
+    {
+      "id": "I14",
+      "texte": "Ñaata fan laay xaar ngir jël sama kàrt bi ?",
+      "langue_annotee": "wolof",
+      "intention_attendue": "question_delai",
+      "intention_predite": "question_delai",
+      "domaine_infere": "etat_civil",
+      "langue_predite_detecteur_separe": "wolof",
+      "mode_detection_langue": "marqueurs_ngrams",
+      "confiance": 0.309,
+      "latence_ms": 79.17,
+      "correct": true,
+      "relecture_wolof": "requise"
+    },
+    {
+      "id": "I15",
+      "texte": "J'ai depose mon dossier la semaine derniere ; est-il deja traite ?",
+      "langue_annotee": "francais",
+      "intention_attendue": "suivi_demande",
+      "intention_predite": "question_cout",
+      "domaine_infere": "general",
+      "langue_predite_detecteur_separe": "francais",
+      "mode_detection_langue": "marqueurs_ngrams",
+      "confiance": 0.26,
+      "latence_ms": 75.92,
+      "correct": false,
+      "relecture_wolof": "non requise"
+    },
+    {
+      "id": "I16",
+      "texte": "Yónnee naa sama dossier bi ; ndax ñu ngi ko liggéey ?",
+      "langue_annotee": "wolof",
+      "intention_attendue": "suivi_demande",
+      "intention_predite": "question_delai",
+      "domaine_infere": "general",
+      "langue_predite_detecteur_separe": "wolof",
+      "mode_detection_langue": "marqueurs_ngrams",
+      "confiance": 0.327,
+      "latence_ms": 86.66,
+      "correct": false,
+      "relecture_wolof": "requise"
+    }
+  ],
+  "rapport_par_classe": {
+    "demande_document": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 2.0
+    },
+    "inscription": {
+      "precision": 0.3333333333333333,
+      "recall": 0.5,
+      "f1-score": 0.4,
+      "support": 2.0
+    },
+    "question_cout": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 2.0
+    },
+    "question_delai": {
+      "precision": 0.25,
+      "recall": 1.0,
+      "f1-score": 0.4,
+      "support": 2.0
+    },
+    "question_lieu": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 2.0
+    },
+    "question_procedure": {
+      "precision": 1.0,
+      "recall": 0.5,
+      "f1-score": 0.6666666666666666,
+      "support": 2.0
+    },
+    "salutation": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 2.0
+    },
+    "suivi_demande": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 2.0
+    },
+    "accuracy": 0.25,
+    "macro avg": {
+      "precision": 0.19791666666666666,
+      "recall": 0.25,
+      "f1-score": 0.18333333333333335,
+      "support": 16.0
+    },
+    "weighted avg": {
+      "precision": 0.19791666666666666,
+      "recall": 0.25,
+      "f1-score": 0.18333333333333335,
+      "support": 16.0
+    }
+  }
+}
