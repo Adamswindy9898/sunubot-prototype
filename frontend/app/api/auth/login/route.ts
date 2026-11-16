@@ -3,6 +3,15 @@ import { connecter } from "@/lib/auth";
 import { logAccess } from "@/lib/access-log";
 
 export async function POST(req: NextRequest) {
+  // Rate limiting anti brute-force : 10 tentatives/minute par IP
+  const { rateLimit } = await import("@/lib/rate-limit");
+  const ip = req.headers.get("x-forwarded-for") || req.headers.get("x-real-ip") || "unknown";
+  const { allowed } = rateLimit(`login:${ip}`, 10, 60_000);
+  if (!allowed) {
+    logAccess(req, 429);
+    return NextResponse.json({ error: "Trop de tentatives. Réessayez dans une minute." }, { status: 429 });
+  }
+
   const body = await req.json();
   const { email, password } = body;
 

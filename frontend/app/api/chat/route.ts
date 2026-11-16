@@ -103,12 +103,24 @@ function getResponse(intention: string, domaine: string, langue: string): string
 
 export async function POST(req: NextRequest) {
   const startTime = Date.now();
+
+  // Rate limiting : 30 requetes/minute par IP
+  const { rateLimit } = await import("@/lib/rate-limit");
+  const ip = req.headers.get("x-forwarded-for") || req.headers.get("x-real-ip") || "unknown";
+  const { allowed, remaining } = rateLimit(`chat:${ip}`, 30, 60_000);
+  if (!allowed) {
+    return NextResponse.json(
+      { error: "Trop de requêtes. Veuillez patienter une minute." },
+      { status: 429, headers: { "X-RateLimit-Remaining": "0" } }
+    );
+  }
+
   const { message, langue_forcee } = await req.json();
 
-  if (!message || typeof message !== "string") {
+  if (!message || typeof message !== "string" || message.length > 2000) {
     logAccess(req, 400);
     return NextResponse.json(
-      { error: "Message requis" },
+      { error: "Message requis (max 2000 caractères)" },
       { status: 400 }
     );
   }

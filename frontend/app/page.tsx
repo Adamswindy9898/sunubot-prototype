@@ -1872,6 +1872,10 @@ export default function Home() {
             <History className="w-3 h-3" />
             <span className="hidden md:inline">Historique</span>
           </a>
+          <a href="/stats" className="hidden sm:flex items-center gap-1 bg-white/10 hover:bg-white/20 border border-white/10 px-2.5 py-1.5 rounded-lg text-[11px] transition-all duration-200" title="Statistiques">
+            <span className="text-sm">📊</span>
+            <span className="hidden md:inline">Stats</span>
+          </a>
           <a href="/admin" className="hidden sm:flex items-center gap-1 bg-white/10 hover:bg-white/20 border border-white/10 px-2.5 py-1.5 rounded-lg text-[11px] transition-all duration-200" title="Administration">
             <Shield className="w-3 h-3" />
             <span className="hidden md:inline">Admin</span>
@@ -1890,6 +1894,7 @@ export default function Home() {
                   { href: "/mobile", icon: "📱", label: "Version Mobile" },
                   { href: "/whatsapp", icon: "💬", label: "WhatsApp" },
                   { href: "/historique", icon: "📋", label: "Historique" },
+                  { href: "/stats", icon: "📊", label: "Statistiques" },
                   { href: "/admin", icon: "🔒", label: "Administration" },
                 ].map((item) => (
                   <a key={item.href} href={item.href}
@@ -2254,6 +2259,9 @@ export default function Home() {
             <span className="text-[10px] text-gray-400">
               {currentLangue === "wolof" ? "🗣️ Wolof" : "🇫🇷 Français"}
             </span>
+            <a href="/stats" className="text-[10px] text-gray-400 hover:text-[#1F5C99] transition hidden sm:inline">
+              📊 Stats
+            </a>
             {/* Bouton satisfaction — apparaît après 3 messages */}
             {messages.length >= 3 && !showSatisfaction && (
               <button
