@@ -14,8 +14,18 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "SunuBot — Assistant Administratif Sénégal",
-  description: "Chatbot multilingue français/wolof pour les services administratifs sénégalais (état civil, DGID, CNSS)",
+  title: "SunuBot — Assistant Administratif du Senegal",
+  description: "Chatbot multilingue francais/wolof pour les services administratifs senegalais. Etat civil, DGID, CNSS — avec MCP et NLP avance (mBERT + Mistral).",
+  keywords: ["SunuBot", "chatbot", "Senegal", "administration", "etat civil", "DGID", "CNSS", "wolof", "MCP", "NLP"],
+  authors: [{ name: "Adama GAYE", url: "https://github.com/Adamswindy9898" }],
+  openGraph: {
+    title: "SunuBot — Assistant Administratif du Senegal",
+    description: "Simplifiez vos demarches administratives au Senegal. Chatbot multilingue francais/wolof avec intelligence artificielle.",
+    type: "website",
+    locale: "fr_SN",
+    siteName: "SunuBot",
+  },
+  robots: { index: true, follow: true },
 };
 
 export default function RootLayout({

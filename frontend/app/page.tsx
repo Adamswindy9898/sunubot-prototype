@@ -1872,6 +1872,10 @@ export default function Home() {
             <History className="w-3 h-3" />
             <span className="hidden md:inline">Historique</span>
           </a>
+          <a href="/aide" className="hidden sm:flex items-center gap-1 bg-white/10 hover:bg-white/20 border border-white/10 px-2.5 py-1.5 rounded-lg text-[11px] transition-all duration-200" title="Aide">
+            <HelpCircle className="w-3 h-3" />
+            <span className="hidden md:inline">Aide</span>
+          </a>
           <a href="/stats" className="hidden sm:flex items-center gap-1 bg-white/10 hover:bg-white/20 border border-white/10 px-2.5 py-1.5 rounded-lg text-[11px] transition-all duration-200" title="Statistiques">
             <span className="text-sm">📊</span>
             <span className="hidden md:inline">Stats</span>
@@ -1894,6 +1898,7 @@ export default function Home() {
                   { href: "/mobile", icon: "📱", label: "Version Mobile" },
                   { href: "/whatsapp", icon: "💬", label: "WhatsApp" },
                   { href: "/historique", icon: "📋", label: "Historique" },
+                  { href: "/aide", icon: "❓", label: "Aide & FAQ" },
                   { href: "/stats", icon: "📊", label: "Statistiques" },
                   { href: "/admin", icon: "🔒", label: "Administration" },
                 ].map((item) => (
@@ -2047,6 +2052,23 @@ export default function Home() {
                 </div>
               ))
             )}
+          </div>
+
+          {/* Liens rapides */}
+          <div className="p-3 border-t border-gray-100 mt-auto">
+            <div className="space-y-1">
+              {[
+                { href: "/aide", icon: "❓", label: uiLang === "wo" ? "Ndimbal" : "Aide & FAQ" },
+                { href: "/stats", icon: "📊", label: uiLang === "wo" ? "Statistiques" : "Statistiques" },
+                { href: "/admin", icon: "🔒", label: "Administration" },
+              ].map((link) => (
+                <a key={link.href} href={link.href}
+                  className="flex items-center gap-2 px-2 py-1.5 rounded-md text-[11px] text-gray-500 hover:bg-blue-50 hover:text-[#1F5C99] transition">
+                  <span>{link.icon}</span> {link.label}
+                </a>
+              ))}
+            </div>
+            <p className="text-[8px] text-gray-300 text-center mt-2">SunuBot v1.0 — M2 IA Thies</p>
           </div>
         </aside>
 
