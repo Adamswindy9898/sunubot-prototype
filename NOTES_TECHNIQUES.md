@@ -27,8 +27,8 @@ http://localhost:5001
 - Mot de passe : password123
 
 ## Variables importantes (.env)
-- DATABASE_URL : postgresql://postgres:Adams@localhost:5433/sunubot
-- MISTRAL_API_KEY : (voir fichier .env local)
+- DATABASE_URL : postgresql://postgres:****@localhost:5433/sunubot
+- MISTRAL_API_KEY : (voir fichier .env local — ne pas commiter)
 - Next.js port : 5001 (pas 3000 = Baye Guiinaar, pas 4000/5000 = occupé par Windows)
 
 ## Versions stables
