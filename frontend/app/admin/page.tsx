@@ -241,6 +241,102 @@ export default function AdminDashboard() {
     }
   };
 
+  const exporterRapportPDF = () => {
+    const date = new Date().toLocaleDateString("fr-FR", { day: "2-digit", month: "long", year: "numeric" });
+    const heure = new Date().toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" });
+
+    const statutRows = (stats?.demandesParStatut || []).map(
+      (s) => `<tr><td>${s.statut}</td><td style="text-align:right;font-weight:bold">${s.count}</td></tr>`
+    ).join("");
+    const serviceRows = (stats?.demandesParService || []).map(
+      (s) => `<tr><td>${s.service}</td><td style="text-align:right;font-weight:bold">${s.count}</td></tr>`
+    ).join("");
+    const langueRows = (stats?.convosParLangue || []).map(
+      (l) => `<tr><td>${l.langue}</td><td style="text-align:right;font-weight:bold">${l.count}</td></tr>`
+    ).join("");
+    const intentRows = (stats?.convosParIntent || []).map(
+      (i) => `<tr><td>${i.intent}</td><td style="text-align:right;font-weight:bold">${i.count}</td></tr>`
+    ).join("");
+    const mcpRows = MCP_SERVERS.map(
+      (s) => `<tr><td>${s.name}</td><td>${s.status}</td><td>${s.latency}ms</td><td>${s.requests}</td></tr>`
+    ).join("");
+    const demandesRows = demandes.slice(0, 30).map(
+      (d) => `<tr><td>${d.reference}</td><td>${d.type}</td><td>${d.service}</td><td>${d.utilisateur}</td><td>${d.statut}</td></tr>`
+    ).join("");
+
+    const html = `<!DOCTYPE html><html><head><meta charset="utf-8">
+<title>Rapport SunuBot — ${date}</title>
+<style>
+  body{font-family:'Segoe UI',sans-serif;max-width:800px;margin:0 auto;padding:40px;color:#1a1a1a;font-size:13px}
+  h1{color:#1F5C99;border-bottom:3px solid #1F5C99;padding-bottom:10px;font-size:22px}
+  h2{color:#1F5C99;margin-top:30px;font-size:16px;border-left:4px solid #1F5C99;padding-left:10px}
+  .header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+  .badge{background:#1F5C99;color:white;padding:4px 12px;border-radius:12px;font-size:11px}
+  table{width:100%;border-collapse:collapse;margin:10px 0}
+  th,td{padding:8px 12px;text-align:left;border-bottom:1px solid #e5e7eb;font-size:12px}
+  th{background:#f1f5f9;color:#475569;font-size:11px;text-transform:uppercase;letter-spacing:0.5px}
+  .stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:15px 0}
+  .stat-card{background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:12px;text-align:center}
+  .stat-value{font-size:24px;font-weight:bold;color:#1F5C99}
+  .stat-label{font-size:11px;color:#64748b;margin-top:2px}
+  .footer{margin-top:40px;padding-top:15px;border-top:1px solid #e5e7eb;text-align:center;color:#94a3b8;font-size:10px}
+  @media print{body{padding:20px}h1{font-size:18px}}
+</style></head><body>
+<div class="header">
+  <div><h1>Rapport SunuBot</h1><p style="color:#64748b;margin-top:4px">Chatbot administratif multilingue — Services publics du Sénégal</p></div>
+  <div style="text-align:right"><span class="badge">CONFIDENTIEL</span><p style="color:#64748b;font-size:11px;margin-top:6px">${date} à ${heure}</p></div>
+</div>
+
+<h2>Statistiques générales</h2>
+<div class="stat-grid">
+  <div class="stat-card"><div class="stat-value">${stats?.totalDemandes || 0}</div><div class="stat-label">Demandes totales</div></div>
+  <div class="stat-card"><div class="stat-value">${stats?.totalComptes || 0}</div><div class="stat-label">Comptes utilisateurs</div></div>
+  <div class="stat-card"><div class="stat-value">${stats?.totalConversations || 0}</div><div class="stat-label">Conversations NLP</div></div>
+  <div class="stat-card"><div class="stat-value">${stats?.totalCitoyens || 0}</div><div class="stat-label">Citoyens enregistrés</div></div>
+  <div class="stat-card"><div class="stat-value">${stats?.totalServiceRecords || 0}</div><div class="stat-label">Inscriptions services</div></div>
+  <div class="stat-card"><div class="stat-value">${MCP_SERVERS.filter(m => m.status === "online").length}/${MCP_SERVERS.length}</div><div class="stat-label">Serveurs MCP actifs</div></div>
+</div>
+
+<h2>Demandes par statut</h2>
+<table><thead><tr><th>Statut</th><th style="text-align:right">Nombre</th></tr></thead><tbody>${statutRows || "<tr><td colspan='2'>Aucune donnée</td></tr>"}</tbody></table>
+
+<h2>Demandes par service</h2>
+<table><thead><tr><th>Service</th><th style="text-align:right">Nombre</th></tr></thead><tbody>${serviceRows || "<tr><td colspan='2'>Aucune donnée</td></tr>"}</tbody></table>
+
+<h2>Conversations par langue</h2>
+<table><thead><tr><th>Langue</th><th style="text-align:right">Nombre</th></tr></thead><tbody>${langueRows || "<tr><td colspan='2'>Aucune donnée</td></tr>"}</tbody></table>
+
+<h2>Top intentions détectées</h2>
+<table><thead><tr><th>Intention</th><th style="text-align:right">Nombre</th></tr></thead><tbody>${intentRows || "<tr><td colspan='2'>Aucune donnée</td></tr>"}</tbody></table>
+
+<h2>Santé des serveurs MCP</h2>
+<table><thead><tr><th>Serveur</th><th>Statut</th><th>Latence</th><th>Requêtes</th></tr></thead><tbody>${mcpRows}</tbody></table>
+
+<h2>Dernières demandes (${Math.min(demandes.length, 30)})</h2>
+<table><thead><tr><th>Référence</th><th>Type</th><th>Service</th><th>Utilisateur</th><th>Statut</th></tr></thead><tbody>${demandesRows || "<tr><td colspan='5'>Aucune demande</td></tr>"}</tbody></table>
+
+${satisfactionData ? `<h2>Satisfaction</h2>
+<div class="stat-grid">
+  <div class="stat-card"><div class="stat-value">${satisfactionData.nps_moyen.toFixed(1)}</div><div class="stat-label">NPS moyen / 10</div></div>
+  <div class="stat-card"><div class="stat-value">${satisfactionData.mos_moyen.toFixed(1)}</div><div class="stat-label">MOS moyen / 5</div></div>
+  <div class="stat-card"><div class="stat-value">${satisfactionData.score_nps}</div><div class="stat-label">Score NPS</div></div>
+</div>` : ""}
+
+<div class="footer">
+  <p><strong>SunuBot</strong> — Plateforme de services administratifs intelligents du Sénégal</p>
+  <p>mBERT (bert-base-multilingual-cased) + Mistral + 4 serveurs MCP | PostgreSQL 14 | Next.js 15</p>
+  <p>Rapport généré automatiquement le ${date} à ${heure}</p>
+</div>
+</body></html>`;
+
+    const win = window.open("", "_blank");
+    if (win) {
+      win.document.write(html);
+      win.document.close();
+      setTimeout(() => win.print(), 500);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-[#f5f7fa] flex flex-col">
       {/* Header */}
@@ -248,12 +344,15 @@ export default function AdminDashboard() {
         <div className="w-8 h-8 bg-white/15 rounded-lg flex items-center justify-center font-bold text-xs">SB</div>
         <div className="flex-1">
           <h1 className="font-bold text-sm">SunuBot — Administration</h1>
-          <p className="text-white/60 text-[10px]">Tableau de bord — données temps réel (Prisma/SQLite)</p>
+          <p className="text-white/60 text-[10px]">Tableau de bord — données temps réel (PostgreSQL 14)</p>
         </div>
         <div className="flex items-center gap-2">
           <span className="text-[10px] text-white/60">Mis à jour : {new Date().toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" })}</span>
           <button onClick={() => setRefreshKey((k) => k + 1)} className="p-1.5 hover:bg-white/10 rounded-lg transition" title="Rafraîchir">
             <RefreshCw className="w-3.5 h-3.5" />
+          </button>
+          <button onClick={exporterRapportPDF} className="flex items-center gap-1.5 bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg text-xs transition border border-white/20">
+            <Download className="w-3.5 h-3.5" /> Rapport PDF
           </button>
           <button onClick={() => window.location.href = "/"} className="flex items-center gap-1.5 bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg text-xs transition border border-white/20">
             <Activity className="w-3.5 h-3.5" /> SunuBot

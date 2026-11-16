@@ -298,6 +298,45 @@ export function Dashboard({ compte, onClose, onLogout, langue }: DashboardProps)
 
         {/* Historique des demandes */}
         <div className="flex-1 overflow-y-auto p-6">
+          {/* Notifications in-app */}
+          {(() => {
+            const today = new Date().toISOString().split("T")[0];
+            const recentUpdates = compte.demandes.filter(
+              (d) => d.dateMiseAJour !== d.dateCreation && d.dateMiseAJour >= today
+            );
+            const disponibles = compte.demandes.filter((d) => d.statut === "disponible");
+            if (recentUpdates.length === 0 && disponibles.length === 0) return null;
+            return (
+              <div className="mb-4 space-y-2">
+                {disponibles.map((d) => (
+                  <div key={`notif-${d.id}`} className="flex items-center gap-3 p-3 bg-green-50 border border-green-200 rounded-xl animate-pulse">
+                    <span className="text-lg">✅</span>
+                    <div className="flex-1">
+                      <p className="text-xs font-bold text-green-800">
+                        {isWolof ? "Sa document amna!" : "Votre document est prêt !"}
+                      </p>
+                      <p className="text-[10px] text-green-600">{d.type} — {d.reference}</p>
+                    </div>
+                  </div>
+                ))}
+                {recentUpdates.filter((d) => d.statut !== "disponible").map((d) => (
+                  <div key={`notif-upd-${d.id}`} className="flex items-center gap-3 p-3 bg-blue-50 border border-blue-200 rounded-xl">
+                    <span className="text-lg">🔔</span>
+                    <div className="flex-1">
+                      <p className="text-xs font-bold text-blue-800">
+                        {isWolof ? "Yeesal" : "Mise à jour"} — {d.reference}
+                      </p>
+                      <p className="text-[10px] text-blue-600">
+                        {isWolof ? "Statut : " : "Nouveau statut : "}
+                        <span className="font-bold">{STATUT_LABELS[d.statut]?.label || d.statut}</span>
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            );
+          })()}
+
           <h3 className="text-sm font-bold text-gray-800 mb-3 flex items-center gap-2">
             📋 {isWolof ? "Sa demandes yi" : "Mes demandes"}
             <span className="bg-[#1F5C99] text-white text-[10px] px-2 py-0.5 rounded-full">{compte.demandes.length}</span>
