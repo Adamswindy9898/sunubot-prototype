@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { Send, Globe, FileText, Building2, Heart, GraduationCap, HelpCircle, LogIn, Shield, History } from "lucide-react";
+import { Send, Globe, FileText, Building2, Heart, GraduationCap, HelpCircle, LogIn, Shield, History, Moon, Sun } from "lucide-react";
 import ChatMessage from "@/components/ChatMessage";
 import ChatForm, { CitizenInfo, SubmissionResult, QuickSearch, DocumentGuideInfo, SuiviDemande } from "@/components/ChatForm";
 import AuthModal, { Dashboard, type ComptePublic } from "@/components/AuthModal";
@@ -277,6 +277,16 @@ export default function Home() {
   const [showMap, setShowMap] = useState(false);
   const [showSatisfaction, setShowSatisfaction] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);
+
+  useEffect(() => {
+    const saved = localStorage.getItem("sunubot-dark");
+    if (saved === "true") setDarkMode(true);
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("sunubot-dark", String(darkMode));
+  }, [darkMode]);
 
   const handleAuthSuccess = (c: ComptePublic, token: string) => {
     login(c, token);
@@ -1840,9 +1850,9 @@ export default function Home() {
   ];
 
   return (
-    <div className="flex flex-col h-screen bg-[#f0f7f4]">
+    <div className={`flex flex-col h-screen transition-colors duration-300 ${darkMode ? "bg-[#1a1a2e] text-gray-100" : "bg-[#f0f7f4]"}`}>
       {/* Header */}
-      <header className="bg-gradient-to-r from-[#1F5C99] via-[#1a54a0] to-[#0f3d6e] text-white px-5 py-3.5 shadow-xl flex items-center gap-3">
+      <header className={`${darkMode ? "bg-gradient-to-r from-[#0d1b2a] via-[#1b2838] to-[#0d1b2a] border-b border-white/10" : "bg-gradient-to-r from-[#1F5C99] via-[#1a54a0] to-[#0f3d6e]"} text-white px-5 py-3.5 shadow-xl flex items-center gap-3`}>
         {/* Logo */}
         <div className="w-10 h-10 rounded-2xl bg-white/20 border border-white/30 ring-2 ring-white/20 flex items-center justify-center font-black text-sm shadow-inner">
           SB
@@ -1912,6 +1922,14 @@ export default function Home() {
               </div>
             )}
           </div>
+          {/* Dark mode */}
+          <button
+            onClick={() => setDarkMode(!darkMode)}
+            className="flex items-center justify-center w-8 h-8 bg-white/10 hover:bg-white/20 rounded-lg border border-white/10 transition-all duration-200"
+            title={darkMode ? "Mode clair" : "Mode sombre"}
+          >
+            {darkMode ? <Sun className="w-3.5 h-3.5 text-yellow-300" /> : <Moon className="w-3.5 h-3.5" />}
+          </button>
           {/* Langue */}
           <button
             onClick={() => setSelectedLang(selectedLang === "auto" ? "wolof" : selectedLang === "wolof" ? "francais" : "auto")}
@@ -1972,7 +1990,7 @@ export default function Home() {
       {/* Body : Sidebar + Chat */}
       <div className="flex flex-1 overflow-hidden">
         {/* Sidebar */}
-        <aside className="w-[240px] bg-white border-r border-gray-200 flex-shrink-0 overflow-y-auto hidden md:flex flex-col">
+        <aside className={`w-[240px] ${darkMode ? "bg-[#1e1e36] border-r border-white/10" : "bg-white border-r border-gray-200"} flex-shrink-0 overflow-y-auto hidden md:flex flex-col`}>
           {/* MCP Servers */}
           <div className="p-3 border-b border-gray-100 bg-gradient-to-b from-green-50/50 to-white">
             <p className="text-[10px] text-gray-400 uppercase tracking-wider font-semibold mb-2">
@@ -2110,7 +2128,7 @@ export default function Home() {
           </div>
 
           {/* Messages area */}
-          <div className="flex-1 overflow-y-auto px-4 py-6 flex flex-col gap-4 bg-gradient-to-b from-slate-50 to-blue-50/30">
+          <div className={`flex-1 overflow-y-auto px-4 py-6 flex flex-col gap-4 ${darkMode ? "bg-gradient-to-b from-[#1a1a2e] to-[#16213e]" : "bg-gradient-to-b from-slate-50 to-blue-50/30"}`}>
             {/* Welcome si pas de messages */}
             {showServices && messages.length === 0 && (
               <div className="flex gap-3 max-w-2xl">
@@ -2243,7 +2261,7 @@ export default function Home() {
           </div>
 
           {/* Input area */}
-          <div className="relative px-4 py-3 bg-white border-t border-gray-100 shadow-lg flex gap-2 items-center">
+          <div className={`relative px-4 py-3 ${darkMode ? "bg-[#1e1e36] border-t border-white/10" : "bg-white border-t border-gray-100"} shadow-lg flex gap-2 items-center`}>
             <VoiceInput
               onTranscript={(text) => { setInput(text); setTimeout(() => sendMessage(text), 100); }}
               langue={currentLangue}
@@ -2255,7 +2273,7 @@ export default function Home() {
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); sendMessage(); } }}
               placeholder={t.placeholder}
-              className="flex-1 px-4 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 border border-gray-200 rounded-2xl bg-gray-50 outline-none focus:border-[#1F5C99] focus:bg-white focus:ring-2 focus:ring-[#1F5C99]/10 transition-all duration-200"
+              className={`flex-1 px-4 py-2.5 text-sm placeholder:text-gray-400 rounded-2xl outline-none transition-all duration-200 ${darkMode ? "text-gray-100 border border-white/15 bg-white/5 focus:border-blue-400 focus:bg-white/10 focus:ring-2 focus:ring-blue-400/20" : "text-gray-900 border border-gray-200 bg-gray-50 focus:border-[#1F5C99] focus:bg-white focus:ring-2 focus:ring-[#1F5C99]/10"}`}
               disabled={isLoading}
             />
             <button
@@ -2268,7 +2286,7 @@ export default function Home() {
           </div>
 
           {/* Stats bar */}
-          <div className="px-4 py-1.5 bg-white border-t border-gray-100 flex gap-4 items-center">
+          <div className={`px-4 py-1.5 ${darkMode ? "bg-[#1e1e36] border-t border-white/10" : "bg-white border-t border-gray-100"} flex gap-4 items-center`}>
             <span className="text-[10px] text-gray-400">
               💬 <strong className="text-gray-600">{messages.length}</strong> messages
             </span>
