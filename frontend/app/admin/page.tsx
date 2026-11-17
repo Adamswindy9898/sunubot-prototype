@@ -372,6 +372,7 @@ export default function AdminDashboard() {
   const [validating, setValidating] = useState<string | null>(null);
   const [validated, setValidated] = useState<string[]>([]);
   const [selectedDemande, setSelectedDemande] = useState<DemandeLog | null>(null);
+  const [healthStatus, setHealthStatus] = useState<{ status: string; services: Record<string, { status: string; latency_ms: number; detail?: string }> } | null>(null);
   const [satisfactionData, setSatisfactionData] = useState<{
     total: number; nps_moyen: number; mos_moyen: number; score_nps: number;
     promoteurs: number; detracteurs: number;
@@ -418,6 +419,10 @@ export default function AdminDashboard() {
     if (logsData) setLogs(logsData.logs || []);
     if (convosData) setConversations(convosData.conversations || []);
     await loadSatisfaction();
+    try {
+      const h = await fetch("/api/health");
+      if (h.ok) setHealthStatus(await h.json());
+    } catch {}
   }, [fetchData, loadSatisfaction]);
 
   useEffect(() => {
@@ -618,6 +623,18 @@ ${satisfactionData ? `<h2>Satisfaction</h2>
           <button onClick={exporterRapportPDF} className="flex items-center gap-1.5 bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg text-xs transition border border-white/20">
             <Download className="w-3.5 h-3.5" /> Rapport PDF
           </button>
+          <button onClick={async () => {
+            const res = await fetch("/api/export/conversations", { headers: { Authorization: `Bearer ${adminPass}` } });
+            if (res.ok) { const blob = await res.blob(); const url = URL.createObjectURL(blob); const a = document.createElement("a"); a.href = url; a.download = `sunubot_conversations_${new Date().toISOString().slice(0, 10)}.csv`; a.click(); URL.revokeObjectURL(url); }
+          }} className="flex items-center gap-1.5 bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg text-xs transition border border-white/20">
+            <Download className="w-3.5 h-3.5" /> CSV
+          </button>
+          {healthStatus && (
+            <span className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs border ${healthStatus.status === "healthy" ? "bg-green-500/20 border-green-400/30 text-green-200" : "bg-amber-500/20 border-amber-400/30 text-amber-200"}`}>
+              <span className={`w-2 h-2 rounded-full ${healthStatus.status === "healthy" ? "bg-green-400 animate-pulse" : "bg-amber-400"}`} />
+              {healthStatus.status === "healthy" ? "Système OK" : "Dégradé"}
+            </span>
+          )}
           <button onClick={() => window.location.href = "/"} className="flex items-center gap-1.5 bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg text-xs transition border border-white/20">
             <Activity className="w-3.5 h-3.5" /> SunuBot
           </button>
