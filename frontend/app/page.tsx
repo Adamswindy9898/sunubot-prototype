@@ -2247,6 +2247,7 @@ export default function Home() {
                   langue={msg.langue}
                   tools_used={msg.tools_used}
                   timestamp={msg.timestamp}
+                  darkMode={darkMode}
                 />
                 {/* Boutons TTS + traduction sous chaque message assistant */}
                 {msg.role === "assistant" && msg.content.length > 5 && (
@@ -2263,7 +2264,7 @@ export default function Home() {
             {isLoading && (
               <div className="flex gap-3">
                 <div className="shrink-0 w-10 h-10 rounded-2xl bg-gradient-to-br from-[#1F5C99] to-[#0f3d6e] flex items-center justify-center text-[10px] font-black text-white shadow-lg ring-2 ring-white mt-1">SB</div>
-                <div className="bg-white border border-blue-100 rounded-2xl rounded-tl-sm px-4 py-3 shadow-md">
+                <div className={`${darkMode ? "bg-[#252547] border border-white/10" : "bg-white border border-blue-100"} rounded-2xl rounded-tl-sm px-4 py-3 shadow-md`}>
                   <div className="flex items-center gap-2.5">
                     <div className="flex gap-1.5">
                       <div className="w-2 h-2 bg-[#1F5C99] rounded-full animate-bounce [animation-delay:0.1s] opacity-60" />
