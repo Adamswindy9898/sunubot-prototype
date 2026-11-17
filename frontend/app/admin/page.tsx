@@ -928,6 +928,28 @@ ${satisfactionData ? `<h2>Satisfaction</h2>
                 )}
               </div>
             </div>
+
+            {/* Health Check détaillé */}
+            {healthStatus && (
+              <div className="bg-white rounded-xl border border-gray-200 p-5">
+                <h3 className="text-sm font-semibold text-gray-800 mb-4 flex items-center gap-2">
+                  <Activity className="w-4 h-4 text-[#1F5C99]" /> Santé du système
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                  {Object.entries(healthStatus.services).map(([name, svc]) => (
+                    <div key={name} className={`border rounded-xl p-4 ${svc.status === "ok" ? "border-green-200 bg-green-50" : "border-red-200 bg-red-50"}`}>
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className={`w-2.5 h-2.5 rounded-full ${svc.status === "ok" ? "bg-green-500 animate-pulse" : "bg-red-500"}`} />
+                        <span className="text-xs font-bold text-gray-700 uppercase">{name}</span>
+                      </div>
+                      <p className={`text-xl font-black ${svc.status === "ok" ? "text-green-700" : "text-red-700"}`}>{svc.latency_ms}ms</p>
+                      <p className="text-[10px] text-gray-500 mt-1">{svc.status === "ok" ? "Opérationnel" : svc.detail || "Erreur"}</p>
+                      {svc.detail && svc.status === "ok" && <p className="text-[10px] text-gray-400 mt-0.5">{svc.detail}</p>}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         )}
 

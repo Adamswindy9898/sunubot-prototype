@@ -9,6 +9,7 @@ import { useAuth } from "@/lib/auth-context";
 import VoiceInput, { TTSButton, TranslationHint } from "@/components/VoiceInput";
 import GeoMap from "@/components/GeoMap";
 import SatisfactionForm from "@/components/SatisfactionForm";
+import Onboarding from "@/components/Onboarding";
 
 interface Message {
   id: string;
@@ -2350,6 +2351,7 @@ export default function Home() {
           )}
         </div>
       </div>
+      <Onboarding />
     </div>
   );
 }
