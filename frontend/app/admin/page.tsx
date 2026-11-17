@@ -96,6 +96,121 @@ const MBERT_METRICS = {
   ],
 };
 
+const NLP_TESTS = [
+  { texte: "Bonjour", expected: "salutation", lang: "FR" },
+  { texte: "Je veux mon acte de naissance", expected: "demande_document", lang: "FR" },
+  { texte: "Na nga def", expected: "salutation", lang: "WO" },
+  { texte: "Dama begg sama kart becceg", expected: "demande_document", lang: "WO" },
+  { texte: "Comment payer mes impots", expected: "question_procedure", lang: "FR" },
+  { texte: "Naka lanu feyee alamaan bi", expected: "question_procedure", lang: "WO" },
+  { texte: "Ou se trouve le bureau de l'etat civil", expected: "question_lieu", lang: "FR" },
+  { texte: "Combien coute un acte de naissance", expected: "question_cout", lang: "FR" },
+  { texte: "Je veux m'inscrire a la CNSS", expected: "demande_inscription", lang: "FR" },
+  { texte: "Dama begg feyee sama wall ci DGID", expected: "question_procedure", lang: "WO" },
+];
+
+function NLPBatchTester() {
+  const [results, setResults] = useState<{ texte: string; expected: string; got: string; pass: boolean; time: number; lang: string }[]>([]);
+  const [running, setRunning] = useState(false);
+  const [progress, setProgress] = useState(0);
+
+  const runAll = async () => {
+    setRunning(true);
+    setResults([]);
+    setProgress(0);
+    const newResults: typeof results = [];
+    for (let i = 0; i < NLP_TESTS.length; i++) {
+      const test = NLP_TESTS[i];
+      const start = Date.now();
+      try {
+        const res = await fetch("http://localhost:8000/analyser", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ texte: test.texte }),
+        });
+        const data = await res.json();
+        const got = data.analyse?.intention?.intention || "unknown";
+        newResults.push({ texte: test.texte, expected: test.expected, got, pass: got === test.expected, time: Date.now() - start, lang: test.lang });
+      } catch {
+        newResults.push({ texte: test.texte, expected: test.expected, got: "error", pass: false, time: Date.now() - start, lang: test.lang });
+      }
+      setResults([...newResults]);
+      setProgress(i + 1);
+    }
+    setRunning(false);
+  };
+
+  const passCount = results.filter((r) => r.pass).length;
+  const avgTime = results.length > 0 ? Math.round(results.reduce((s, r) => s + r.time, 0) / results.length) : 0;
+
+  return (
+    <div className="bg-white border border-gray-200 rounded-xl p-5">
+      <div className="flex items-center justify-between mb-4">
+        <h3 className="text-sm font-semibold text-gray-800 flex items-center gap-2">
+          <CheckCircle className="w-4 h-4 text-green-600" /> Suite de tests NLP ({NLP_TESTS.length} tests)
+        </h3>
+        <button
+          onClick={runAll}
+          disabled={running}
+          className="bg-green-600 text-white px-4 py-2 rounded-xl text-xs font-semibold hover:bg-green-700 disabled:opacity-50 transition flex items-center gap-2"
+        >
+          {running ? (
+            <>
+              <span className="w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+              Test {progress}/{NLP_TESTS.length}...
+            </>
+          ) : (
+            <>{results.length > 0 ? "Relancer" : "Lancer"} tous les tests</>
+          )}
+        </button>
+      </div>
+
+      {/* Barre de progression */}
+      {running && (
+        <div className="h-2 bg-gray-100 rounded-full mb-4 overflow-hidden">
+          <div className="h-full bg-green-500 rounded-full transition-all" style={{ width: `${(progress / NLP_TESTS.length) * 100}%` }} />
+        </div>
+      )}
+
+      {/* Resultats */}
+      {results.length > 0 && (
+        <>
+          <div className="flex items-center gap-4 mb-4">
+            <div className={`text-2xl font-black ${passCount === NLP_TESTS.length ? "text-green-600" : "text-amber-600"}`}>
+              {passCount}/{NLP_TESTS.length}
+            </div>
+            <div className="flex-1">
+              <div className="h-3 bg-gray-100 rounded-full overflow-hidden">
+                <div className={`h-full rounded-full transition-all ${passCount === NLP_TESTS.length ? "bg-green-500" : "bg-amber-500"}`}
+                  style={{ width: `${(passCount / NLP_TESTS.length) * 100}%` }} />
+              </div>
+            </div>
+            <span className="text-xs text-gray-500">Moy. {avgTime}ms</span>
+          </div>
+
+          <div className="space-y-1.5">
+            {results.map((r, i) => (
+              <div key={i} className={`flex items-center gap-3 px-3 py-2 rounded-lg text-xs ${r.pass ? "bg-green-50" : "bg-red-50"}`}>
+                <span className="text-sm">{r.pass ? "✅" : "❌"}</span>
+                <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${r.lang === "WO" ? "bg-green-100 text-green-700" : "bg-blue-100 text-blue-700"}`}>{r.lang}</span>
+                <span className="text-gray-700 flex-1 truncate">&ldquo;{r.texte}&rdquo;</span>
+                <span className="text-gray-400 shrink-0">{r.time}ms</span>
+                {r.pass ? (
+                  <span className="text-green-700 font-semibold shrink-0">{r.got}</span>
+                ) : (
+                  <span className="text-red-700 shrink-0">
+                    <span className="line-through text-red-400">{r.got}</span> → <span className="font-semibold">{r.expected}</span>
+                  </span>
+                )}
+              </div>
+            ))}
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
+
 function NLPTester() {
   const [testInput, setTestInput] = useState("");
   const [testResult, setTestResult] = useState<Record<string, unknown> | null>(null);
@@ -1116,6 +1231,9 @@ ${satisfactionData ? `<h2>Satisfaction</h2>
                 ))}
               </div>
             </div>
+
+            {/* Suite de tests automatiques */}
+            <NLPBatchTester />
 
             {/* Testeur NLP en direct */}
             <NLPTester />
