@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { Send, Globe, FileText, Building2, Heart, GraduationCap, HelpCircle, LogIn, Shield, History, Moon, Sun } from "lucide-react";
+import { Send, Globe, FileText, Building2, Heart, GraduationCap, HelpCircle, LogIn, Shield, Moon, Sun } from "lucide-react";
 import ChatMessage from "@/components/ChatMessage";
 import ChatForm, { CitizenInfo, SubmissionResult, QuickSearch, DocumentGuideInfo, SuiviDemande } from "@/components/ChatForm";
 import AuthModal, { Dashboard, type ComptePublic } from "@/components/AuthModal";
@@ -1898,17 +1898,9 @@ export default function Home() {
             <span className="text-sm">💬</span>
             <span className="hidden md:inline">WhatsApp</span>
           </a>
-          <a href="/historique" className="hidden sm:flex items-center gap-1 bg-white/10 hover:bg-white/20 border border-white/10 px-2.5 py-1.5 rounded-lg text-[11px] transition-all duration-200" title="Historique">
-            <History className="w-3 h-3" />
-            <span className="hidden md:inline">Historique</span>
-          </a>
           <a href="/aide" className="hidden sm:flex items-center gap-1 bg-white/10 hover:bg-white/20 border border-white/10 px-2.5 py-1.5 rounded-lg text-[11px] transition-all duration-200" title="Aide">
             <HelpCircle className="w-3 h-3" />
             <span className="hidden md:inline">Aide</span>
-          </a>
-          <a href="/stats" className="hidden sm:flex items-center gap-1 bg-white/10 hover:bg-white/20 border border-white/10 px-2.5 py-1.5 rounded-lg text-[11px] transition-all duration-200" title="Statistiques">
-            <span className="text-sm">📊</span>
-            <span className="hidden md:inline">Stats</span>
           </a>
           <a href="/admin" className="hidden sm:flex items-center gap-1 bg-white/10 hover:bg-white/20 border border-white/10 px-2.5 py-1.5 rounded-lg text-[11px] transition-all duration-200" title="Administration">
             <Shield className="w-3 h-3" />
@@ -1927,9 +1919,7 @@ export default function Home() {
                 {[
                   { href: "/mobile", icon: "📱", label: "Version Mobile" },
                   { href: "/whatsapp", icon: "💬", label: "WhatsApp" },
-                  { href: "/historique", icon: "📋", label: "Historique" },
                   { href: "/aide", icon: "❓", label: "Aide & FAQ" },
-                  { href: "/stats", icon: "📊", label: "Statistiques" },
                   { href: "/admin", icon: "🔒", label: "Administration" },
                 ].map((item) => (
                   <a key={item.href} href={item.href}
@@ -2097,7 +2087,6 @@ export default function Home() {
             <div className="space-y-1">
               {[
                 { href: "/aide", icon: "❓", label: uiLang === "wo" ? "Ndimbal" : "Aide & FAQ" },
-                { href: "/stats", icon: "📊", label: uiLang === "wo" ? "Statistiques" : "Statistiques" },
                 { href: "/admin", icon: "🔒", label: "Administration" },
               ].map((link) => (
                 <a key={link.href} href={link.href}
@@ -2329,9 +2318,6 @@ export default function Home() {
             <span className="text-[10px] text-gray-400">
               {currentLangue === "wolof" ? "🗣️ Wolof" : "🇫🇷 Français"}
             </span>
-            <a href="/stats" className="text-[10px] text-gray-400 hover:text-[#1F5C99] transition hidden sm:inline">
-              📊 Stats
-            </a>
             {/* Bouton satisfaction — apparaît après 3 messages */}
             {messages.length >= 3 && !showSatisfaction && (
               <button

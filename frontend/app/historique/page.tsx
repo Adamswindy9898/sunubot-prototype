@@ -10,6 +10,7 @@ import {
   Filter,
   BarChart3,
   Search,
+  Shield,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -66,10 +67,47 @@ export default function HistoriquePage() {
   const [filtreLang, setFiltreLang] = useState<string>("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [showStats, setShowStats] = useState(true);
+  const [isAuthed, setIsAuthed] = useState(false);
+  const [adminPass, setAdminPass] = useState("");
+  const [authError, setAuthError] = useState("");
 
   useEffect(() => {
-    fetchData();
-  }, [compte, filtreLang]);
+    if (isAuthed) fetchData();
+  }, [compte, filtreLang, isAuthed]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  if (!isAuthed) {
+    return (
+      <div className="min-h-screen bg-[#f5f7fa] flex items-center justify-center p-4">
+        <div className="bg-white rounded-2xl shadow-xl w-full max-w-sm p-8">
+          <div className="text-center mb-6">
+            <div className="w-14 h-14 bg-[#1F5C99] rounded-2xl flex items-center justify-center mx-auto mb-3">
+              <Shield className="w-7 h-7 text-white" />
+            </div>
+            <h1 className="text-xl font-bold text-gray-800">Historique SunuBot</h1>
+            <p className="text-sm text-gray-500 mt-1">Accès réservé aux administrateurs</p>
+          </div>
+          <div className="space-y-3">
+            <input type="password" value={adminPass} onChange={(e) => setAdminPass(e.target.value)}
+              placeholder="Mot de passe admin"
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  if (adminPass === "admin2024") setIsAuthed(true);
+                  else setAuthError("Mot de passe incorrect.");
+                }
+              }}
+              className="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-[#1F5C99]" />
+            {authError && <p className="text-xs text-red-600">{authError}</p>}
+            <button onClick={() => {
+              if (adminPass === "admin2024") setIsAuthed(true);
+              else setAuthError("Mot de passe incorrect.");
+            }} className="w-full bg-[#1F5C99] text-white py-2.5 rounded-lg text-sm font-semibold hover:bg-[#174a7a] transition">
+              Accéder à l&apos;historique
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   const fetchData = async () => {
     setLoading(true);

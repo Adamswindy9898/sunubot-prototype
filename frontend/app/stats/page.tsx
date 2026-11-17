@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { BarChart3, Globe, MessageSquare, FileText, Users, Server, ArrowLeft, TrendingUp } from "lucide-react";
+import { BarChart3, Globe, MessageSquare, FileText, Users, Server, ArrowLeft, TrendingUp, Shield } from "lucide-react";
 
 interface PublicStats {
   totalDemandes: number;
@@ -16,13 +16,51 @@ interface PublicStats {
 export default function StatsPage() {
   const [stats, setStats] = useState<PublicStats | null>(null);
   const [loading, setLoading] = useState(true);
+  const [isAuthed, setIsAuthed] = useState(false);
+  const [adminPass, setAdminPass] = useState("");
+  const [authError, setAuthError] = useState("");
 
   useEffect(() => {
+    if (!isAuthed) return;
     fetch("/api/stats")
       .then((r) => r.json())
       .then((d) => { setStats(d); setLoading(false); })
       .catch(() => setLoading(false));
-  }, []);
+  }, [isAuthed]);
+
+  if (!isAuthed) {
+    return (
+      <div className="min-h-screen bg-[#f5f7fa] flex items-center justify-center p-4">
+        <div className="bg-white rounded-2xl shadow-xl w-full max-w-sm p-8">
+          <div className="text-center mb-6">
+            <div className="w-14 h-14 bg-[#1F5C99] rounded-2xl flex items-center justify-center mx-auto mb-3">
+              <Shield className="w-7 h-7 text-white" />
+            </div>
+            <h1 className="text-xl font-bold text-gray-800">Statistiques SunuBot</h1>
+            <p className="text-sm text-gray-500 mt-1">Accès réservé aux administrateurs</p>
+          </div>
+          <div className="space-y-3">
+            <input type="password" value={adminPass} onChange={(e) => setAdminPass(e.target.value)}
+              placeholder="Mot de passe admin"
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  if (adminPass === "admin2024") setIsAuthed(true);
+                  else setAuthError("Mot de passe incorrect.");
+                }
+              }}
+              className="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-[#1F5C99]" />
+            {authError && <p className="text-xs text-red-600">{authError}</p>}
+            <button onClick={() => {
+              if (adminPass === "admin2024") setIsAuthed(true);
+              else setAuthError("Mot de passe incorrect.");
+            }} className="w-full bg-[#1F5C99] text-white py-2.5 rounded-lg text-sm font-semibold hover:bg-[#174a7a] transition">
+              Accéder aux statistiques
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   if (loading) {
     return (
