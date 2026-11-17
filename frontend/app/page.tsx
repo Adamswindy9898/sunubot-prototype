@@ -2296,6 +2296,7 @@ export default function Home() {
               onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); sendMessage(); } }}
               placeholder={t.placeholder}
               aria-label="Tapez votre message"
+              maxLength={2000}
               className={`flex-1 px-4 py-2.5 text-sm placeholder:text-gray-400 rounded-2xl outline-none transition-all duration-200 ${darkMode ? "text-gray-100 border border-white/15 bg-white/5 focus:border-blue-400 focus:bg-white/10 focus:ring-2 focus:ring-blue-400/20" : "text-gray-900 border border-gray-200 bg-gray-50 focus:border-[#1F5C99] focus:bg-white focus:ring-2 focus:ring-[#1F5C99]/10"}`}
               disabled={isLoading}
             />
@@ -2303,10 +2304,15 @@ export default function Home() {
               onClick={() => sendMessage()}
               disabled={!input.trim() || isLoading}
               aria-label="Envoyer le message"
-              className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#1F5C99] to-[#0f3d6e] text-white flex items-center justify-center hover:from-[#174a7a] hover:to-[#0d3460] disabled:opacity-40 disabled:cursor-not-allowed transition-all duration-200 shrink-0 shadow-lg"
+              className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#1F5C99] to-[#0f3d6e] text-white flex items-center justify-center hover:from-[#174a7a] hover:to-[#0d3460] disabled:opacity-40 disabled:cursor-not-allowed transition-all duration-200 shrink-0 shadow-lg active:scale-90"
             >
               <Send className="w-4 h-4" />
             </button>
+            {input.length > 0 && (
+              <span className={`absolute -top-5 right-16 text-[10px] ${input.length > 1800 ? "text-red-500 font-semibold" : input.length > 1000 ? "text-amber-500" : "text-gray-400"}`}>
+                {input.length}/2000
+              </span>
+            )}
           </div>
 
           {/* Stats bar */}
