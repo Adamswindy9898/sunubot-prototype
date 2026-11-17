@@ -96,6 +96,152 @@ const MBERT_METRICS = {
   ],
 };
 
+function NLPTester() {
+  const [testInput, setTestInput] = useState("");
+  const [testResult, setTestResult] = useState<Record<string, unknown> | null>(null);
+  const [testing, setTesting] = useState(false);
+  const [testTime, setTestTime] = useState(0);
+
+  const runTest = async () => {
+    if (!testInput.trim()) return;
+    setTesting(true);
+    setTestResult(null);
+    const start = Date.now();
+    try {
+      const res = await fetch("http://localhost:8000/analyser", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ texte: testInput }),
+      });
+      const data = await res.json();
+      setTestTime(Date.now() - start);
+      setTestResult(data);
+    } catch {
+      setTestResult({ error: "Le serveur NLP n'est pas accessible (port 8000)" });
+      setTestTime(Date.now() - start);
+    }
+    setTesting(false);
+  };
+
+  const analyse = testResult && !("error" in testResult) ? (testResult as { analyse: Record<string, unknown> }).analyse : null;
+
+  return (
+    <div className="bg-white border border-gray-200 rounded-xl p-5">
+      <h3 className="text-sm font-semibold text-gray-800 mb-4 flex items-center gap-2">
+        <MessageSquare className="w-4 h-4 text-[#1F5C99]" /> Testeur NLP en direct
+      </h3>
+      <div className="flex gap-2 mb-4">
+        <input
+          type="text"
+          value={testInput}
+          onChange={(e) => setTestInput(e.target.value)}
+          onKeyDown={(e) => { if (e.key === "Enter") runTest(); }}
+          placeholder="Tapez un message a analyser (FR ou Wolof)..."
+          className="flex-1 px-4 py-2.5 text-sm border border-gray-200 rounded-xl bg-gray-50 focus:outline-none focus:border-[#1F5C99] focus:bg-white transition"
+        />
+        <button
+          onClick={runTest}
+          disabled={testing || !testInput.trim()}
+          className="bg-[#1F5C99] text-white px-5 py-2.5 rounded-xl text-sm font-semibold hover:bg-[#174a7a] disabled:opacity-40 transition flex items-center gap-2"
+        >
+          {testing ? <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : <Activity className="w-4 h-4" />}
+          Analyser
+        </button>
+      </div>
+
+      {/* Exemples rapides */}
+      <div className="flex flex-wrap gap-1.5 mb-4">
+        {[
+          "Je veux mon acte de naissance",
+          "Naka laa feyee sama wall",
+          "Dama begg bind ci CNSS",
+          "Combien coute un extrait",
+          "bonour je veu mon akte",
+        ].map((ex) => (
+          <button key={ex} onClick={() => { setTestInput(ex); }}
+            className="text-[10px] px-2.5 py-1 bg-gray-100 hover:bg-blue-50 text-gray-600 hover:text-[#1F5C99] rounded-lg border border-gray-200 transition">
+            {ex}
+          </button>
+        ))}
+      </div>
+
+      {/* Resultat */}
+      {testResult && (
+        <div className="space-y-3">
+          {"error" in testResult ? (
+            <div className="p-3 bg-red-50 border border-red-200 rounded-xl text-xs text-red-700">
+              {String(testResult.error)}
+            </div>
+          ) : (
+            <>
+              <div className="flex items-center gap-3 text-xs text-gray-500">
+                <span className="bg-green-50 text-green-700 px-2 py-1 rounded-lg font-semibold">
+                  {testTime}ms
+                </span>
+                <span className="bg-blue-50 text-blue-700 px-2 py-1 rounded-lg font-semibold">
+                  Mode : {(testResult as Record<string, unknown>).mode as string}
+                </span>
+                {Boolean((testResult as Record<string, unknown>).texte_corrige) && (
+                  <span className="bg-amber-50 text-amber-700 px-2 py-1 rounded-lg font-semibold">
+                    Corrige : {String((testResult as Record<string, unknown>).texte_corrige)}
+                  </span>
+                )}
+              </div>
+
+              {analyse && (
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                  <div className="bg-blue-50 border border-blue-200 rounded-xl p-3">
+                    <p className="text-[10px] text-blue-500 font-semibold">LANGUE</p>
+                    <p className="text-sm font-bold text-blue-800">{((analyse.langue as Record<string, unknown>)?.langue as string) || "—"}</p>
+                  </div>
+                  <div className="bg-green-50 border border-green-200 rounded-xl p-3">
+                    <p className="text-[10px] text-green-500 font-semibold">INTENTION</p>
+                    <p className="text-sm font-bold text-green-800">{((analyse.intention as Record<string, unknown>)?.intention as string) || "—"}</p>
+                  </div>
+                  <div className="bg-purple-50 border border-purple-200 rounded-xl p-3">
+                    <p className="text-[10px] text-purple-500 font-semibold">DOMAINE</p>
+                    <p className="text-sm font-bold text-purple-800">{((analyse.intention as Record<string, unknown>)?.domaine as string) || "—"}</p>
+                  </div>
+                  <div className="bg-amber-50 border border-amber-200 rounded-xl p-3">
+                    <p className="text-[10px] text-amber-500 font-semibold">CONFIANCE</p>
+                    <p className="text-sm font-bold text-amber-800">{(((analyse.intention as Record<string, unknown>)?.confiance as number) * 100).toFixed(0)}%</p>
+                  </div>
+                </div>
+              )}
+
+              {analyse?.action_mcp && (
+                <div className="bg-slate-50 border border-slate-200 rounded-xl p-3">
+                  <p className="text-[10px] text-slate-500 font-semibold mb-1">ACTION MCP SUGGEREE</p>
+                  <div className="flex items-center gap-2 text-xs">
+                    <span className="bg-[#1F5C99] text-white px-2 py-0.5 rounded font-mono text-[10px]">
+                      {((analyse.action_mcp as Record<string, unknown>)?.serveur as string) || "—"}
+                    </span>
+                    <span className="text-gray-600">{(analyse.action_mcp as Record<string, unknown>)?.description as string}</span>
+                  </div>
+                  {((analyse.action_mcp as Record<string, unknown>)?.tools as string[])?.length > 0 && (
+                    <div className="flex gap-1 mt-1.5">
+                      {((analyse.action_mcp as Record<string, unknown>).tools as string[]).map((t: string) => (
+                        <span key={t} className="text-[9px] bg-white border border-gray-200 px-2 py-0.5 rounded-full text-gray-500 font-mono">{t}</span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {analyse?.reponse_llm && (
+                <div className="bg-indigo-50 border border-indigo-200 rounded-xl p-3">
+                  <p className="text-[10px] text-indigo-500 font-semibold mb-1">REPONSE MISTRAL</p>
+                  <p className="text-xs text-gray-700 whitespace-pre-line">{String(analyse.reponse_llm).substring(0, 300)}</p>
+                </div>
+              )}
+            </>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState<"overview" | "demandes" | "users" | "mcp" | "nlp" | "satisfaction" | "logs">("overview");
   const [refreshKey, setRefreshKey] = useState(0);
@@ -107,6 +253,7 @@ export default function AdminDashboard() {
   const [demandes, setDemandes] = useState<DemandeLog[]>([]);
   const [users, setUsers] = useState<UserInfo[]>([]);
   const [logs, setLogs] = useState<AccessLogEntry[]>([]);
+  const [conversations, setConversations] = useState<{ id: string; message: string; langue: string; intent: string; domaine: string; date: string }[]>([]);
   const [validating, setValidating] = useState<string | null>(null);
   const [validated, setValidated] = useState<string[]>([]);
   const [selectedDemande, setSelectedDemande] = useState<DemandeLog | null>(null);
@@ -143,16 +290,18 @@ export default function AdminDashboard() {
   }, [adminPass]);
 
   const loadAll = useCallback(async () => {
-    const [statsData, demandesData, usersData, logsData] = await Promise.all([
+    const [statsData, demandesData, usersData, logsData, convosData] = await Promise.all([
       fetchData("stats"),
       fetchData("demandes"),
       fetchData("users"),
       fetchData("logs"),
+      fetchData("conversations"),
     ]);
     if (statsData) setStats(statsData);
     if (demandesData) setDemandes(demandesData.demandes || []);
     if (usersData) setUsers(usersData.users || []);
     if (logsData) setLogs(logsData.logs || []);
+    if (convosData) setConversations(convosData.conversations || []);
     await loadSatisfaction();
   }, [fetchData, loadSatisfaction]);
 
@@ -916,6 +1065,34 @@ ${satisfactionData ? `<h2>Satisfaction</h2>
               </table>
             </div>
 
+            {/* Graphique radar F1 visuel */}
+            <div className="bg-white border border-gray-200 rounded-xl p-5">
+              <h3 className="text-sm font-semibold text-gray-800 mb-4">F1-Score par intention — Vue radar</h3>
+              <div className="flex flex-wrap gap-3 justify-center">
+                {MBERT_METRICS.classes.map((c, i) => {
+                  const f1Pct = c.f1 * 100;
+                  const size = 90;
+                  const radius = 36;
+                  const circumference = 2 * Math.PI * radius;
+                  const offset = circumference - (f1Pct / 100) * circumference;
+                  const color = f1Pct >= 85 ? "#22c55e" : f1Pct >= 70 ? "#3b82f6" : "#eab308";
+                  return (
+                    <div key={i} className="flex flex-col items-center">
+                      <svg width={size} height={size} className="transform -rotate-90">
+                        <circle cx={size/2} cy={size/2} r={radius} fill="none" stroke="#f1f5f9" strokeWidth="6" />
+                        <circle cx={size/2} cy={size/2} r={radius} fill="none" stroke={color} strokeWidth="6"
+                          strokeDasharray={circumference} strokeDashoffset={offset} strokeLinecap="round" />
+                      </svg>
+                      <div className="absolute mt-6 text-center">
+                        <span className="text-sm font-black" style={{ color }}>{f1Pct.toFixed(0)}%</span>
+                      </div>
+                      <p className="text-[9px] text-gray-500 font-medium mt-1 text-center max-w-[80px] leading-tight">{c.intention.replace("_", " ")}</p>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
             {/* Comparaison modèles */}
             <div className="bg-white border border-gray-200 rounded-xl p-5">
               <h3 className="text-sm font-semibold text-gray-800 mb-4">Comparaison des approches NLP</h3>
@@ -939,6 +1116,9 @@ ${satisfactionData ? `<h2>Satisfaction</h2>
                 ))}
               </div>
             </div>
+
+            {/* Testeur NLP en direct */}
+            <NLPTester />
 
           </div>
         )}
@@ -1024,25 +1204,57 @@ ${satisfactionData ? `<h2>Satisfaction</h2>
 
         {/* ── Journaux ───────────────────────────────────────────────── */}
         {activeTab === "logs" && (
-          <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
-            <div className="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
-              <h2 className="text-sm font-semibold text-gray-800">Journal d'accès</h2>
-              <span className="text-[10px] text-gray-400">Depuis la base de données (AccessLog)</span>
+          <div className="space-y-5">
+            {/* Conversations NLP */}
+            <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+              <div className="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
+                <h2 className="text-sm font-semibold text-gray-800">Conversations NLP ({conversations.length})</h2>
+                <span className="text-[10px] text-gray-400">Derniers messages analysés par le chatbot</span>
+              </div>
+              <div className="divide-y divide-gray-50">
+                {conversations.slice(0, 25).map((c) => {
+                  const langFlags: Record<string, string> = { francais: "🇫🇷", wolof: "🇸🇳", mixte: "🌍" };
+                  return (
+                    <div key={c.id} className="px-5 py-3 hover:bg-gray-50 transition flex items-start gap-3">
+                      <span className="text-lg mt-0.5">{langFlags[c.langue] || "🌐"}</span>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-xs text-gray-800 truncate">&ldquo;{c.message}&rdquo;</p>
+                        <div className="flex items-center gap-2 mt-1">
+                          <span className="text-[10px] bg-blue-50 text-blue-700 px-1.5 py-0.5 rounded font-medium">{c.intent || "—"}</span>
+                          <span className="text-[10px] bg-purple-50 text-purple-700 px-1.5 py-0.5 rounded font-medium">{c.domaine || "—"}</span>
+                          <span className="text-[10px] text-gray-400">{new Date(c.date).toLocaleString("fr-FR", { day: "2-digit", month: "short", hour: "2-digit", minute: "2-digit" })}</span>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+                {conversations.length === 0 && (
+                  <div className="px-5 py-8 text-center text-gray-400 italic">Aucune conversation enregistrée</div>
+                )}
+              </div>
             </div>
-            <div className="font-mono text-xs">
-              {logs.map((log) => (
-                <div key={log.id} className={`flex items-center gap-4 px-5 py-2.5 border-b border-gray-50 hover:bg-gray-50 ${log.statut === "erreur" ? "bg-red-50/50" : log.statut === "warn" ? "bg-yellow-50/50" : ""}`}>
-                  <span className="text-gray-400 shrink-0">{log.heure}</span>
-                  <span className={`w-2 h-2 rounded-full shrink-0 ${log.statut === "ok" ? "bg-green-500" : log.statut === "erreur" ? "bg-red-500" : "bg-yellow-500"}`} />
-                  <span className={`shrink-0 w-12 text-[10px] font-bold ${LOG_COLOR[log.statut]}`}>{log.statut.toUpperCase()}</span>
-                  <span className="text-[#1F5C99] shrink-0 w-52 truncate">{log.action}</span>
-                  <span className="text-gray-600 flex-1 truncate">{log.utilisateur}</span>
-                  <span className="text-gray-400 shrink-0">{log.ip}</span>
-                </div>
-              ))}
-              {logs.length === 0 && (
-                <div className="px-5 py-8 text-center text-gray-400 italic">Aucun log d'accès enregistré</div>
-              )}
+
+            {/* Journal d'acces */}
+            <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+              <div className="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
+                <h2 className="text-sm font-semibold text-gray-800">Journal d&apos;accès</h2>
+                <span className="text-[10px] text-gray-400">AccessLog — PostgreSQL</span>
+              </div>
+              <div className="font-mono text-xs">
+                {logs.map((log) => (
+                  <div key={log.id} className={`flex items-center gap-4 px-5 py-2.5 border-b border-gray-50 hover:bg-gray-50 ${log.statut === "erreur" ? "bg-red-50/50" : log.statut === "warn" ? "bg-yellow-50/50" : ""}`}>
+                    <span className="text-gray-400 shrink-0">{log.heure}</span>
+                    <span className={`w-2 h-2 rounded-full shrink-0 ${log.statut === "ok" ? "bg-green-500" : log.statut === "erreur" ? "bg-red-500" : "bg-yellow-500"}`} />
+                    <span className={`shrink-0 w-12 text-[10px] font-bold ${LOG_COLOR[log.statut]}`}>{log.statut.toUpperCase()}</span>
+                    <span className="text-[#1F5C99] shrink-0 w-52 truncate">{log.action}</span>
+                    <span className="text-gray-600 flex-1 truncate">{log.utilisateur}</span>
+                    <span className="text-gray-400 shrink-0">{log.ip}</span>
+                  </div>
+                ))}
+                {logs.length === 0 && (
+                  <div className="px-5 py-8 text-center text-gray-400 italic">Aucun log d&apos;accès enregistré</div>
+                )}
+              </div>
             </div>
           </div>
         )}
