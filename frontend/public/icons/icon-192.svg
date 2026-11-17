@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" viewBox="0 0 192 192">
+  <rect width="192" height="192" rx="40" fill="#1F5C99"/>
+  <text x="96" y="78" text-anchor="middle" font-family="Arial,sans-serif" font-weight="900" font-size="52" fill="white">SB</text>
+  <text x="96" y="130" text-anchor="middle" font-family="Arial,sans-serif" font-weight="600" font-size="18" fill="white" opacity="0.8">SunuBot</text>
+  <circle cx="150" cy="150" r="20" fill="#25D366"/>
+  <text x="150" y="157" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="20" fill="white">AI</text>
+</svg>

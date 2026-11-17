@@ -26,6 +26,13 @@ export const metadata: Metadata = {
     siteName: "SunuBot",
   },
   robots: { index: true, follow: true },
+  manifest: "/manifest.json",
+  themeColor: "#1F5C99",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "SunuBot",
+  },
 };
 
 export default function RootLayout({
@@ -38,7 +45,10 @@ export default function RootLayout({
       lang="fr"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="h-full"><AuthProvider>{children}</AuthProvider></body>
+      <body className="h-full">
+        <AuthProvider>{children}</AuthProvider>
+        <script dangerouslySetInnerHTML={{ __html: `if("serviceWorker"in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("/sw.js"))` }} />
+      </body>
     </html>
   );
 }

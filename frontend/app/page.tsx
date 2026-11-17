@@ -316,6 +316,21 @@ export default function Home() {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === "k") {
+        e.preventDefault();
+        document.getElementById("chat-input")?.focus();
+      }
+      if (e.key === "Escape") {
+        setInput("");
+        (document.activeElement as HTMLElement)?.blur();
+      }
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, []);
+
   const addAssistantMessage = (content: string, extra?: Partial<Message>) => {
     const msg: Message = {
       id: Date.now().toString() + Math.random(),
