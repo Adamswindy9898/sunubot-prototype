@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import {
   Users, FileText, Server, Activity, Bell, LogOut, Shield,
   TrendingUp, CheckCircle, Clock, AlertTriangle, RefreshCw,
-  MessageSquare, MapPin, Download, Eye, Star
+  MessageSquare, MapPin, Download, Eye, Star, Search
 } from "lucide-react";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -373,6 +373,15 @@ export default function AdminDashboard() {
   const [validated, setValidated] = useState<string[]>([]);
   const [selectedDemande, setSelectedDemande] = useState<DemandeLog | null>(null);
   const [healthStatus, setHealthStatus] = useState<{ status: string; services: Record<string, { status: string; latency_ms: number; detail?: string }> } | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filterLang, setFilterLang] = useState<string>("all");
+  const [filterIntent, setFilterIntent] = useState<string>("all");
+  const [toast, setToast] = useState<{ message: string; type: "success" | "info" | "error" } | null>(null);
+
+  const showToast = (message: string, type: "success" | "info" | "error" = "success") => {
+    setToast({ message, type });
+    setTimeout(() => setToast(null), 3000);
+  };
   const [satisfactionData, setSatisfactionData] = useState<{
     total: number; nps_moyen: number; mos_moyen: number; score_nps: number;
     promoteurs: number; detracteurs: number;
@@ -505,6 +514,7 @@ export default function AdminDashboard() {
       // 2. Mettre à jour localement
       setDemandes((prev) => prev.map((d) => d.id === demande.id ? { ...d, statut: "disponible" } : d));
       setValidated((prev) => [...prev, demande.id]);
+      showToast("Demande validée et notification envoyée");
     } finally {
       setValidating(null);
     }
@@ -625,7 +635,7 @@ ${satisfactionData ? `<h2>Satisfaction</h2>
           </button>
           <button onClick={async () => {
             const res = await fetch("/api/export/conversations", { headers: { Authorization: `Bearer ${adminPass}` } });
-            if (res.ok) { const blob = await res.blob(); const url = URL.createObjectURL(blob); const a = document.createElement("a"); a.href = url; a.download = `sunubot_conversations_${new Date().toISOString().slice(0, 10)}.csv`; a.click(); URL.revokeObjectURL(url); }
+            if (res.ok) { const blob = await res.blob(); const url = URL.createObjectURL(blob); const a = document.createElement("a"); a.href = url; a.download = `sunubot_conversations_${new Date().toISOString().slice(0, 10)}.csv`; a.click(); URL.revokeObjectURL(url); showToast("CSV exporté avec succès"); }
           }} className="flex items-center gap-1.5 bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg text-xs transition border border-white/20">
             <Download className="w-3.5 h-3.5" /> CSV
           </button>
@@ -643,6 +653,16 @@ ${satisfactionData ? `<h2>Satisfaction</h2>
           </button>
         </div>
       </header>
+
+      {/* ── Toast notification ──────────────────────────────── */}
+      {toast && (
+        <div className={`fixed top-4 right-4 z-[100] px-4 py-3 rounded-xl shadow-2xl text-sm font-semibold flex items-center gap-2 animate-in fade-in slide-in-from-top-2 duration-300 ${
+          toast.type === "success" ? "bg-green-600 text-white" : toast.type === "error" ? "bg-red-600 text-white" : "bg-blue-600 text-white"
+        }`}>
+          {toast.type === "success" ? <CheckCircle className="w-4 h-4" /> : toast.type === "error" ? <AlertTriangle className="w-4 h-4" /> : <Bell className="w-4 h-4" />}
+          {toast.message}
+        </div>
+      )}
 
       {/* ── Modale vérification demande ──────────────────────────────── */}
       {selectedDemande && (
@@ -1342,12 +1362,44 @@ ${satisfactionData ? `<h2>Satisfaction</h2>
           <div className="space-y-5">
             {/* Conversations NLP */}
             <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
-              <div className="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
-                <h2 className="text-sm font-semibold text-gray-800">Conversations NLP ({conversations.length})</h2>
-                <span className="text-[10px] text-gray-400">Derniers messages analysés par le chatbot</span>
+              <div className="px-5 py-4 border-b border-gray-100">
+                <div className="flex items-center justify-between mb-3">
+                  <h2 className="text-sm font-semibold text-gray-800">Conversations NLP ({conversations.length})</h2>
+                  <span className="text-[10px] text-gray-400">Derniers messages analysés par le chatbot</span>
+                </div>
+                <div className="flex flex-wrap items-center gap-2">
+                  <div className="relative flex-1 min-w-[200px]">
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-400" />
+                    <input
+                      type="text"
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      placeholder="Rechercher un message..."
+                      className="w-full pl-9 pr-3 py-2 text-xs border border-gray-200 rounded-lg focus:outline-none focus:border-[#1F5C99] bg-gray-50"
+                    />
+                  </div>
+                  <select value={filterLang} onChange={(e) => setFilterLang(e.target.value)}
+                    className="text-xs border border-gray-200 rounded-lg px-3 py-2 bg-gray-50 focus:outline-none focus:border-[#1F5C99]">
+                    <option value="all">Toutes langues</option>
+                    <option value="francais">Français</option>
+                    <option value="wolof">Wolof</option>
+                    <option value="mixte">Mixte</option>
+                  </select>
+                  <select value={filterIntent} onChange={(e) => setFilterIntent(e.target.value)}
+                    className="text-xs border border-gray-200 rounded-lg px-3 py-2 bg-gray-50 focus:outline-none focus:border-[#1F5C99]">
+                    <option value="all">Toutes intentions</option>
+                    {[...new Set(conversations.map(c => c.intent).filter(Boolean))].map(i => (
+                      <option key={i} value={i}>{i}</option>
+                    ))}
+                  </select>
+                </div>
               </div>
               <div className="divide-y divide-gray-50">
-                {conversations.slice(0, 25).map((c) => {
+                {conversations
+                  .filter(c => filterLang === "all" || c.langue === filterLang)
+                  .filter(c => filterIntent === "all" || c.intent === filterIntent)
+                  .filter(c => !searchQuery || c.message.toLowerCase().includes(searchQuery.toLowerCase()))
+                  .slice(0, 50).map((c) => {
                   const langFlags: Record<string, string> = { francais: "🇫🇷", wolof: "🇸🇳", mixte: "🌍" };
                   return (
                     <div key={c.id} className="px-5 py-3 hover:bg-gray-50 transition flex items-start gap-3">
