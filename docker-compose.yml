@@ -4,8 +4,32 @@ version: "3.9"
 # Chatbot Administratif Multilingue Francais/Wolof
 # Memoire M2 IA — Universite de Thies
 # Auteur : Adama Gaye
+#
+# Usage : docker-compose up -d
+# Arret : docker-compose down
 
 services:
+
+  # ── PostgreSQL 14 ───────────────────────────────────────────
+  postgres:
+    image: postgres:14-alpine
+    container_name: sunubot-postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-Adams}
+      POSTGRES_DB: sunubot
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - sunubot-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d sunubot"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   # ── Frontend Next.js ─────────────────────────────────────────
   frontend:
@@ -17,22 +41,19 @@ services:
       - "3000:3000"
     environment:
       - NODE_ENV=production
-      - DATABASE_URL=${DATABASE_URL}
-      - JWT_SECRET=${JWT_SECRET}
-      - SMTP_HOST=${SMTP_HOST}
-      - SMTP_PORT=${SMTP_PORT}
-      - SMTP_USER=${SMTP_USER}
-      - SMTP_PASS=${SMTP_PASS}
-      - WHATSAPP_TOKEN=${WHATSAPP_TOKEN}
-      - WHATSAPP_PHONE_ID=${WHATSAPP_PHONE_ID}
+      - DATABASE_URL=postgresql://postgres:${POSTGRES_PASSWORD:-Adams}@postgres:5432/sunubot
+      - JWT_SECRET=${JWT_SECRET:-sunubot-secret-m2-ia-2024-thies}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD:-admin2024}
+      - MISTRAL_API_KEY=${MISTRAL_API_KEY}
+      - MISTRAL_MODEL=${MISTRAL_MODEL:-mistral-small-latest}
     depends_on:
-      - nlp
+      postgres:
+        condition: service_healthy
+      nlp:
+        condition: service_healthy
     networks:
       - sunubot-network
     restart: unless-stopped
-    labels:
-      - "com.sunubot.service=frontend"
-      - "com.sunubot.version=1.0"
 
   # ── Backend NLP Python ───────────────────────────────────────
   nlp:
@@ -46,7 +67,6 @@ services:
       - MISTRAL_API_KEY=${MISTRAL_API_KEY}
       - MISTRAL_MODEL=${MISTRAL_MODEL:-mistral-small-latest}
     volumes:
-      # Monter le dossier models pour persister le modele mBERT fine-tune
       - nlp-models:/app/models
     networks:
       - sunubot-network
@@ -57,9 +77,6 @@ services:
       timeout: 10s
       retries: 3
       start_period: 60s
-    labels:
-      - "com.sunubot.service=nlp"
-      - "com.sunubot.version=1.0"
 
   # ── MCP Server Etat Civil ────────────────────────────────────
   mcp-etat-civil:
@@ -70,8 +87,6 @@ services:
     networks:
       - sunubot-network
     restart: unless-stopped
-    labels:
-      - "com.sunubot.service=mcp-etat-civil"
 
   # ── MCP Server DGID ──────────────────────────────────────────
   mcp-dgid:
@@ -82,8 +97,6 @@ services:
     networks:
       - sunubot-network
     restart: unless-stopped
-    labels:
-      - "com.sunubot.service=mcp-dgid"
 
   # ── MCP Server Wolof NLP ─────────────────────────────────────
   mcp-wolof-nlp:
@@ -94,8 +107,6 @@ services:
     networks:
       - sunubot-network
     restart: unless-stopped
-    labels:
-      - "com.sunubot.service=mcp-wolof-nlp"
 
   # ── MCP Server Formulaires ───────────────────────────────────
   mcp-formulaires:
@@ -106,19 +117,15 @@ services:
     networks:
       - sunubot-network
     restart: unless-stopped
-    labels:
-      - "com.sunubot.service=mcp-formulaires"
 
 # ── Volumes ──────────────────────────────────────────────────────
 volumes:
+  pgdata:
+    driver: local
   nlp-models:
     driver: local
-    labels:
-      - "com.sunubot.volume=nlp-models"
 
 # ── Networks ─────────────────────────────────────────────────────
 networks:
   sunubot-network:
     driver: bridge
-    labels:
-      - "com.sunubot.network=main"
