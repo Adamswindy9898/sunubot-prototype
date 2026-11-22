@@ -1,0 +1,144 @@
+{
+  "date": "2026-11-22 18:12",
+  "jeu_de_test": 50,
+  "langue_accuracy": 1.0,
+  "tfidf_accuracy": 0.68,
+  "mbert_accuracy": 0.58,
+  "mbert_corr_accuracy": 0.74,
+  "latence_moyenne_ms": 50.7,
+  "par_intention": {
+    "salutation": {
+      "tfidf": 0.5,
+      "mbert": 1.0,
+      "n": 6
+    },
+    "demande_document": {
+      "tfidf": 0.9166666666666666,
+      "mbert": 0.8333333333333334,
+      "n": 12
+    },
+    "question_procedure": {
+      "tfidf": 0.75,
+      "mbert": 0.375,
+      "n": 8
+    },
+    "question_lieu": {
+      "tfidf": 1.0,
+      "mbert": 1.0,
+      "n": 6
+    },
+    "question_cout": {
+      "tfidf": 0.8333333333333334,
+      "mbert": 0.8333333333333334,
+      "n": 6
+    },
+    "question_delai": {
+      "tfidf": 0.25,
+      "mbert": 0.5,
+      "n": 4
+    },
+    "demande_inscription": {
+      "tfidf": 0.5,
+      "mbert": 0.25,
+      "n": 4
+    },
+    "suivi_demande": {
+      "tfidf": 0.0,
+      "mbert": 1.0,
+      "n": 4
+    }
+  },
+  "erreurs": [
+    {
+      "texte": "Je veux un casier judiciaire",
+      "attendu": "demande_document",
+      "predit_tfidf": "demande_document",
+      "predit_mbert": "inscription",
+      "predit_corr": "inscription"
+    },
+    {
+      "texte": "Il me faut un quitus fiscal",
+      "attendu": "demande_document",
+      "predit_tfidf": "question_lieu",
+      "predit_mbert": "salutation",
+      "predit_corr": "salutation"
+    },
+    {
+      "texte": "Comment déclarer une naissance?",
+      "attendu": "question_procedure",
+      "predit_tfidf": "question_procedure",
+      "predit_mbert": "inscription",
+      "predit_corr": "inscription"
+    },
+    {
+      "texte": "Quels documents pour le NINEA?",
+      "attendu": "question_procedure",
+      "predit_tfidf": "question_pieces",
+      "predit_mbert": "question_delai",
+      "predit_corr": "question_delai"
+    },
+    {
+      "texte": "Comment s'inscrire à la CNSS?",
+      "attendu": "question_procedure",
+      "predit_tfidf": "question_procedure",
+      "predit_mbert": "inscription",
+      "predit_corr": "demande_inscription"
+    },
+    {
+      "texte": "Quelle est la procédure pour un mariage civil?",
+      "attendu": "question_procedure",
+      "predit_tfidf": "demande_document",
+      "predit_mbert": "question_delai",
+      "predit_corr": "question_delai"
+    },
+    {
+      "texte": "Comment toucher ma pension de retraite?",
+      "attendu": "question_procedure",
+      "predit_tfidf": "question_procedure",
+      "predit_mbert": "inscription",
+      "predit_corr": "inscription"
+    },
+    {
+      "texte": "Combien coûte l'inscription CNSS?",
+      "attendu": "question_cout",
+      "predit_tfidf": "question_cout",
+      "predit_mbert": "question_cout",
+      "predit_corr": "demande_inscription"
+    },
+    {
+      "texte": "Ñaata bes la kàrt bëccëg bi jeex?",
+      "attendu": "question_delai",
+      "predit_tfidf": "question_cout",
+      "predit_mbert": "question_delai",
+      "predit_corr": "question_cout"
+    },
+    {
+      "texte": "Combien de temps pour la carte d'identité?",
+      "attendu": "question_delai",
+      "predit_tfidf": "question_procedure",
+      "predit_mbert": "question_delai",
+      "predit_corr": "question_cout"
+    },
+    {
+      "texte": "Dama bëgg bind ci CNSS",
+      "attendu": "demande_inscription",
+      "predit_tfidf": "demande_inscription",
+      "predit_mbert": "inscription",
+      "predit_corr": "demande_document"
+    },
+    {
+      "texte": "Comment enregistrer ma société à la DGID?",
+      "attendu": "demande_inscription",
+      "predit_tfidf": "question_procedure",
+      "predit_mbert": "inscription",
+      "predit_corr": "inscription"
+    },
+    {
+      "texte": "Je veux déclarer mon enfant à l'état civil",
+      "attendu": "demande_inscription",
+      "predit_tfidf": "demande_document",
+      "predit_mbert": "demande_document",
+      "predit_corr": "demande_document"
+    }
+  ]
+}
