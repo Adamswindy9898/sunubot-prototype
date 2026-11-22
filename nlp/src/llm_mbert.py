@@ -49,30 +49,42 @@ class MBertClassifier:
             return
 
         try:
-            # Chercher le modèle fine-tuné en priorité
             finetuned_path = os.path.join(
                 os.path.dirname(__file__), "..", "models", "mbert_finetuned"
             )
             finetuned_path = os.path.abspath(finetuned_path)
 
             if os.path.exists(os.path.join(finetuned_path, "config.json")):
-                # Charger le modèle fine-tuné sur le corpus wolof/français
                 self.tokenizer = BertTokenizer.from_pretrained(finetuned_path)
                 self.finetuned_model = BertForSequenceClassification.from_pretrained(finetuned_path)
                 self.finetuned_model.eval()
 
-                # Charger le mapping des labels
-                metriques_path = os.path.join(finetuned_path, "metriques.json")
-                with open(metriques_path, encoding="utf-8") as f:
-                    metriques = json.load(f)
-                self.label2id = metriques.get("label2id", {})
-                # Reconstruire id2label depuis label2id (clés int)
-                self.id2label = {v: k for k, v in self.label2id.items()}
+                # Charger le mapping — compatible metriques.json et intent_mapping.json
+                self.label2id = {}
+                self.id2label = {}
+
+                for fname in ("metriques.json", "intent_mapping.json"):
+                    mapping_path = os.path.join(finetuned_path, fname)
+                    if os.path.exists(mapping_path):
+                        with open(mapping_path, encoding="utf-8") as f:
+                            data = json.load(f)
+                        self.label2id = data.get("label2id", data.get("intent2id", {}))
+                        id2label_raw = data.get("id2label", data.get("id2intent", {}))
+                        self.id2label = {int(k): v for k, v in id2label_raw.items()}
+                        break
+
+                # Fallback : lire depuis config.json si pas de mapping externe
+                if not self.id2label:
+                    with open(os.path.join(finetuned_path, "config.json"), encoding="utf-8") as f:
+                        config = json.load(f)
+                    id2label_raw = config.get("id2label", {})
+                    if id2label_raw and not list(id2label_raw.values())[0].startswith("LABEL_"):
+                        self.id2label = {int(k): v for k, v in id2label_raw.items()}
+                        self.label2id = {v: int(k) for k, v in id2label_raw.items()}
 
                 print(f"[mBERT] Modèle fine-tuné chargé : {finetuned_path}")
-                print(f"[mBERT] Classes : {list(self.label2id.keys())}")
+                print(f"[mBERT] Classes : {list(self.label2id.keys()) if self.label2id else 'config labels'}")
             else:
-                # Fallback zero-shot si pas de modèle fine-tuné
                 self.finetuned_model = None
                 self.langue_classifier = pipeline(
                     "zero-shot-classification",
