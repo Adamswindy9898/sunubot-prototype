@@ -1,18 +1,30 @@
 # SunuBot — Chatbot Administratif Multilingue pour le Senegal
 
+![CI](https://github.com/Adamswindy9898/sunubot-prototype/actions/workflows/ci.yml/badge.svg)
+![Python](https://img.shields.io/badge/Python-3.11+-blue)
+![Next.js](https://img.shields.io/badge/Next.js-15.3-black)
+![mBERT](https://img.shields.io/badge/mBERT-fine--tuned-orange)
+![Tests](https://img.shields.io/badge/tests-41%2F41%20PASS-brightgreen)
+![License](https://img.shields.io/badge/license-academic-lightgrey)
+
 **SunuBot** est une plateforme intelligente de services administratifs numeriques pour les citoyens senegalais. Elle combine un chatbot multilingue (francais/wolof), le protocole MCP (Model Context Protocol), et des modeles NLP avances pour simplifier les demarches administratives.
 
 ## Fonctionnalites principales
 
 - **Chatbot multilingue** : Interaction en francais et en wolof avec detection automatique de la langue
 - **4 serveurs MCP** : Etat Civil, DGID (impots), CNSS (securite sociale), Formulaires
-- **NLP avance** : mBERT fine-tune + Mistral LLM avec 4 modes de fallback
+- **NLP avance** : mBERT fine-tune sur corpus 256 phrases + Mistral LLM avec 4 modes de fallback
 - **Tolerance aux fautes** : Correcteur de 150+ fautes courantes + matching flou (difflib)
-- **Dashboard admin** : Statistiques temps reel, gestion des demandes, export CSV/PDF
+- **Dashboard admin** : Statistiques temps reel, gestion des demandes, export CSV
 - **Suivi citoyen** : Timeline visuelle des demandes (RECU, EN COURS, VALIDE, DISPONIBLE)
-- **Notifications** : Email (Nodemailer) + WhatsApp (Meta Cloud API) + in-app
-- **Satisfaction** : Enquete NPS/MOS integree avec analyse des resultats
-- **Carte interactive** : Localisation des centres administratifs (Leaflet)
+- **Dark mode** : Theme sombre avec persistence localStorage
+- **PWA** : Application installable avec service worker et mode hors-ligne
+- **Accessibilite** : WCAG compliant (ARIA labels, skip-to-content, aria-live)
+- **Onboarding** : Tutoriel interactif bilingue FR/Wolof
+- **Reactions** : Pouce haut/bas + bouton copier sur chaque message
+- **Raccourcis clavier** : Ctrl+K (focus), Escape (effacer)
+- **Page statut** : Monitoring en temps reel des services (/status)
+- **Documentation API** : 9 endpoints documentes (/api-docs)
 - **Entree vocale** : Reconnaissance vocale pour le francais et le wolof
 
 ## Architecture technique
@@ -20,10 +32,10 @@
 ```
 ┌──────────────────────────────────────────────────────┐
 │                    FRONTEND                          │
-│            Next.js 15.3.3 (port 5001)                │
+│               Next.js 15.3.3 (PWA)                   │
 │  ┌─────────┐ ┌──────────┐ ┌──────────┐ ┌─────────┐  │
-│  │ Chatbot │ │Dashboard │ │Historique│ │  Admin  │  │
-│  │  Page   │ │ Citoyen  │ │  Page    │ │Dashboard│  │
+│  │ Chatbot │ │  Statut  │ │API Docs  │ │  Admin  │  │
+│  │  Page   │ │  Page    │ │  Page    │ │Dashboard│  │
 │  └────┬────┘ └─────┬────┘ └────┬─────┘ └────┬────┘  │
 │       └────────────┴───────────┴─────────────┘       │
 │                        │                             │
@@ -55,14 +67,15 @@
 | Composant | Technologie |
 |-----------|-------------|
 | Frontend | Next.js 15.3.3, React 19, TailwindCSS 4 |
-| Backend NLP | Python 3.13, FastAPI, Uvicorn |
+| Backend NLP | Python 3.11+, FastAPI, Uvicorn |
 | Base de donnees | PostgreSQL 14 (via Prisma ORM) |
 | LLM | Mistral (mistral-small-latest) via API cloud |
 | Classification | mBERT (bert-base-multilingual-cased) fine-tune |
+| Corpus | 256 phrases brutes FR/Wolof, ~800+ augmentees |
 | Protocole | MCP (Model Context Protocol) — 4 serveurs |
-| Notifications | Nodemailer (email) + Meta WhatsApp Cloud API |
-| Carte | Leaflet / OpenStreetMap |
-| Tests | Pytest (NLP), test unitaires |
+| Containerisation | Docker Compose (PostgreSQL + NLP + Frontend + MCP) |
+| CI/CD | GitHub Actions (tests auto sur push) |
+| Tests | Pytest — 41 tests (langue, intent, entites, mBERT, pipeline) |
 
 ## Installation
 
@@ -73,30 +86,23 @@
 - PostgreSQL 14
 - Cle API Mistral
 
-### Configuration
+### Installation rapide
 
-1. Cloner le depot :
 ```bash
 git clone https://github.com/Adamswindy9898/sunubot-prototype.git
 cd sunubot-prototype
 ```
 
-2. Configurer les variables d'environnement :
-```bash
-cp .env.example .env
-# Editer .env avec vos propres valeurs
-```
-
-3. Installer le frontend :
+**Frontend :**
 ```bash
 cd frontend
 npm install
 npx prisma generate
 npx prisma migrate deploy
-npm run dev -- -p 5001
+npx next dev -p 4000
 ```
 
-4. Installer le backend NLP :
+**Backend NLP :**
 ```bash
 cd nlp
 pip install -r requirements.txt
@@ -104,70 +110,72 @@ cd src
 python -m uvicorn api:app --host 0.0.0.0 --port 8000
 ```
 
+### Docker (optionnel)
+
+```bash
+docker-compose up -d
+```
+
+Lance PostgreSQL 14, le backend NLP et le frontend automatiquement.
+
 ### Variables d'environnement (.env)
 
 ```env
 DATABASE_URL=postgresql://postgres:VOTRE_MDP@localhost:5433/sunubot
 MISTRAL_API_KEY=votre_cle_mistral
-SMTP_HOST=smtp.gmail.com
-SMTP_USER=votre_email
-SMTP_PASS=votre_mdp_app
-WHATSAPP_TOKEN=votre_token_meta
-WHATSAPP_PHONE_ID=votre_phone_id
+ADMIN_PASSWORD=admin2024
+JWT_SECRET=votre_secret
 ```
 
-## Tests NLP
+## Tests
+
+### Tests NLP (pytest)
 
 ```bash
-cd nlp/src
-python -c "
-import requests
-tests = [
-    ('Bonjour', 'salutation'),
-    ('Je veux mon acte de naissance', 'demande_document'),
-    ('Na nga def', 'salutation'),
-    ('Dama begg sama kart becceg', 'demande_document'),
-    ('Comment payer mes impots', 'question_procedure'),
-    ('Naka lanu feyee alamaan bi', 'question_procedure'),
-    ('Ou se trouve le bureau de letat civil', 'question_lieu'),
-    ('Combien coute un acte de naissance', 'question_cout'),
-    ('Je veux m inscrire a la CNSS', 'demande_inscription'),
-    ('Dama begg feyee sama wall ci DGID', 'question_procedure'),
-]
-pass_count = 0
-for texte, expected in tests:
-    r = requests.post('http://localhost:8000/analyser', json={'texte': texte}).json()
-    intention = r['analyse']['intention']['intention']
-    ok = intention == expected
-    pass_count += ok
-    print(f'{'PASS' if ok else 'FAIL'} {texte} -> {intention} (attendu: {expected})')
-print(f'Resultat: {pass_count}/{len(tests)}')
-"
+cd nlp
+python -m pytest tests/ -v
 ```
 
-**Resultat : 10/10 tests PASS**
+**Resultat : 41/41 PASS** couvrant :
+- Detection de langue (wolof/francais)
+- Normalisation wolof
+- Correction de texte
+- Classification TF-IDF
+- Extraction d'entites (documents, lieux, montants, dates)
+- Classification mBERT (brut + avec corrections)
+- Pipeline complet
 
-## Pages de l'application
+### Fine-tuning mBERT (Google Colab)
 
-| Page | URL | Description |
-|------|-----|-------------|
-| Chatbot | `/` | Interface principale du chatbot |
-| Admin | `/admin` | Dashboard administrateur (mot de passe: admin2024) |
-| Historique | `/historique` | Historique des conversations |
-| Mobile | `/mobile` | Version mobile optimisee |
-| WhatsApp | `/whatsapp` | Simulation interface WhatsApp |
+Le notebook `notebooks/SunuBot_FineTuning_mBERT.ipynb` permet de fine-tuner mBERT sur le corpus bilingue :
+1. Ouvrir dans Google Colab (GPU T4)
+2. Executer toutes les cellules
+3. Telecharger le modele et le placer dans `nlp/models/mbert_finetuned/`
 
 ## Pipeline NLP (4 modes)
 
-1. **Mode 1 — mBERT + Mistral** : Classification rapide (mBERT) + analyse fine et generation (Mistral)
-2. **Mode 2 — Mistral seul** : Si mBERT indisponible, Mistral gere tout
-3. **Mode 3 — mBERT seul** : Classification locale sans LLM cloud
-4. **Mode 4 — TF-IDF** : Fallback total si aucun modele avance disponible
+| Mode | Modeles | Quand ? |
+|------|---------|---------|
+| 1. mBERT + Mistral | Classification + Generation | Pipeline complet (par defaut) |
+| 2. Mistral seul | LLM cloud | Si mBERT indisponible |
+| 3. mBERT seul | Classification locale | Si Mistral indisponible |
+| 4. TF-IDF | Fallback basique | Si aucun modele avance |
+
+## Pages de l'application
+
+| Page | URL | Acces | Description |
+|------|-----|-------|-------------|
+| Chatbot | `/` | Public | Interface principale du chatbot |
+| Admin | `/admin` | Admin | Dashboard administrateur |
+| Statistiques | `/stats` | Admin | Statistiques d'utilisation |
+| Historique | `/historique` | Admin | Historique des conversations |
+| Statut | `/status` | Public | Monitoring des services en temps reel |
+| API Docs | `/api-docs` | Public | Documentation des 9 endpoints |
 
 ## Auteur
 
-**Adama GAYE** — Etudiant Master 2 Intelligence Artificielle  
-Universite de Thies, Senegal  
+**Adama GAYE** — Etudiant Master 2 Intelligence Artificielle
+Universite de Thies, Senegal
 Memoire de fin d'etudes — 2025/2026
 
 ## Licence
